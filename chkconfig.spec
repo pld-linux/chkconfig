@@ -66,12 +66,12 @@ ntsysv provides a full-screen tool for updating the /etc/rc.d
 directory hierarchy, which controls the starting and stopping of
 system services.
 
-%description -l pl -n ntsysv
+%description -n ntsysv -l pl
 ntsysv udostêpnia pe³noekranowe narzêdzie do aktualizowania zawarto¶ci
 katalogów w /etc/rc.d, które kontroluj± startowanie i stopowanie
 poszczególnych serwisów systemowych.
 
-%description -l pt_BR -n ntsysv
+%description -n ntsysv -l pt_BR
 O ntsysv fornece uma ferramenta baseada em menus para atualizar a
 hierarquia de diretórios /etc/rc.d, que controla a inicialização e a
 terminação de serviços do sistema.
