@@ -19,7 +19,7 @@ BuildRequires:	slang-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
 Prereq:		popt
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 chkconfig provides a simple command-line  tool  for  maintaining  the
