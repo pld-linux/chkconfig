@@ -1,7 +1,7 @@
-diff -Nur chkconfig-1.2.16.orig/chkconfig.c chkconfig-1.2.16/chkconfig.c
---- chkconfig-1.2.16.orig/chkconfig.c	Sat Mar 24 14:51:20 2001
-+++ chkconfig-1.2.16/chkconfig.c	Sat Mar 24 15:15:33 2001
-@@ -52,7 +52,6 @@
+diff -Nru chkconfig-1.2.22/chkconfig.c chkconfig-1.2.22.new/chkconfig.c
+--- chkconfig-1.2.22/chkconfig.c	Sun Mar 25 03:29:32 2001
++++ chkconfig-1.2.22.new/chkconfig.c	Sun Mar 25 03:31:17 2001
+@@ -51,7 +51,6 @@
  	readServiceError(rc, name);
  	return 1;
      }
@@ -9,7 +9,7 @@ diff -Nur chkconfig-1.2.16.orig/chkconfig.c chkconfig-1.2.16/chkconfig.c
  
      for (level = 0; level < 7; level++) {
  	    if (!findServiceEntries(name, level, &globres)) {
-@@ -73,8 +72,6 @@
+@@ -72,8 +71,6 @@
  	return 1;
      }
  	
@@ -18,7 +18,7 @@ diff -Nur chkconfig-1.2.16.orig/chkconfig.c chkconfig-1.2.16/chkconfig.c
      for (i = 0; i < 7; i++) {
  	    if ((1 << i) & s.levels)
  		doSetService(s, i, 1);
-@@ -97,10 +94,6 @@
+@@ -96,10 +93,6 @@
      }
  
      printf("%-15s", s.name);
@@ -29,7 +29,7 @@ diff -Nur chkconfig-1.2.16.orig/chkconfig.c chkconfig-1.2.16/chkconfig.c
  
      for (i = 0; i < 7; i++) {
  	printf("\t%d:%s", i, isOn(s.name, i) ? _("on") : _("off"));
-@@ -110,21 +103,6 @@
+@@ -109,21 +102,6 @@
      return 0;
  }
  
@@ -51,10 +51,11 @@ diff -Nur chkconfig-1.2.16.orig/chkconfig.c chkconfig-1.2.16/chkconfig.c
  static int listService(char * item) {
      DIR * dir;
      struct dirent * ent;
-@@ -176,34 +154,6 @@
+@@ -174,35 +152,6 @@
+     }
  
      closedir(dir);
- 	
+-	
 -    if (isXinetdEnabled()) {
 -	    printf(_("xinetd based services:\n"));
 -	    if (!(dir = opendir(XINETDDIR))) {
@@ -71,7 +72,7 @@ diff -Nur chkconfig-1.2.16.orig/chkconfig.c chkconfig-1.2.16/chkconfig.c
 -
 -		    /* Skip files with known bad extensions */
 -		    if ((dn = strrchr(ent->d_name, '.')) != NULL &&
--			(!strcmp(dn, ".rpmsave") || !strcmp(dn, ".rpmorig") || !strcmp(dn, ".swp")))
+-			(!strcmp(dn, ".rpmsave") || !strcmp(dn, ".rpmnew") || !strcmp(dn, ".rpmorig") || !strcmp(dn, ".swp")))
 -		      continue;
 -
 -		    dn = ent->d_name + strlen(ent->d_name) - 1;
@@ -86,7 +87,7 @@ diff -Nur chkconfig-1.2.16.orig/chkconfig.c chkconfig-1.2.16/chkconfig.c
      return 0;
  }
  
-@@ -225,21 +175,16 @@
+@@ -224,21 +173,16 @@
  	return 1;
      }
  
@@ -118,9 +119,9 @@ diff -Nur chkconfig-1.2.16.orig/chkconfig.c chkconfig-1.2.16/chkconfig.c
      }
  
      return 0;
-diff -Nur chkconfig-1.2.16.orig/leveldb.c chkconfig-1.2.16/leveldb.c
---- chkconfig-1.2.16.orig/leveldb.c	Sat Mar 24 14:51:20 2001
-+++ chkconfig-1.2.16/leveldb.c	Sat Mar 24 15:17:14 2001
+diff -Nru chkconfig-1.2.22/leveldb.c chkconfig-1.2.22.new/leveldb.c
+--- chkconfig-1.2.22/leveldb.c	Sun Mar 25 03:29:32 2001
++++ chkconfig-1.2.22.new/leveldb.c	Sun Mar 25 03:31:47 2001
 @@ -138,88 +138,6 @@
  	return 0;
  }
@@ -262,7 +263,7 @@ diff -Nur chkconfig-1.2.16.orig/leveldb.c chkconfig-1.2.16/leveldb.c
 -			ptr++;
 -		} 
 -		while (isspace(*buf)) buf++;
--		if (strncmp(buf,"disable", 7)) {
+-		if (strncmp(buf,"disable", 7) && strlen(buf)) {
 -			write(newfd,tmp,strlen(tmp));
 -			write(newfd,"\n",1);
 -			if (buf[0] == '{') {
@@ -280,33 +281,9 @@ diff -Nur chkconfig-1.2.16.orig/leveldb.c chkconfig-1.2.16/leveldb.c
  }
  
  int doSetService(struct service s, int level, int on) {
-diff -Nur chkconfig-1.2.16.orig/leveldb.h chkconfig-1.2.16/leveldb.h
---- chkconfig-1.2.16.orig/leveldb.h	Sat Mar 24 14:51:20 2001
-+++ chkconfig-1.2.16/leveldb.h	Sat Mar 24 15:14:46 2001
-@@ -2,12 +2,10 @@
- #define H_LEVELDB
- 
- #define RUNLEVELS "/etc/rc.d"
--#define XINETDDIR "/etc/xinetd.d"
- 
- #include <glob.h>
- 
- #define TYPE_INIT_D	0
--#define TYPE_XINETD	1
- 
- struct service {
-     char * name;
-@@ -27,7 +25,5 @@
- int isConfigured(char * name, int level);
- int doSetService(struct service s, int level, int on);
- int findServiceEntries(char * name, int level, glob_t * globresptr);
--int readXinetdServiceInfo(char *name, struct service *service, int honorHide);
--int setXinetdService(struct service s, int on);
- 
- #endif
-diff -Nur chkconfig-1.2.16.orig/ntsysv.c chkconfig-1.2.16/ntsysv.c
---- chkconfig-1.2.16.orig/ntsysv.c	Wed Aug 16 22:04:28 2000
-+++ chkconfig-1.2.16/ntsysv.c	Sat Mar 24 15:14:46 2001
+diff -Nru chkconfig-1.2.22/ntsysv.c chkconfig-1.2.22.new/ntsysv.c
+--- chkconfig-1.2.22/ntsysv.c	Mon Mar  5 06:51:54 2001
++++ chkconfig-1.2.22.new/ntsysv.c	Sun Mar 25 03:33:04 2001
 @@ -40,20 +40,14 @@
      states = alloca(sizeof(*states) * numServices);
      
@@ -351,11 +328,12 @@ diff -Nur chkconfig-1.2.16.orig/ntsysv.c chkconfig-1.2.16/ntsysv.c
        }
      }
  
-@@ -186,47 +176,6 @@
+@@ -186,50 +176,6 @@
      }
  
      closedir(dir);
 -
+-    if (!stat("/usr/sbin/xinetd",&sb)) {
 -    if (!(dir = opendir(XINETDDIR))) {
 -	fprintf(stderr, "failed to open " XINETDDIR ": %s\n",
 -		strerror(errno));
@@ -396,6 +374,8 @@ diff -Nur chkconfig-1.2.16.orig/ntsysv.c chkconfig-1.2.16/ntsysv.c
 -		XINETDDIR, strerror(err));
 -        return 1;
 -    }
- 
+-    }
+-
      qsort(services, numServices, sizeof(*services), serviceNameCmp);
  
+     *servicesPtr = services;
