@@ -1,5 +1,6 @@
---- chkconfig-1.2.16/chkconfig.c.wiget	Thu Jul 13 21:42:54 2000
-+++ chkconfig-1.2.16/chkconfig.c	Wed Nov 29 12:31:44 2000
+diff -Nur chkconfig-1.2.22.orig/chkconfig.c chkconfig-1.2.22/chkconfig.c
+--- chkconfig-1.2.22.orig/chkconfig.c	Sat Dec 30 05:25:26 2000
++++ chkconfig-1.2.22/chkconfig.c	Thu Apr  5 23:39:20 2001
 @@ -12,6 +12,7 @@
  #include <unistd.h>
  
@@ -8,7 +9,7 @@
  
  #define _(String) gettext((String)) 
  
-@@ -75,12 +76,10 @@
+@@ -74,12 +75,10 @@
      if (s.type == TYPE_XINETD) return 0;
      
      for (i = 0; i < 7; i++) {
@@ -21,8 +22,18 @@
      }
  
      return 0;
---- chkconfig-1.2.16/leveldb.c.wiget	Wed Aug 30 23:35:52 2000
-+++ chkconfig-1.2.16/leveldb.c	Wed Nov 29 12:40:20 2000
+@@ -246,7 +245,7 @@
+ }
+ 
+ int main(int argc, char ** argv) {
+-    int listItem = 0, addItem = 0, delItem = 0;
++    int listItem = 0, delItem = 0;
+     int rc, i, x;
+     char * levels = NULL;
+     int help=0, version=0;
+diff -Nur chkconfig-1.2.22.orig/leveldb.c chkconfig-1.2.22/leveldb.c
+--- chkconfig-1.2.22.orig/leveldb.c	Fri Feb  2 18:51:01 2001
++++ chkconfig-1.2.22/leveldb.c	Thu Apr  5 23:39:01 2001
 @@ -11,6 +11,10 @@
  #include <stdio.h>
  #include <string.h>
@@ -44,7 +55,7 @@
  
      sprintf(filename, RUNLEVELS "/init.d/%s", name);
  
-@@ -316,6 +322,21 @@
+@@ -316,6 +323,21 @@
      } 
  
      serv.name = strdup(name);

@@ -6,7 +6,7 @@ Summary(pt):	Ferramenta para atualizar e listar serviços do sistema, pelo nível 
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Name:		chkconfig
 Version:	1.2.22
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/System
 Group(de):	Applikationen/System
@@ -97,8 +97,8 @@ LIBMHACK=-lm
 %endif
 
 %{__make} \
-	OPTIMIZE="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
-	LDFLAGS="%{!?debug:-s}" \
+	OPTIMIZE="%{rpmcflags}" \
+	LDFLAGS="%{rpmldflags}" \
 	LIBMHACK="$LIBMHACK"
 
 %install
