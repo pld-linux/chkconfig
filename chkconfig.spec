@@ -9,7 +9,7 @@ Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.2.24h
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL
 Group:		Applications/System
@@ -17,11 +17,11 @@ Group:		Applications/System
 Source0:	http://www.buttsoft.com/~thumper/downloads/%{name}/%{name}-%{version}.tar.gz
 Patch0:		%{name}-add.patch
 Patch1:		%{name}-noxinet.patch
+Patch2:		%{name}-pl.po-update.patch
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
 BuildRequires:	slang-devel
-Prereq:		popt
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -118,27 +118,19 @@ ntsysv - це повноекранна утил╕та для оновлення та зм╕ни ╕╓рарх╕╖
 %setup  -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %configure2_13 \
 	--with-max-level=6
 %{__make}
 
-#%ifarch sparc
-#LIBMHACK=-lm
-#%endif
-
-#%{__make} \
-#	OPTIMIZE="%{rpmcflags}" \
-#	LDFLAGS="%{rpmldflags}" \
-#	LIBMHACK="$LIBMHACK"
-
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/{etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d,sbin}
 
 %{__make} install \
-    DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT
 
 mv $RPM_BUILD_ROOT%{_sbindir}/chkconfig $RPM_BUILD_ROOT/sbin
 
