@@ -14,7 +14,6 @@ Release:	3
 Epoch:		1
 License:	GPL
 Group:		Applications/System
-#Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
 Source0:	http://www.buttsoft.com/~thumper/downloads/%{name}/%{name}-%{version}.tar.gz
 # Source0-md5: 032eae68329d07d0844775486ac74668
 Patch0:		%{name}-add.patch
