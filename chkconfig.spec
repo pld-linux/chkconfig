@@ -6,10 +6,11 @@ Summary(pt): Ferramenta para atualizar e listar serviços do sistema, pelo nível 
 Summary(tr): Sistem servis bilgilerini sorgular ve yeniler
 Name:        chkconfig
 Version:     0.9.5
-Release:     2
+Release:     3
 Copyright:   GPL
 Group:       Utilities/System
 Group(pt):   Utilitários/Sistema
+Group(pl):   Narzêdzia/System
 Source:      ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
 BuildRoot:   /tmp/%{name}-%{version}-root
 
@@ -49,6 +50,7 @@ Summary:     Full-screen interface for configurating runlevel information
 Summary(pt): Interface com menus para configuração de informações de níveis de execução
 Group:       Utilities/System
 Group(pt):   Utilitários/Sistema
+Group(pl):   Narzêdzia/System
 Requires:    chkconfig = %{version}
 
 %description -n ntsysv
@@ -57,8 +59,8 @@ hierarchy, which controls the starting and stopping of system services.
 
 %description -n ntsysv -l pl
 ntsysv udostêpnia pe³noekranowe narzêdzie do aktualizowania zawarto¶ci
-katalogów w /etc/rc.d które kontroluj± startowanie i stopowanie
-poszczególnych serwisów ssystemowych.
+katalogów w /etc/rc.d, które kontroluj± startowanie i stopowanie
+poszczególnych serwisów systemowych.
 
 %description -n ntsysv -l pt
 O ntsysv fornece uma ferramenta baseada em menus para atualizar a
@@ -88,7 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644, root, root, 755)
 %attr(755, root, root) /sbin/chkconfig
-%attr(644, root,  man) /usr/man/man8/chkconfig.8
+%attr(644, root,  man) /usr/man/man8/*
 /etc/rc.d
 %lang(cs) /usr/share/locale/cs/LC_MESSAGES/chkconfig.mo
 %lang(de) /usr/share/locale/de/LC_MESSAGES/chkconfig.mo
@@ -103,9 +105,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n ntsysv
 %attr(755, root, root) /usr/sbin/ntsysv
-%attr(644, root,  man) /usr/man/man8/ntsysv.8
+%attr(644, root,  man) /usr/man/man8/*
 
 %changelog
+* Tue Jan 26 1999 Micha³ Kuratczyk <kurkens@polbox.com>
+  [0.9.5-3]
+- fixed pl translation
+- added "Group(pl)"
+- cosmetics changes in %%files
+
 * Thu Oct 15 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [0.9.5-2]
 - added -q %setup parameter,
