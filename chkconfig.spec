@@ -2,14 +2,14 @@ Summary:	Updates and queries runlevel information for system services
 Summary(de):	Aktualisiert runlevel-Informationen für Systemdienste und fragt diese ab
 Summary(fr):	Mises à jour et interrogations des services systèmes
 Summary(pl):	Narzêdzie do aktualizacji i odpytywania o informacje nt serwisów systemowych
-Summary(pt_BR):	Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
+Summary(pt):	Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Name:		chkconfig
 Version:	1.0.7
 Release:	3
-Copyright:	GPL
+License:	GPL
 Group:		Utilities/System
-Group(pt_BR):	Utilitários/Sistema
+Group(pt):	Utilitários/Sistema
 Group(pl):	Narzêdzia/System
 Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
 Source1:	chkconfig.pl.po
@@ -22,15 +22,15 @@ Prereq:		popt
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-chkconfig provides a simple command-line  tool  for  maintaining  the
-/etc/rc.d  directory  hierarchy by relieving system administrators of
-directly manipulating the  numerous symbolic links in that directory.
+chkconfig provides a simple command-line tool for maintaining the
+/etc/rc.d directory hierarchy by relieving system administrators of
+directly manipulating the numerous symbolic links in that directory.
 
 %description -l de
 chkconfig bietet ein einfaches Befehlszeilen-Tool zum Verwalten der
-Verzeichnishierarchie /etc/rc.d, indem es dem Systemadministrator das direkte
-Bearbeiten der zahlreichen symbolischen Verknüpfungen in diesem
-Verzeichnis abnimmt.
+Verzeichnishierarchie /etc/rc.d, indem es dem Systemadministrator das
+direkte Bearbeiten der zahlreichen symbolischen Verknüpfungen in
+diesem Verzeichnis abnimmt.
 
 %description -l fr
 chkconfig offre un outil simple en ligne de commande pour maintenir la
@@ -38,32 +38,33 @@ hiérarchie du répertoire /etc/rc.d tout en évitant aux administrateurs
 système de manipuler les différents liens symbolique de ce répertoire.
 
 %description -l pl
-Pakiet chkconfig udostêpnia proste narzêdzia do zarz±dzania zawarto¶ci±
-katalogów w /etc/rc.d
+Pakiet chkconfig udostêpnia proste narzêdzia do zarz±dzania
+zawarto¶ci± katalogów w /etc/rc.d
 
 %description -l pt_BR
-Chkconfig provê uma ferramenta simples na linha de comando
-para manter a hierarquia de diretórios /etc/rc.d, aliviando os
-administradores do sistema da manipulação direta de numerosos
-links simbólicos.
+Chkconfig provê uma ferramenta simples na linha de comando para manter
+a hierarquia de diretórios /etc/rc.d, aliviando os administradores do
+sistema da manipulação direta de numerosos links simbólicos.
 
 %description -l tr
-Saðladýðý basit bir komut satýrý programý yardýmýyla, /etc/rc.d dizinlerinin
-yapýsýyla ilgilenerek sistem yöneticilerinin bu dizinlerde bulunan çok
-sayýdaki simgesel baðlantýyý düzenleme iþini hafifletir.
+Saðladýðý basit bir komut satýrý programý yardýmýyla, /etc/rc.d
+dizinlerinin yapýsýyla ilgilenerek sistem yöneticilerinin bu
+dizinlerde bulunan çok sayýdaki simgesel baðlantýyý düzenleme iþini
+hafifletir.
 
 %package -n ntsysv
 Summary:	Full-screen interface for configurating runlevel information
-Summary(pt_BR):	Interface com menus para configuração de informações de \
-Summary(pt_BR):	níveis de execução
+Summary(pt):	Interface com menus para configuração de informações de \
+Summary(pt):	níveis de execução
 Group:		Utilities/System
-Group(pt_BR):	Utilitários/Sistema
+Group(pt):	Utilitários/Sistema
 Group(pl):	Narzêdzia/System
 Requires:	%{name} = %{version}
 
 %description -n ntsysv
-ntsysv provides a full-screen tool for updating the /etc/rc.d directory
-hierarchy, which controls the starting and stopping of system services.
+ntsysv provides a full-screen tool for updating the /etc/rc.d
+directory hierarchy, which controls the starting and stopping of
+system services.
 
 %description -l pl -n ntsysv
 ntsysv udostêpnia pe³noekranowe narzêdzie do aktualizowania zawarto¶ci
