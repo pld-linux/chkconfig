@@ -1,18 +1,18 @@
-diff -Nur chkconfig-1.2.22.orig/chkconfig.c chkconfig-1.2.22/chkconfig.c
---- chkconfig-1.2.22.orig/chkconfig.c	Sat Dec 30 05:25:26 2000
-+++ chkconfig-1.2.22/chkconfig.c	Thu Apr  5 23:39:20 2001
-@@ -12,6 +12,7 @@
+diff -Nru chkconfig-1.2.24h.orig/chkconfig.c chkconfig-1.2.24h/chkconfig.c
+--- chkconfig-1.2.24h.orig/chkconfig.c	Wed Jul 17 20:10:55 2002
++++ chkconfig-1.2.24h/chkconfig.c	Wed Jan 22 11:56:32 2003
+@@ -31,6 +31,7 @@
+ #include <sys/stat.h>
  #include <unistd.h>
- 
  static char *progname;
 +extern int addItem;
+ struct config conf;		// used by leveldb.c
  
  #define _(String) gettext((String)) 
- 
-@@ -74,12 +75,10 @@
+@@ -94,12 +95,10 @@
      if (s.type == TYPE_XINETD) return 0;
      
-     for (i = 0; i < 7; i++) {
+     for (i = 0; i <= conf.maxlevel; i++) {
 -	if (!isConfigured(name, i)) {
  	    if ((1 << i) & s.levels)
  		doSetService(s, i, 1);
@@ -22,18 +22,9 @@ diff -Nur chkconfig-1.2.22.orig/chkconfig.c chkconfig-1.2.22/chkconfig.c
      }
  
      return 0;
-@@ -246,7 +245,7 @@
- }
- 
- int main(int argc, char ** argv) {
--    int listItem = 0, addItem = 0, delItem = 0;
-+    int listItem = 0, delItem = 0;
-     int rc, i, x;
-     char * levels = NULL;
-     int help=0, version=0;
-diff -Nur chkconfig-1.2.22.orig/leveldb.c chkconfig-1.2.22/leveldb.c
---- chkconfig-1.2.22.orig/leveldb.c	Fri Feb  2 18:51:01 2001
-+++ chkconfig-1.2.22/leveldb.c	Thu Apr  5 23:39:01 2001
+diff -Nru chkconfig-1.2.24h.orig/leveldb.c chkconfig-1.2.24h/leveldb.c
+--- chkconfig-1.2.24h.orig/leveldb.c	Fri Apr 19 03:15:55 2002
++++ chkconfig-1.2.24h/leveldb.c	Wed Jan 22 12:04:47 2003
 @@ -11,6 +11,10 @@
  #include <stdio.h>
  #include <string.h>
@@ -44,8 +35,8 @@ diff -Nur chkconfig-1.2.22.orig/leveldb.c chkconfig-1.2.22/leveldb.c
 +int addItem = 0;
  
  /* Changes
-    1998-09-22 - Arnaldo Carvalho de Melo <acme@conectiva.com.br>
-@@ -225,6 +229,9 @@
+    2001-12-03 - Petter Reinholdtsen <pere@hungry.com>
+@@ -231,6 +235,9 @@
      char overflow;
      char levelbuf[20];
      char * english_desc = NULL;
@@ -53,27 +44,27 @@ diff -Nur chkconfig-1.2.22.orig/leveldb.c chkconfig-1.2.22/leveldb.c
 +    struct dirent *dirent;
 +    int i;
  
-     sprintf(filename, RUNLEVELS "/init.d/%s", name);
+     sprintf(filename, "%s/%s", conf.initdir, name);
  
-@@ -316,6 +323,21 @@
-     } 
+@@ -345,6 +352,21 @@
  
      serv.name = strdup(name);
-+
-+    if (addItem) {
-+      strcpy(levelbuf,"/etc/rc.d/rc0.d");
-+      for(i=0;i<7;i++,levelbuf[12]++) {
-+	dir=opendir(levelbuf);
-+	if (!dir) return 1;
-+	while ((dirent=readdir(dir))) {
-+	  if (strlen(dirent->d_name)<4) continue;
-+	  if (strcmp(dirent->d_name+3,name)) continue;
-+	  if (*dirent->d_name=='K') serv.levels &= ~(1<<i);
-+	  else if (*dirent->d_name=='S') serv.levels |= 1<<i;
-+	}
-+	closedir(dir);
-+      }
-+    }
  
++    if (addItem) {
++	strcpy(levelbuf,"/etc/rc.d/rc0.d");
++	for(i=0;i<7;i++,levelbuf[12]++) {
++	    dir=opendir(levelbuf);
++	    if (!dir) return 1;
++	    while ((dirent=readdir(dir))) {
++		if (strlen(dirent->d_name)<4) continue;
++		if (strcmp(dirent->d_name+3,name)) continue;
++		if (*dirent->d_name=='K') serv.levels &= ~(1<<i);
++		else if (*dirent->d_name=='S') serv.levels |= 1<<i;
++	    }
++	    closedir(dir);
++	}
++    }
++
      *service = serv;
      return 0;
+ }
