@@ -5,12 +5,12 @@ Summary(pl):	Narzêdzie do aktualizacji i odpytywania o informacje nt serwisów sy
 Summary(pt_BR):	Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Name:		chkconfig
-Version:	0.9.5
-Release:	3
+Version:	1.0.5
+Release:	1
 Copyright:	GPL
 Group:		Utilities/System
-Group(pt):	Utilitários/Sistema
-Group(pl_BR):	Narzêdzia/System
+Group(pt_BR):	Utilitários/Sistema
+Group(pl):	Narzêdzia/System
 Source:		ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
 BuildRoot:	/tmp/%{name}-%{version}-root
 
@@ -51,7 +51,7 @@ Summary(pt_BR):	Interface com menus para configuração de informações de níveis d
 Group:		Utilities/System
 Group(pt_BR):	Utilitários/Sistema
 Group(pl):	Narzêdzia/System
-Requires:	chkconfig = %{version}
+Requires:	%{name} = %{version}
 
 %description -n ntsysv
 ntsysv provides a full-screen tool for updating the /etc/rc.d directory
@@ -76,7 +76,9 @@ terminação de serviços do sistema.
 LIBMHACK=-lm
 %endif
 
-make RPM_OPT_FLAGS="$RPM_OPT_FLAGS" LIBMHACK=$LIBMHACK
+make \
+	RPM_OPT_FLAGS="$RPM_OPT_FLAGS" \
+	LIBMHACK="$LIBMHACK"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -84,14 +86,15 @@ install -d $RPM_BUILD_ROOT/etc/rc.d/rc{0,1,2,3,4,5,6}.d
 
 make instroot=$RPM_BUILD_ROOT install
 
+gzip -9nf $RPM_BUILD_ROOT/usr/man/man8/*
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(644, root, root, 755)
-%attr(755, root, root) /sbin/chkconfig
-%attr(644, root,  man) /usr/man/man8/*
-/etc/rc.d
+%defattr(644,root,root,755)
+%attr(755,root,root) /sbin/chkconfig
+
 %lang(cs)     /usr/share/locale/cs/LC_MESSAGES/chkconfig.mo
 %lang(de)     /usr/share/locale/de/LC_MESSAGES/chkconfig.mo
 %lang(en)     /usr/share/locale/en*/LC_MESSAGES/chkconfig.mo
@@ -103,11 +106,28 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sr)     /usr/share/locale/sr/LC_MESSAGES/chkconfig.mo
 %lang(tr)     /usr/share/locale/tr/LC_MESSAGES/chkconfig.mo
 
+/usr/man/man8/*
+%dir /etc/rc.d
+%dir /etc/rc.d/*
+
 %files -n ntsysv
-%attr(755, root, root) /usr/sbin/ntsysv
-%attr(644, root,  man) /usr/man/man8/*
+%defattr(644,root,root,755)
+%attr(755,root,root) /usr/sbin/ntsysv
+/usr/man/man8/*
 
 %changelog
+* Wed Apr 21 1999 Piotr Czerwiñski <pius@pld.org.pl>
+  [1.0.5-1]
+- updated to 1.0.5,
+- removed man group from man pages,
+- added %defattr description in %files -n ntsysv,
+- replacements in %files,
+- added gzipping man pages,
+- added %dir macros,
+- fixed Requires in ntsysv,
+- cosmetic changes,
+- recompiled on rpm 3.
+
 * Tue Jan 26 1999 Micha³ Kuratczyk <kurkens@polbox.com>
   [0.9.5-3]
 - fixed pl translation,
