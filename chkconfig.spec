@@ -15,7 +15,6 @@ Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.g
 Source1:	chkconfig.pl.po
 Patch0:		chkconfig-opt.patch
 Patch1:		chkconfig-fhs.patch
-Patch2:		chkconfig-pld.patch
 BuildRequires:	slang-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
@@ -79,7 +78,6 @@ terminação de serviços do sistema.
 %setup  -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 install %{SOURCE1} po/pl.po
 
