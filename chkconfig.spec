@@ -1,12 +1,15 @@
 Summary:	Updates and queries runlevel information for system services
 Summary(de):	Aktualisiert runlevel-Informationen fЭr Systemdienste und fragt diese ab
+Summary(es):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecuciСn (runlevel)
 Summary(fr):	Mises Ю jour et interrogations des services systХmes
 Summary(pl):	NarzЙdzie do aktualizacji i odpytywania o informacje nt serwisСw systemowych
 Summary(pt):	Ferramenta para atualizar e listar serviГos do sistema, pelo nМvel de execuГЦo (runlevel)
+Summary(ru):	Системная утилита для управления иерархией /etc/rc.d
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
+Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.2.22
-Release:	4
+Release:	5
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
@@ -35,6 +38,12 @@ Verzeichnishierarchie /etc/rc.d, indem es dem Systemadministrator das
 direkte Bearbeiten der zahlreichen symbolischen VerknЭpfungen in
 diesem Verzeichnis abnimmt.
 
+%description -l es
+Chkconfig provee una herramienta sencilla en la lМnea de comando para
+mantener la jerarquМa de directorios /etc/rc.d, atenuando los
+administradores del sistema del manejo directo de numerosos links
+simbСlicos.
+
 %description -l fr
 chkconfig offre un outil simple en ligne de commande pour maintenir la
 hiИrarchie du rИpertoire /etc/rc.d tout en Иvitant aux administrateurs
@@ -49,16 +58,31 @@ Chkconfig provЙ uma ferramenta simples na linha de comando para manter
 a hierarquia de diretСrios /etc/rc.d, aliviando os administradores do
 sistema da manipulaГЦo direta de numerosos links simbСlicos.
 
+%description -l ru
+chkconfig - это простая утилита командной строки, предназначенная для
+управления иерархией /etc/rc.d, освобождающая системного
+администратора от необходимости вручную создавать/удалять
+многочисленные симлинки в этом каталоге.
+
 %description -l tr
 SaПladЩПЩ basit bir komut satЩrЩ programЩ yardЩmЩyla, /etc/rc.d
 dizinlerinin yapЩsЩyla ilgilenerek sistem yЖneticilerinin bu
 dizinlerde bulunan Гok sayЩdaki simgesel baПlantЩyЩ dЭzenleme iЧini
 hafifletir.
 
+%description -l uk
+chkconfig - це проста утил╕та командного рядка, призначена для
+керування ╕╓рарх╕╓ю /etc/rc.d, яка зв╕льня╓ системного адм╕н╕стратора
+в╕д необх╕дност╕ вручну створювати/видаляти численн╕ символьн╕
+посилання в цьому каталоз╕.
+
 %package -n ntsysv
 Summary:	Full-screen interface for configurating runlevel information
+Summary(es):	Interface con menЗs para configuraciСn de informaciСn de niveles de ejecuciСn
 Summary(pl):	PeЁnoekranowy interfejs do wybierania dziaЁaj╠cych usЁug systemowych
 Summary(pt):	Interface com menus para configuraГЦo de informaГУes de nМveis de execuГЦo
+Summary(ru):	Полноэкранный интерфейс для настройки уровней исполнения
+Summary(uk):	Повноекранний ╕нтерфейс для налагодження р╕вн╕в виконання
 Group:		Applications/System
 Requires:	%{name} = %{version}
 
@@ -66,6 +90,11 @@ Requires:	%{name} = %{version}
 ntsysv provides a full-screen tool for updating the /etc/rc.d
 directory hierarchy, which controls the starting and stopping of
 system services.
+
+%description -n ntsysv -l es
+ntsysv ofrece una herramienta basada en menЗs para actualizar la
+jerarquМa de directorios /etc/rc.d, que controla el arranque y el
+cierre de servicios del sistema.
 
 %description -n ntsysv -l pl
 ntsysv udostЙpnia peЁnoekranowe narzЙdzie do aktualizowania zawarto╤ci
@@ -76,6 +105,16 @@ poszczegСlnych serwisСw systemowych.
 O ntsysv fornece uma ferramenta baseada em menus para atualizar a
 hierarquia de diretСrios /etc/rc.d, que controla a inicializaГЦo e a
 terminaГЦo de serviГos do sistema.
+
+%description -n ntsysv -l ru
+ntsysv - это полноэкранная утилита для обновления и изменения иерархии
+каталогов /etc/rc.d, которые управляют запуском и остановкой системных
+сервисов.
+
+%description -n ntsysv -l uk
+ntsysv - це повноекранна утил╕та для оновлення та зм╕ни ╕╓рарх╕╖
+каталог╕в /etc/rc.d, котр╕ керують запуском та зупинкою системних
+серв╕с╕в.
 
 %prep
 %setup  -q
