@@ -8,13 +8,16 @@ Name:		chkconfig
 Version:	1.2.16
 Release:	1
 License:	GPL
-Group:		Utilities/System
+Group:		Applications/System
+Group(de):	Applikationen/System
+Group(pl):	Aplikacje/System
 Group(pt):	Utilitários/Sistema
-Group(pl):	Narzêdzia/System
 Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
-Patch0:		chkconfig-opt.patch
-Patch1:		chkconfig-fhs.patch
-Patch2:		chkconfig-add.patch
+Patch0:		%{name}-opt.patch
+Patch1:		%{name}-fhs.patch
+Patch2:		%{name}-add.patch
+Patch3:		%{name}-popt.patch
+Patch4:		%{name}-rcdir.patch
 BuildRequires:	slang-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
@@ -39,7 +42,7 @@ système de manipuler les différents liens symbolique de ce répertoire.
 
 %description -l pl
 Pakiet chkconfig udostêpnia proste narzêdzia do zarz±dzania
-zawarto¶ci± katalogów w /etc/rc.d
+zawarto¶ci± katalogów w /etc/rc.d .
 
 %description -l pt_BR
 Chkconfig provê uma ferramenta simples na linha de comando para manter
@@ -54,11 +57,12 @@ hafifletir.
 
 %package -n ntsysv
 Summary:	Full-screen interface for configurating runlevel information
-Summary(pt):	Interface com menus para configuração de informações de \
-Summary(pt):	níveis de execução
-Group:		Utilities/System
+Summary(pl):	Pe³noekranowy interfejs do wybierania dzia³aj±cych us³ug systemowych
+Summary(pt):	Interface com menus para configuração de informações de níveis de execução
+Group:		Applications/System
+Group(de):	Applikationen/System
+Group(pl):	Aplikacje/System
 Group(pt):	Utilitários/Sistema
-Group(pl):	Narzêdzia/System
 Requires:	%{name} = %{version}
 
 %description -n ntsysv
@@ -81,6 +85,8 @@ terminação de serviços do sistema.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
 
@@ -88,7 +94,9 @@ terminação de serviços do sistema.
 LIBMHACK=-lm
 %endif
 
-make	OPTIMIZE="$RPM_OPT_FLAGS" \
+%{__make} \
+	OPTIMIZE="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}" \
+	LDFLAGS="%{!?debug:-s}" \
 	LIBMHACK="$LIBMHACK"
 
 %install
@@ -97,8 +105,6 @@ install -d $RPM_BUILD_ROOT/etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d
 
 %{__make} install \
     instroot=$RPM_BUILD_ROOT
-
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man8/*
 
 %find_lang %{name}
 
@@ -113,5 +119,4 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntsysv
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/ntsysv
-
 %{_mandir}/man8/ntsysv.8*
