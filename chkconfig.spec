@@ -6,7 +6,7 @@ Summary(pt):	Ferramenta para atualizar e listar serviços do sistema, pelo nível 
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Name:		chkconfig
 Version:	1.0.7
-Release:	5
+Release:	6
 License:	GPL
 Group:		Utilities/System
 Group(pt):	Utilitários/Sistema
@@ -15,6 +15,7 @@ Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.g
 Source1:	chkconfig.pl.po
 Patch0:		chkconfig-opt.patch
 Patch1:		chkconfig-fhs.patch
+Patch2:		chkconfig-add.patch
 BuildRequires:	slang-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
@@ -80,6 +81,7 @@ terminação de serviços do sistema.
 %setup  -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 install %{SOURCE1} po/pl.po
 
