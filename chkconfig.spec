@@ -16,9 +16,10 @@ Patch2:		%{name}-add.patch
 Patch3:		%{name}-popt.patch
 Patch4:		%{name}-rcdir.patch
 Patch5:		%{name}-noxinet.patch
-BuildRequires:	slang-devel
+BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
+BuildRequires:	slang-devel
 Prereq:		popt
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -68,7 +69,7 @@ system services.
 
 %description -n ntsysv -l pl
 ntsysv udostêpnia pe³noekranowe narzêdzie do aktualizowania zawarto¶ci
-katalogów w /etc/rc.d, które kontroluj± startowanie i stopowanie
+katalogów w /etc/rc.d, które kontroluj± w³±czanie i wy³±czanie
 poszczególnych serwisów systemowych.
 
 %description -n ntsysv -l pt_BR
