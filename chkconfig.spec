@@ -10,7 +10,7 @@ Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.2.24h
-Release:	7
+Release:	8
 Epoch:		1
 License:	GPL
 Group:		Applications/System
@@ -138,9 +138,11 @@ ntsysv - це повноекранна утил╕та для оновлення та зм╕ни ╕╓рарх╕╖
 %patch2 -p1
 %patch3 -p1
 
-mv -f po/eu{_ES,}.po
-mv -f po/zh{,_TW}.po
-mv -f po/zh_CN{.GB2312,}.po
+mv -f po/{eu_ES,eu}.po
+mv -f po/{no,nb}.po
+mv -f po/{sr,sr@Latn}.po
+mv -f po/{zh,zh_TW}.po
+mv -f po/{zh_CN.GB2312,zh_CN}.po
 
 %build
 %{__aclocal}
@@ -152,7 +154,7 @@ mv -f po/zh_CN{.GB2312,}.po
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/{etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d,sbin}
+install -d $RPM_BUILD_ROOT{/etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d,/sbin}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
