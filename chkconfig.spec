@@ -1,18 +1,18 @@
-Summary:     Updates and queries runlevel information for system services
-Summary(de): Aktualisiert runlevel-Informationen für Systemdienste und fragt diese ab
-Summary(fr): Mises à jour et interrogations des services systèmes
-Summary(pl): Narzêdzie do aktualizacji i odpytywania o informacje nt serwisów systemowych
-Summary(pt): Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
-Summary(tr): Sistem servis bilgilerini sorgular ve yeniler
-Name:        chkconfig
-Version:     0.9.5
-Release:     3
-Copyright:   GPL
-Group:       Utilities/System
-Group(pt):   Utilitários/Sistema
-Group(pl):   Narzêdzia/System
-Source:      ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
-BuildRoot:   /tmp/%{name}-%{version}-root
+Summary:	Updates and queries runlevel information for system services
+Summary(de):	Aktualisiert runlevel-Informationen für Systemdienste und fragt diese ab
+Summary(fr):	Mises à jour et interrogations des services systèmes
+Summary(pl):	Narzêdzie do aktualizacji i odpytywania o informacje nt serwisów systemowych
+Summary(pt_BR):	Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
+Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
+Name:		chkconfig
+Version:	0.9.5
+Release:	3
+Copyright:	GPL
+Group:		Utilities/System
+Group(pt):	Utilitários/Sistema
+Group(pl_BR):	Narzêdzia/System
+Source:		ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
+BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
 chkconfig provides a simple command-line  tool  for  maintaining  the
@@ -46,23 +46,23 @@ yapýsýyla ilgilenerek sistem yöneticilerinin bu dizinlerde bulunan çok
 sayýdaki simgesel baðlantýyý düzenleme iþini hafifletir.
 
 %package -n ntsysv
-Summary:     Full-screen interface for configurating runlevel information
-Summary(pt): Interface com menus para configuração de informações de níveis de execução
-Group:       Utilities/System
-Group(pt):   Utilitários/Sistema
-Group(pl):   Narzêdzia/System
-Requires:    chkconfig = %{version}
+Summary:	Full-screen interface for configurating runlevel information
+Summary(pt_BR):	Interface com menus para configuração de informações de níveis de execução
+Group:		Utilities/System
+Group(pt_BR):	Utilitários/Sistema
+Group(pl):	Narzêdzia/System
+Requires:	chkconfig = %{version}
 
 %description -n ntsysv
 ntsysv provides a full-screen tool for updating the /etc/rc.d directory
 hierarchy, which controls the starting and stopping of system services.
 
-%description -n ntsysv -l pl
+%description -l pl -n ntsysv
 ntsysv udostêpnia pe³noekranowe narzêdzie do aktualizowania zawarto¶ci
 katalogów w /etc/rc.d, które kontroluj± startowanie i stopowanie
 poszczególnych serwisów systemowych.
 
-%description -n ntsysv -l pt
+%description -l pt_BR -n ntsysv
 O ntsysv fornece uma ferramenta baseada em menus para atualizar a
 hierarquia de diretórios /etc/rc.d, que controla a inicialização e a
 terminação de serviços do sistema.
@@ -92,16 +92,16 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755, root, root) /sbin/chkconfig
 %attr(644, root,  man) /usr/man/man8/*
 /etc/rc.d
-%lang(cs) /usr/share/locale/cs/LC_MESSAGES/chkconfig.mo
-%lang(de) /usr/share/locale/de/LC_MESSAGES/chkconfig.mo
-%lang(en) /usr/share/locale/en*/LC_MESSAGES/chkconfig.mo
-%lang(fr) /usr/share/locale/fr/LC_MESSAGES/chkconfig.mo
-%lang(no) /usr/share/locale/no/LC_MESSAGES/chkconfig.mo
-%lang(pt) /usr/share/locale/pt*/LC_MESSAGES/chkconfig.mo
-%lang(ro) /usr/share/locale/ro/LC_MESSAGES/chkconfig.mo
-%lang(sk) /usr/share/locale/sk/LC_MESSAGES/chkconfig.mo
-%lang(sr) /usr/share/locale/sr/LC_MESSAGES/chkconfig.mo
-%lang(tr) /usr/share/locale/tr/LC_MESSAGES/chkconfig.mo
+%lang(cs)     /usr/share/locale/cs/LC_MESSAGES/chkconfig.mo
+%lang(de)     /usr/share/locale/de/LC_MESSAGES/chkconfig.mo
+%lang(en)     /usr/share/locale/en*/LC_MESSAGES/chkconfig.mo
+%lang(fr)     /usr/share/locale/fr/LC_MESSAGES/chkconfig.mo
+%lang(no)     /usr/share/locale/no/LC_MESSAGES/chkconfig.mo
+%lang(pt_BR)  /usr/share/locale/pt_BR/LC_MESSAGES/chkconfig.mo
+%lang(ro)     /usr/share/locale/ro/LC_MESSAGES/chkconfig.mo
+%lang(sk)     /usr/share/locale/sk/LC_MESSAGES/chkconfig.mo
+%lang(sr)     /usr/share/locale/sr/LC_MESSAGES/chkconfig.mo
+%lang(tr)     /usr/share/locale/tr/LC_MESSAGES/chkconfig.mo
 
 %files -n ntsysv
 %attr(755, root, root) /usr/sbin/ntsysv
@@ -110,9 +110,9 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Tue Jan 26 1999 Micha³ Kuratczyk <kurkens@polbox.com>
   [0.9.5-3]
-- fixed pl translation
-- added "Group(pl)"
-- cosmetics changes in %%files
+- fixed pl translation,
+- added "Group(pl)",
+- cosmetics changes in %%files.
 
 * Thu Oct 15 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
   [0.9.5-2]
