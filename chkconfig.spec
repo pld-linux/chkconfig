@@ -18,7 +18,7 @@ Patch1:		chkconfig-fhs.patch
 BuildRequires:	slang-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
-Requires:	popt
+Prereq:		popt
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
