@@ -11,8 +11,7 @@ Copyright:	GPL
 Group:		Utilities/System
 Group(pt_BR):	Utilitários/Sistema
 Group(pl):	Narzêdzia/System
-URL:		ftp://ftp.redhat.com/pub/redhat/code/chkconfig
-Source0:	%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
 Source1:	chkconfig.pl.po
 Patch0:		chkconfig-opt.patch
 Patch1:		chkconfig-fhs.patch
@@ -90,17 +89,15 @@ install %{SOURCE1} po/pl.po
 LIBMHACK=-lm
 %endif
 
-make \
-	OPTIMIZE="$RPM_OPT_FLAGS" \
+make 	OPTIMIZE="$RPM_OPT_FLAGS" \
 	LIBMHACK="$LIBMHACK"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d
 
-make \
-    instroot=$RPM_BUILD_ROOT \
-    install
+make install \
+    instroot=$RPM_BUILD_ROOT
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man8/*
 
