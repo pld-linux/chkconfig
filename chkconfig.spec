@@ -16,6 +16,7 @@ Source1:	chkconfig.pl.po
 Patch:		chkconfig-opt.patch
 BuildPrereq:	slang-devel
 BuildPrereq:	newt-devel
+BuildPrereq:	popt-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
