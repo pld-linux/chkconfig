@@ -17,9 +17,9 @@ Source1:	chkconfig.pl.po
 Patch0:		chkconfig-opt.patch
 Patch1:		chkconfig-fhs.patch
 Patch2:		chkconfig-pld.patch
-BuildPrereq:	slang-devel
-BuildPrereq:	newt-devel
-BuildPrereq:	popt-devel
+BuildRequires:	slang-devel
+BuildRequires:	newt-devel
+BuildRequires:	popt-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
