@@ -82,7 +82,7 @@ make \
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc/rc.d/rc{0,1,2,3,4,5,6}.d
+install -d $RPM_BUILD_ROOT/etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d
 
 make instroot=$RPM_BUILD_ROOT install
 
