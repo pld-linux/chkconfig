@@ -6,7 +6,7 @@ Summary(pt_BR):	Ferramenta para atualizar e listar serviços do sistema, pelo nív
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Name:		chkconfig
 Version:	1.0.5
-Release:	1
+Release:	2
 Copyright:	GPL
 Group:		Utilities/System
 Group(pt_BR):	Utilitários/Sistema
