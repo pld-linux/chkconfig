@@ -5,7 +5,7 @@ Summary(pl):	Narzêdzie do aktualizacji i odpytywania o informacje nt serwisów sy
 Summary(pt_BR):	Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Name:		chkconfig
-Version:	1.0.5
+Version:	1.0.6
 Release:	2
 Copyright:	GPL
 Group:		Utilities/System
@@ -113,6 +113,8 @@ rm -rf $RPM_BUILD_ROOT
 %lang(hu)     /usr/share/locale/hu/LC_MESSAGES/chkconfig.mo
 %lang(in)     /usr/share/locale/in/LC_MESSAGES/chkconfig.mo
 %lang(in_ID)  /usr/share/locale/in_ID/LC_MESSAGES/chkconfig.mo
+%lang(is)     /usr/share/locale/is/LC_MESSAGES/chkconfig.mo
+%lang(it)     /usr/share/locale/it/LC_MESSAGES/chkconfig.mo
 %lang(no)     /usr/share/locale/no/LC_MESSAGES/chkconfig.mo
 %lang(pl)     /usr/share/locale/pl/LC_MESSAGES/chkconfig.mo
 %lang(pt_BR)  /usr/share/locale/pt_BR/LC_MESSAGES/chkconfig.mo
@@ -121,6 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(sk)     /usr/share/locale/sk/LC_MESSAGES/chkconfig.mo
 %lang(sr)     /usr/share/locale/sr/LC_MESSAGES/chkconfig.mo
 %lang(tr)     /usr/share/locale/tr/LC_MESSAGES/chkconfig.mo
+%lang(uk_UA)  /usr/share/locale/uk_UA/LC_MESSAGES/chkconfig.mo
 
 /usr/man/man8/chkconfig.8*
 
