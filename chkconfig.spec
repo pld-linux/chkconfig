@@ -10,7 +10,7 @@ Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.2.24h
-Release:	4
+Release:	5
 Epoch:		1
 License:	GPL
 Group:		Applications/System
