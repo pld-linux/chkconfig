@@ -5,8 +5,8 @@ Summary(pl):	Narzêdzie do aktualizacji i odpytywania o informacje nt serwisów sy
 Summary(pt):	Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Name:		chkconfig
-Version:	1.2.16
-Release:	1
+Version:	1.2.22
+Release:	2
 License:	GPL
 Group:		Applications/System
 Group(de):	Applikationen/System
