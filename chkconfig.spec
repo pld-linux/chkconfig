@@ -96,7 +96,7 @@ make	OPTIMIZE="$RPM_OPT_FLAGS" \
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d
 
-make install \
+%{__make} install \
     instroot=$RPM_BUILD_ROOT
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man8/*
