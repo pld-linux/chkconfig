@@ -1,0 +1,11 @@
+--- chkconfig-1.2.24h/configure.in.orig	Wed Jun 26 03:44:21 2002
++++ chkconfig-1.2.24h/configure.in	Wed Feb 19 12:18:27 2003
+@@ -4,7 +4,7 @@
+ 
+ dnl The set of available languages for this package...
+ # es, pl, se - these language files have problems.
+-ALL_LINGUAS="cs da de eu_ES fi fr gl hu id is it ja ko no nn pt pt_BR ro ru sk sl sr tr uk wa es pl sv zh zh_CN.GB2312"
++ALL_LINGUAS="cs da de eu fi fr gl hu id is it ja ko no nn pt pt_BR ro ru sk sl sr tr uk wa es pl sv zh_CN zh_TW"
+ 
+ AC_NTSYSV
+ AC_MANDATORY_HEADERS

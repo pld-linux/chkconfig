@@ -22,6 +22,15 @@ diff -Nru chkconfig-1.2.24h.orig/chkconfig.c chkconfig-1.2.24h/chkconfig.c
      }
  
      return 0;
+@@ -275,7 +274,7 @@
+ 
+ 
+ int main(int argc, char ** argv) {
+-    int listItem = 0, addItem = 0, delItem = 0;
++    int listItem = 0, delItem = 0;
+     int rc, i, x;
+     char * levels = NULL;
+     int help=0, version=0;
 diff -Nru chkconfig-1.2.24h.orig/leveldb.c chkconfig-1.2.24h/leveldb.c
 --- chkconfig-1.2.24h.orig/leveldb.c	Fri Apr 19 03:15:55 2002
 +++ chkconfig-1.2.24h/leveldb.c	Wed Jan 22 12:04:47 2003

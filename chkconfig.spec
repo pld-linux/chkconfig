@@ -2,29 +2,30 @@ Summary:	Updates and queries runlevel information for system services
 Summary(de):	Aktualisiert runlevel-Informationen für Systemdienste und fragt diese ab
 Summary(es):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecución (runlevel)
 Summary(fr):	Mises à jour et interrogations des services systèmes
+Summary(ja):	/etc/rc.d ¤Î³¬ÁØ¤ò¥á¥ó¥Æ¥Ê¥ó¥¹¤¹¤ë¤¿¤á¤Î¥·¥¹¥Æ¥à¥Ä¡¼¥ë
 Summary(pl):	Narzêdzie do aktualizacji i odpytywania o informacje nt serwisów systemowych
 Summary(pt):	Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
 Summary(ru):	óÉÓÔÅÍÎÁÑ ÕÔÉÌÉÔÁ ÄÌÑ ÕĞÒÁ×ÌÅÎÉÑ ÉÅÒÁÒÈÉÅÊ /etc/rc.d
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	óÉÓÔÅÍÎÁ ÕÔÉÌ¦ÔÁ ÄÌÑ ËÅÒÕ×ÁÎÎÑ ¦¤ÒÁÒÈ¦¤À /etc/rc.d
 Name:		chkconfig
-Version:	1.2.22
-Release:	5
+Version:	1.2.24h
+Release:	3
 Epoch:		1
 License:	GPL
 Group:		Applications/System
-Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
-Patch0:		%{name}-opt.patch
-Patch1:		%{name}-fhs.patch
-Patch2:		%{name}-add.patch
-Patch3:		%{name}-popt.patch
-Patch4:		%{name}-rcdir.patch
-Patch5:		%{name}-noxinet.patch
+#Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
+Source0:	http://www.buttsoft.com/~thumper/downloads/%{name}/%{name}-%{version}.tar.gz
+Patch0:		%{name}-add.patch
+Patch1:		%{name}-noxinet.patch
+Patch2:		%{name}-pl.po-update.patch
+Patch3:		%{name}-ponames.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
 BuildRequires:	slang-devel
-Prereq:		popt
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -49,6 +50,13 @@ simbólicos.
 chkconfig offre un outil simple en ligne de commande pour maintenir la
 hiérarchie du répertoire /etc/rc.d tout en évitant aux administrateurs
 système de manipuler les différents liens symbolique de ce répertoire.
+
+%description -l ja
+chkconfig
+¤Ï´ğËÜÅª¤Ê¥·¥¹¥Æ¥à¥æ¡¼¥Æ¥£¥ê¥Æ¥£¤Ç¤¢¤ë¡£¤³¤ì¤Ï¥·¥¹¥Æ¥à¥µ¡¼¥Ó¥¹¤Î
+runlevel ¤Î¾ğÊó¤ò¥¢¥Ã¥×¥Ç¡¼¥È¤ä¸¡¾Ú¤¹¤ë¡£chkconfig ¤Ï /etc/rc.d ¤Î
+Â¿¿ô¤Î¥·¥ó¥Ü¥ê¥Ã¥¯¥ê¥ó¥¯¤òÁàºî¤·¤Ş¤¹¤Î¤Ç¡¢¥·¥¹¥Æ¥à´ÉÍı¼Ô¤Ï¼êÆ°¤Ç
+¥·¥ó¥Ü¥ê¥Ã¥¯¥ê¥ó¥¯¤ò¤¿¤Ó¤¿¤Ó¥¨¥Ç¥£¥Ã¥È¤·¤Ê¤¯¤Æ¤â¤è¤¤¡£
 
 %description -l pl
 Pakiet chkconfig udostêpnia proste narzêdzia do zarz±dzania
@@ -80,6 +88,7 @@ chkconfig - ÃÅ ĞÒÏÓÔÁ ÕÔÉÌ¦ÔÁ ËÏÍÁÎÄÎÏÇÏ ÒÑÄËÁ, ĞÒÉÚÎÁŞÅÎÁ ÄÌÑ
 %package -n ntsysv
 Summary:	Full-screen interface for configurating runlevel information
 Summary(es):	Interface con menús para configuración de información de niveles de ejecución
+Summary(ja):	/etc/rc.d ³¬³¬ÁØ¤ò¥á¥ó¥Æ¥Ê¥ó¥¹¤¹¤ë¥·¥¹¥Æ¥à¥Ä¡¼¥ë
 Summary(pl):	Pe³noekranowy interfejs do wybierania dzia³aj±cych us³ug systemowych
 Summary(pt):	Interface com menus para configuração de informações de níveis de execução
 Summary(ru):	ğÏÌÎÏÜËÒÁÎÎÙÊ ÉÎÔÅÒÆÅÊÓ ÄÌÑ ÎÁÓÔÒÏÊËÉ ÕÒÏ×ÎÅÊ ÉÓĞÏÌÎÅÎÉÑ
@@ -96,6 +105,11 @@ system services.
 ntsysv ofrece una herramienta basada en menús para actualizar la
 jerarquía de directorios /etc/rc.d, que controla el arranque y el
 cierre de servicios del sistema.
+
+%description -n ntsysv -l ja
+ntsysv ¤Ï¥·¥¹¥Æ¥à¥µ¡¼¥Ó¥¹¤Î runlevel ¤Î¾ğÊó¤ò¥¢¥Ã¥×¥Ç¡¼¥È¤ä¸¡¾Ú¤¹¤ë¡£
+ntsysv ¤Ï ¥·¥¹¥Æ¥à´ÉÍı¼Ô¤¬Ä¾ÀÜ/etc/rc.d ¤ÎÂ¿¿ô¤Î¥·¥ó¥Ü¥ê¥Ã¥¯¥ê¥ó¥¯¤ò
+Áàºî¤¹¤ë¤³¤È¤«¤é²òÊü¤¹¤ë¡£
 
 %description -n ntsysv -l pl
 ntsysv udostêpnia pe³noekranowe narzêdzie do aktualizowania zawarto¶ci
@@ -123,26 +137,27 @@ ntsysv - ÃÅ ĞÏ×ÎÏÅËÒÁÎÎÁ ÕÔÉÌ¦ÔÁ ÄÌÑ ÏÎÏ×ÌÅÎÎÑ ÔÁ ÚÍ¦ÎÉ ¦¤ÒÁÒÈ¦§
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
+
+mv -f po/eu{_ES,}.po
+mv -f po/zh{,_TW}.po
+mv -f po/zh_CN{.GB2312,}.po
 
 %build
-
-%ifarch sparc
-LIBMHACK=-lm
-%endif
-
-%{__make} \
-	OPTIMIZE="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}" \
-	LIBMHACK="$LIBMHACK"
+%{__aclocal}
+%{__autoconf}
+%{__automake}
+%configure \
+	--with-max-level=6
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d
+install -d $RPM_BUILD_ROOT/{etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d,sbin}
 
 %{__make} install \
-    instroot=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT
+
+mv $RPM_BUILD_ROOT%{_sbindir}/chkconfig $RPM_BUILD_ROOT/sbin
 
 %find_lang %{name}
 
