@@ -51,7 +51,7 @@ Saðladýðý basit bir komut satýrý programý yardýmýyla, /etc/rc.d dizinlerinin
 yapýsýyla ilgilenerek sistem yöneticilerinin bu dizinlerde bulunan çok
 sayýdaki simgesel baðlantýyý düzenleme iþini hafifletir.
 
-%package -n	ntsysv
+%package -n ntsysv
 Summary:	Full-screen interface for configurating runlevel information
 Summary(pt_BR):	Interface com menus para configuração de informações de \
 Summary(pt_BR):	níveis de execução
@@ -87,7 +87,7 @@ install %{SOURCE1} po/pl.po
 LIBMHACK=-lm
 %endif
 
-make 	OPTIMIZE="$RPM_OPT_FLAGS" \
+make	OPTIMIZE="$RPM_OPT_FLAGS" \
 	LIBMHACK="$LIBMHACK"
 
 %install
