@@ -103,13 +103,20 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /sbin/chkconfig
 
 %lang(cs)     /usr/share/locale/cs/LC_MESSAGES/chkconfig.mo
+%lang(da)     /usr/share/locale/da/LC_MESSAGES/chkconfig.mo
 %lang(de)     /usr/share/locale/de/LC_MESSAGES/chkconfig.mo
-%lang(en)     /usr/share/locale/en*/LC_MESSAGES/chkconfig.mo
+%lang(en_RN)  /usr/share/locale/en_RN/LC_MESSAGES/chkconfig.mo
+%lang(et)     /usr/share/locale/et/LC_MESSAGES/chkconfig.mo
+%lang(fi)     /usr/share/locale/fi/LC_MESSAGES/chkconfig.mo
 %lang(fr)     /usr/share/locale/fr/LC_MESSAGES/chkconfig.mo
+%lang(hu)     /usr/share/locale/hu/LC_MESSAGES/chkconfig.mo
+%lang(in)     /usr/share/locale/in/LC_MESSAGES/chkconfig.mo
+%lang(in_ID)  /usr/share/locale/in_ID/LC_MESSAGES/chkconfig.mo
 %lang(no)     /usr/share/locale/no/LC_MESSAGES/chkconfig.mo
 %lang(pl)     /usr/share/locale/pl/LC_MESSAGES/chkconfig.mo
 %lang(pt_BR)  /usr/share/locale/pt_BR/LC_MESSAGES/chkconfig.mo
 %lang(ro)     /usr/share/locale/ro/LC_MESSAGES/chkconfig.mo
+%lang(ru)     /usr/share/locale/ru/LC_MESSAGES/chkconfig.mo
 %lang(sk)     /usr/share/locale/sk/LC_MESSAGES/chkconfig.mo
 %lang(sr)     /usr/share/locale/sr/LC_MESSAGES/chkconfig.mo
 %lang(tr)     /usr/share/locale/tr/LC_MESSAGES/chkconfig.mo
