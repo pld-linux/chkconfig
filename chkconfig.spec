@@ -103,27 +103,27 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) /sbin/chkconfig
 
-%lang(cs)     /usr/share/locale/cs/LC_MESSAGES/chkconfig.mo
-%lang(da)     /usr/share/locale/da/LC_MESSAGES/chkconfig.mo
-%lang(de)     /usr/share/locale/de/LC_MESSAGES/chkconfig.mo
-%lang(en_RN)  /usr/share/locale/en_RN/LC_MESSAGES/chkconfig.mo
-%lang(et)     /usr/share/locale/et/LC_MESSAGES/chkconfig.mo
-%lang(fi)     /usr/share/locale/fi/LC_MESSAGES/chkconfig.mo
-%lang(fr)     /usr/share/locale/fr/LC_MESSAGES/chkconfig.mo
-%lang(hu)     /usr/share/locale/hu/LC_MESSAGES/chkconfig.mo
-%lang(in)     /usr/share/locale/in/LC_MESSAGES/chkconfig.mo
-%lang(in_ID)  /usr/share/locale/in_ID/LC_MESSAGES/chkconfig.mo
-%lang(is)     /usr/share/locale/is/LC_MESSAGES/chkconfig.mo
-%lang(it)     /usr/share/locale/it/LC_MESSAGES/chkconfig.mo
-%lang(no)     /usr/share/locale/no/LC_MESSAGES/chkconfig.mo
-%lang(pl)     /usr/share/locale/pl/LC_MESSAGES/chkconfig.mo
-%lang(pt_BR)  /usr/share/locale/pt_BR/LC_MESSAGES/chkconfig.mo
-%lang(ro)     /usr/share/locale/ro/LC_MESSAGES/chkconfig.mo
-%lang(ru)     /usr/share/locale/ru/LC_MESSAGES/chkconfig.mo
-%lang(sk)     /usr/share/locale/sk/LC_MESSAGES/chkconfig.mo
-%lang(sr)     /usr/share/locale/sr/LC_MESSAGES/chkconfig.mo
-%lang(tr)     /usr/share/locale/tr/LC_MESSAGES/chkconfig.mo
-%lang(uk_UA)  /usr/share/locale/uk_UA/LC_MESSAGES/chkconfig.mo
+%lang(cs)     %{_datadir}/locale/cs/LC_MESSAGES/chkconfig.mo
+%lang(da)     %{_datadir}/locale/da/LC_MESSAGES/chkconfig.mo
+%lang(de)     %{_datadir}/locale/de/LC_MESSAGES/chkconfig.mo
+%lang(en_RN)  %{_datadir}/locale/en_RN/LC_MESSAGES/chkconfig.mo
+%lang(et)     %{_datadir}/locale/et/LC_MESSAGES/chkconfig.mo
+%lang(fi)     %{_datadir}/locale/fi/LC_MESSAGES/chkconfig.mo
+%lang(fr)     %{_datadir}/locale/fr/LC_MESSAGES/chkconfig.mo
+%lang(hu)     %{_datadir}/locale/hu/LC_MESSAGES/chkconfig.mo
+%lang(in)     %{_datadir}/locale/in/LC_MESSAGES/chkconfig.mo
+%lang(in_ID)  %{_datadir}/locale/in_ID/LC_MESSAGES/chkconfig.mo
+%lang(is)     %{_datadir}/locale/is/LC_MESSAGES/chkconfig.mo
+%lang(it)     %{_datadir}/locale/it/LC_MESSAGES/chkconfig.mo
+%lang(no)     %{_datadir}/locale/no/LC_MESSAGES/chkconfig.mo
+%lang(pl)     %{_datadir}/locale/pl/LC_MESSAGES/chkconfig.mo
+%lang(pt_BR)  %{_datadir}/locale/pt_BR/LC_MESSAGES/chkconfig.mo
+%lang(ro)     %{_datadir}/locale/ro/LC_MESSAGES/chkconfig.mo
+%lang(ru)     %{_datadir}/locale/ru/LC_MESSAGES/chkconfig.mo
+%lang(sk)     %{_datadir}/locale/sk/LC_MESSAGES/chkconfig.mo
+%lang(sr)     %{_datadir}/locale/sr/LC_MESSAGES/chkconfig.mo
+%lang(tr)     %{_datadir}/locale/tr/LC_MESSAGES/chkconfig.mo
+%lang(uk_UA)  %{_datadir}/locale/uk_UA/LC_MESSAGES/chkconfig.mo
 
 %{_mandir}/man8/chkconfig.8*
 
@@ -159,7 +159,7 @@ rm -rf $RPM_BUILD_ROOT
 - added -q %setup parameter,
 - changed Buildroot to /tmp/%%{name}-%%{version}-root,
 - added using %%{name} and %%{version} in Source,
-- added %lang macros for files /usr/share/locale/*/LC_MESSAGES/chkconfig.mo
+- added %lang macros for files %{_datadir}/locale/*/LC_MESSAGES/chkconfig.mo
 - added pl translation,
 - fiew simplification in %files and %install,
 - added "Requires: chkconfig = %%{version}" for ntsysv,
