@@ -8,18 +8,15 @@ Summary(ru):	Системная утилита для управления иерархией /etc/rc.d
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
-Version:	1.2.22
-Release:	5
+Version:	1.2.24h
+Release:	1
 Epoch:		1
 License:	GPL
 Group:		Applications/System
-Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
-Patch0:		%{name}-opt.patch
-Patch1:		%{name}-fhs.patch
-Patch2:		%{name}-add.patch
-Patch3:		%{name}-popt.patch
-Patch4:		%{name}-rcdir.patch
-Patch5:		%{name}-noxinet.patch
+#Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
+Source0:	http://www.buttsoft.com/~thumper/downloads/%{name}/%{name}-%{version}.tar.gz
+Patch0:		%{name}-add.patch
+Patch1:		%{name}-noxinet.patch
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
@@ -121,28 +118,28 @@ ntsysv - це повноекранна утил╕та для оновлення та зм╕ни ╕╓рарх╕╖
 %setup  -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %build
+%configure2_13
+%{__make}
 
-%ifarch sparc
-LIBMHACK=-lm
-%endif
+#%ifarch sparc
+#LIBMHACK=-lm
+#%endif
 
-%{__make} \
-	OPTIMIZE="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}" \
-	LIBMHACK="$LIBMHACK"
+#%{__make} \
+#	OPTIMIZE="%{rpmcflags}" \
+#	LDFLAGS="%{rpmldflags}" \
+#	LIBMHACK="$LIBMHACK"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d
+install -d $RPM_BUILD_ROOT/{etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d,sbin}
 
 %{__make} install \
-    instroot=$RPM_BUILD_ROOT
+    DESTDIR=$RPM_BUILD_ROOT
+
+mv $RPM_BUILD_ROOT%{_sbindir}/chkconfig $RPM_BUILD_ROOT/sbin
 
 %find_lang %{name}
 
