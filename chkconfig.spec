@@ -94,7 +94,7 @@ install -d $RPM_BUILD_ROOT/etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d
 
 make instroot=$RPM_BUILD_ROOT install
 
-gzip -9nf $RPM_BUILD_ROOT/usr/man/man8/*
+gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man8/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -125,7 +125,7 @@ rm -rf $RPM_BUILD_ROOT
 %lang(tr)     /usr/share/locale/tr/LC_MESSAGES/chkconfig.mo
 %lang(uk_UA)  /usr/share/locale/uk_UA/LC_MESSAGES/chkconfig.mo
 
-/usr/man/man8/chkconfig.8*
+%{_mandir}/man8/chkconfig.8*
 
 %dir /etc/rc.d
 %dir /etc/rc.d/*
@@ -133,7 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntsysv
 %defattr(644,root,root,755)
 %attr(755,root,root) /usr/sbin/ntsysv
-/usr/man/man8/ntsysv.8*
+%{_mandir}/man8/ntsysv.8*
 
 %changelog
 * Wed Apr 21 1999 Piotr Czerwiñski <pius@pld.org.pl>
