@@ -120,7 +120,8 @@ ntsysv - це повноекранна утил╕та для оновлення та зм╕ни ╕╓рарх╕╖
 %patch1 -p1
 
 %build
-%configure2_13
+%configure2_13 \
+	--with-max-level=6
 %{__make}
 
 #%ifarch sparc
