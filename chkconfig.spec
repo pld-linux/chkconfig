@@ -132,7 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n ntsysv
 %defattr(644,root,root,755)
-%attr(755,root,root) /usr/sbin/ntsysv
+%attr(755,root,root) %{_sbindir}/ntsysv
 %{_mandir}/man8/ntsysv.8*
 
 %changelog
