@@ -18,6 +18,7 @@ Patch1:		%{name}-fhs.patch
 Patch2:		%{name}-add.patch
 Patch3:		%{name}-popt.patch
 Patch4:		%{name}-rcdir.patch
+Patch5:		%{name}-noxinet.patch
 BuildRequires:	slang-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
@@ -87,6 +88,7 @@ terminação de serviços do sistema.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 
