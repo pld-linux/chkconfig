@@ -10,6 +10,7 @@ Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.2.22
 Release:	5
+Epoch:		1
 License:	GPL
 Group:		Applications/System
 Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
