@@ -6,7 +6,7 @@ Summary(pt):	Ferramenta para atualizar e listar serviços do sistema, pelo nível 
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Name:		chkconfig
 Version:	1.0.7
-Release:	3
+Release:	4
 License:	GPL
 Group:		Utilities/System
 Group(pt):	Utilitários/Sistema
@@ -18,7 +18,7 @@ Patch1:		chkconfig-fhs.patch
 BuildRequires:	slang-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
-Prereq:		popt
+Requires:	popt
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
