@@ -5,14 +5,13 @@ Summary(pl):	Narzêdzie do aktualizacji i odpytywania o informacje nt serwisów sy
 Summary(pt):	Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Name:		chkconfig
-Version:	1.0.7
-Release:	6
+Version:	1.2.16
+Release:	1
 License:	GPL
 Group:		Utilities/System
 Group(pt):	Utilitários/Sistema
 Group(pl):	Narzêdzia/System
 Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
-Source1:	chkconfig.pl.po
 Patch0:		chkconfig-opt.patch
 Patch1:		chkconfig-fhs.patch
 Patch2:		chkconfig-add.patch
@@ -82,8 +81,6 @@ terminação de serviços do sistema.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-
-install %{SOURCE1} po/pl.po
 
 %build
 
