@@ -9,9 +9,6 @@ Version:	1.2.22
 Release:	4
 License:	GPL
 Group:		Applications/System
-Group(de):	Applikationen/System
-Group(pl):	Aplikacje/System
-Group(pt):	Utilitários/Sistema
 Source0:	ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
 Patch0:		%{name}-opt.patch
 Patch1:		%{name}-fhs.patch
@@ -62,9 +59,6 @@ Summary:	Full-screen interface for configurating runlevel information
 Summary(pl):	Pe³noekranowy interfejs do wybierania dzia³aj±cych us³ug systemowych
 Summary(pt):	Interface com menus para configuração de informações de níveis de execução
 Group:		Applications/System
-Group(de):	Applikationen/System
-Group(pl):	Aplikacje/System
-Group(pt):	Utilitários/Sistema
 Requires:	%{name} = %{version}
 
 %description -n ntsysv
