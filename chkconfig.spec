@@ -6,14 +6,17 @@ Summary(pt_BR):	Ferramenta para atualizar e listar serviços do sistema, pelo nív
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Name:		chkconfig
 Version:	1.0.6
-Release:	2
+Release:	3
 Copyright:	GPL
 Group:		Utilities/System
 Group(pt_BR):	Utilitários/Sistema
 Group(pl):	Narzêdzia/System
-Source:		ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
+URL:		ftp://ftp.redhat.com/pub/redhat/code/chkconfig
+Source0:	%{name}-%{version}.tar.gz
 Source1:	chkconfig.pl.po
-Patch:		chkconfig-opt.patch
+Patch0:		chkconfig-opt.patch
+Patch1:		chkconfig-fhs.patch
+Patch2:		chkconfig-pld.patch
 BuildPrereq:	slang-devel
 BuildPrereq:	newt-devel
 BuildPrereq:	popt-devel
@@ -50,9 +53,10 @@ Saðladýðý basit bir komut satýrý programý yardýmýyla, /etc/rc.d dizinlerinin
 yapýsýyla ilgilenerek sistem yöneticilerinin bu dizinlerde bulunan çok
 sayýdaki simgesel baðlantýyý düzenleme iþini hafifletir.
 
-%package -n ntsysv
+%package -n	ntsysv
 Summary:	Full-screen interface for configurating runlevel information
-Summary(pt_BR):	Interface com menus para configuração de informações de níveis de execução
+Summary(pt_BR):	Interface com menus para configuração de informações de \
+Summary(pt_BR):	níveis de execução
 Group:		Utilities/System
 Group(pt_BR):	Utilitários/Sistema
 Group(pl):	Narzêdzia/System
@@ -73,8 +77,10 @@ hierarquia de diretórios /etc/rc.d, que controla a inicialização e a
 terminação de serviços do sistema.
 
 %prep
-%setup -q
-%patch -p1
+%setup  -q
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 install %{SOURCE1} po/pl.po
 
@@ -92,38 +98,20 @@ make \
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d
 
-make instroot=$RPM_BUILD_ROOT install
+make \
+    instroot=$RPM_BUILD_ROOT \
+    install
 
 gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man8/*
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) /sbin/chkconfig
-
-%lang(cs)     %{_datadir}/locale/cs/LC_MESSAGES/chkconfig.mo
-%lang(da)     %{_datadir}/locale/da/LC_MESSAGES/chkconfig.mo
-%lang(de)     %{_datadir}/locale/de/LC_MESSAGES/chkconfig.mo
-%lang(en_RN)  %{_datadir}/locale/en_RN/LC_MESSAGES/chkconfig.mo
-%lang(et)     %{_datadir}/locale/et/LC_MESSAGES/chkconfig.mo
-%lang(fi)     %{_datadir}/locale/fi/LC_MESSAGES/chkconfig.mo
-%lang(fr)     %{_datadir}/locale/fr/LC_MESSAGES/chkconfig.mo
-%lang(hu)     %{_datadir}/locale/hu/LC_MESSAGES/chkconfig.mo
-%lang(in)     %{_datadir}/locale/in/LC_MESSAGES/chkconfig.mo
-%lang(in_ID)  %{_datadir}/locale/in_ID/LC_MESSAGES/chkconfig.mo
-%lang(is)     %{_datadir}/locale/is/LC_MESSAGES/chkconfig.mo
-%lang(it)     %{_datadir}/locale/it/LC_MESSAGES/chkconfig.mo
-%lang(no)     %{_datadir}/locale/no/LC_MESSAGES/chkconfig.mo
-%lang(pl)     %{_datadir}/locale/pl/LC_MESSAGES/chkconfig.mo
-%lang(pt_BR)  %{_datadir}/locale/pt_BR/LC_MESSAGES/chkconfig.mo
-%lang(ro)     %{_datadir}/locale/ro/LC_MESSAGES/chkconfig.mo
-%lang(ru)     %{_datadir}/locale/ru/LC_MESSAGES/chkconfig.mo
-%lang(sk)     %{_datadir}/locale/sk/LC_MESSAGES/chkconfig.mo
-%lang(sr)     %{_datadir}/locale/sr/LC_MESSAGES/chkconfig.mo
-%lang(tr)     %{_datadir}/locale/tr/LC_MESSAGES/chkconfig.mo
-%lang(uk_UA)  %{_datadir}/locale/uk_UA/LC_MESSAGES/chkconfig.mo
 
 %{_mandir}/man8/chkconfig.8*
 
@@ -133,6 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n ntsysv
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/ntsysv
+
 %{_mandir}/man8/ntsysv.8*
 
 %changelog
@@ -164,24 +153,3 @@ rm -rf $RPM_BUILD_ROOT
 - fiew simplification in %files and %install,
 - added "Requires: chkconfig = %%{version}" for ntsysv,
 - added full %attr description in %files.
-
-* Thu Oct 08 1998 Cristian Gafton <gafton@redhat.com>
-- updated czech translation (and use cs instead of cz)
-
-* Tue Sep 22 1998 Arnaldo Carvalho de Melo <acme@conectiva.com.br>
-- added pt_BR translations
-- added more translatable strings
-- support for i18n init.d scripts description
-
-* Sun Aug 02 1998 Erik Troan <ewt@redhat.com>
-- built against newt 0.30
-- split ntsysv into a separate package
-
-* Thu May 07 1998 Erik Troan <ewt@redhat.com>
-- added numerous translations
-
-* Mon Mar 23 1998 Erik Troan <ewt@redhat.com>
-- added i18n support
-
-* Sun Mar 22 1998 Erik Troan <ewt@redhat.com>
-- added --back
