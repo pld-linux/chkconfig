@@ -109,11 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) /sbin/chkconfig
-
 %{_mandir}/man8/chkconfig.8*
-
-%dir /etc/rc.d
-%dir /etc/rc.d/*
 
 %files -n ntsysv
 %defattr(644,root,root,755)
