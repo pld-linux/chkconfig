@@ -78,13 +78,13 @@
 +#: chkconfig.c:119
  msgid "on"
 -msgstr "***"
-+msgstr "w³"
++msgstr "***"
  
 -#: chkconfig.c:122 chkconfig.c:127 chkconfig.c:227
 +#: chkconfig.c:119
  msgid "off"
 -msgstr "---"
-+msgstr "wy³"
++msgstr "---"
  
 -#: chkconfig.c:159
 -#, fuzzy, c-format
