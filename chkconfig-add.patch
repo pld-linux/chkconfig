@@ -1,0 +1,78 @@
+diff -Nur chkconfig-1.0.7.orig/chkconfig.c chkconfig-1.0.7/chkconfig.c
+--- chkconfig-1.0.7.orig/chkconfig.c	Mon Aug 23 22:02:18 1999
++++ chkconfig-1.0.7/chkconfig.c	Sun Sep  3 11:57:13 2000
+@@ -12,6 +12,7 @@
+ #include <unistd.h>
+ 
+ static char *progname;
++extern int addItem;
+ 
+ #define _(String) gettext((String)) 
+ 
+@@ -72,12 +73,10 @@
+     }
+ 
+     for (i = 0; i < 7; i++) {
+-	if (!isConfigured(name, i)) {
+ 	    if ((1 << i) & s.levels)
+ 		doSetService(s, i, 1);
+ 	    else
+ 		doSetService(s, i, 0);
+-	}
+     }
+ 
+     return 0;
+@@ -193,7 +192,7 @@
+ }
+ 
+ int main(int argc, char ** argv) {
+-    int listItem = 0, addItem = 0, delItem = 0;
++    int listItem = 0, delItem = 0;
+     int rc, i;
+     char * levels = NULL;
+     int help=0, version=0;
+diff -Nur chkconfig-1.0.7.orig/leveldb.c chkconfig-1.0.7/leveldb.c
+--- chkconfig-1.0.7.orig/leveldb.c	Thu Apr  8 20:19:35 1999
++++ chkconfig-1.0.7/leveldb.c	Sun Sep  3 11:57:24 2000
+@@ -11,6 +11,10 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <unistd.h>
++#include <sys/types.h>
++#include <dirent.h>
++
++int addItem = 0;
+ 
+ /* Changes
+    1998-09-22 - Arnaldo Carvalho de Melo <acme@conectiva.com.br>
+@@ -52,6 +56,8 @@
+ 	 * final_parenthesis,
+          * english_desc = NULL;
+     char my_lang_loaded = 0;
++    DIR *dir;
++    struct dirent *dirent;
+ 
+     sprintf(filename, RUNLEVELS "/init.d/%s", name);
+ 
+@@ -226,6 +232,21 @@
+     } 
+ 
+     serv.name = strdup(name);
++
++    if (addItem) {
++      strcpy(levelbuf,"/etc/rc.d/rc0.d");
++      for(i=0;i<7;i++,levelbuf[12]++) {
++	dir=opendir(levelbuf);
++	if (!dir) return 1;
++	while ((dirent=readdir(dir))) {
++	  if (strlen(dirent->d_name)<4) continue;
++	  if (strcmp(dirent->d_name+3,name)) continue;
++	  if (*dirent->d_name=='K') serv.levels &= ~(1<<i);
++	  else if (*dirent->d_name=='S') serv.levels |= 1<<i;
++	}
++	closedir(dir);
++      }
++    }
+ 
+     *service = serv;
+     return 0;
