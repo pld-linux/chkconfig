@@ -94,7 +94,7 @@ Summary(pt):	Interface com menus para configuraГЦo de informaГУes de nМveis de e
 Summary(ru):	Полноэкранный интерфейс для настройки уровней исполнения
 Summary(uk):	Повноекранний ╕нтерфейс для налагодження р╕вн╕в виконання
 Group:		Applications/System
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description -n ntsysv
 ntsysv provides a full-screen tool for updating the /etc/rc.d
