@@ -123,33 +123,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/ntsysv
 
 %{_mandir}/man8/ntsysv.8*
-
-%changelog
-* Wed Apr 21 1999 Piotr Czerwiñski <pius@pld.org.pl>
-  [1.0.5-1]
-- updated to 1.0.5,
-- removed man group from man pages,
-- added %defattr description in %files -n ntsysv,
-- replacements in %files,
-- added gzipping man pages,
-- added %dir macros,
-- fixed Requires in ntsysv,
-- cosmetic changes,
-- recompiled on rpm 3.
-
-* Tue Jan 26 1999 Micha³ Kuratczyk <kurkens@polbox.com>
-  [0.9.5-3]
-- fixed pl translation,
-- added "Group(pl)",
-- cosmetics changes in %%files.
-
-* Thu Oct 15 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.9.5-2]
-- added -q %setup parameter,
-- changed Buildroot to /tmp/%%{name}-%%{version}-root,
-- added using %%{name} and %%{version} in Source,
-- added %lang macros for files %{_datadir}/locale/*/LC_MESSAGES/chkconfig.mo
-- added pl translation,
-- fiew simplification in %files and %install,
-- added "Requires: chkconfig = %%{version}" for ntsysv,
-- added full %attr description in %files.
