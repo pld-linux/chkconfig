@@ -12,6 +12,10 @@ Group:		Utilities/System
 Group(pt_BR):	Utilitários/Sistema
 Group(pl):	Narzêdzia/System
 Source:		ftp://ftp.redhat.com/pub/redhat/code/chkconfig/%{name}-%{version}.tar.gz
+Source1:	chkconfig.pl.po
+Patch:		chkconfig-opt.patch
+BuildPrereq:	slang-devel
+BuildPrereq:	newt-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
@@ -69,6 +73,9 @@ terminação de serviços do sistema.
 
 %prep
 %setup -q
+%patch -p1
+
+install %{SOURCE1} po/pl.po
 
 %build
 
@@ -77,7 +84,7 @@ LIBMHACK=-lm
 %endif
 
 make \
-	RPM_OPT_FLAGS="$RPM_OPT_FLAGS" \
+	OPTIMIZE="$RPM_OPT_FLAGS" \
 	LIBMHACK="$LIBMHACK"
 
 %install
@@ -100,20 +107,22 @@ rm -rf $RPM_BUILD_ROOT
 %lang(en)     /usr/share/locale/en*/LC_MESSAGES/chkconfig.mo
 %lang(fr)     /usr/share/locale/fr/LC_MESSAGES/chkconfig.mo
 %lang(no)     /usr/share/locale/no/LC_MESSAGES/chkconfig.mo
+%lang(pl)     /usr/share/locale/pl/LC_MESSAGES/chkconfig.mo
 %lang(pt_BR)  /usr/share/locale/pt_BR/LC_MESSAGES/chkconfig.mo
 %lang(ro)     /usr/share/locale/ro/LC_MESSAGES/chkconfig.mo
 %lang(sk)     /usr/share/locale/sk/LC_MESSAGES/chkconfig.mo
 %lang(sr)     /usr/share/locale/sr/LC_MESSAGES/chkconfig.mo
 %lang(tr)     /usr/share/locale/tr/LC_MESSAGES/chkconfig.mo
 
-/usr/man/man8/*
+/usr/man/man8/chkconfig.8*
+
 %dir /etc/rc.d
 %dir /etc/rc.d/*
 
 %files -n ntsysv
 %defattr(644,root,root,755)
 %attr(755,root,root) /usr/sbin/ntsysv
-/usr/man/man8/*
+/usr/man/man8/ntsysv.8*
 
 %changelog
 * Wed Apr 21 1999 Piotr Czerwiñski <pius@pld.org.pl>
