@@ -1,3 +1,9 @@
+
+%bcond_with mr	# Use asteriskes and dashes in all languages
+		# for `chkconfig --list` command (aplies more_readable.patch).
+		# Note: it makes the program inconsistent with the rest
+		# of the world (some people say).
+
 Summary:	Updates and queries runlevel information for system services
 Summary(de):	Aktualisiert runlevel-Informationen fЭr Systemdienste und fragt diese ab
 Summary(es):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecuciСn (runlevel)
@@ -10,7 +16,7 @@ Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.2.24h
-Release:	9
+Release:	9%{?with_mr:+mr}
 Epoch:		1
 License:	GPL
 Group:		Applications/System
@@ -21,6 +27,7 @@ Patch1:		%{name}-noxinet.patch
 Patch2:		%{name}-pl.po-update.patch
 Patch3:		%{name}-ponames.patch
 Patch4:		%{name}-link.patch
+Patch5:		%{name}-more_readable.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -139,6 +146,7 @@ ntsysv - це повноекранна утил╕та для оновлення та зм╕ни ╕╓рарх╕╖
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%{?with_mr:%patch5 -p1}
 
 mv -f po/{eu_ES,eu}.po
 mv -f po/{no,nb}.po
