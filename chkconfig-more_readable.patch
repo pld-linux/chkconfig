@@ -1,13 +1,29 @@
-diff -Nru chkconfig-1.2.24h.old/chkconfig.c chkconfig-1.2.24h/chkconfig.c
---- chkconfig-1.2.24h.old/chkconfig.c	2003-12-03 22:48:54.000000000 +0100
-+++ chkconfig-1.2.24h/chkconfig.c	2003-12-03 22:01:10.000000000 +0100
-@@ -116,7 +116,7 @@
+diff -Nur b.chkconfig-1.2.24h/chkconfig.c n.chkconfig-1.2.24h/chkconfig.c
+--- b.chkconfig-1.2.24h/chkconfig.c	2005-08-04 20:31:03.145936000 +0200
++++ n.chkconfig-1.2.24h/chkconfig.c	2005-08-04 22:29:48.719684984 +0200
+@@ -106,6 +106,7 @@
+     int rc;
+     int i;
+     struct service s;
++	char *on, *off;
+ 
+     if ((rc = readServiceInfo(name, &s, 0))) {
+ 	if (!forgiving)
+@@ -115,10 +116,13 @@
+ 
      printf("%-15s", s.name);
  
-     for (i = 0; i <= conf.maxlevel; i++) {
+-    for (i = 0; i <= conf.maxlevel; i++) {
 -	printf("\t%d:%s", i, isOn(s.name, i) ? _("on") : _("off"));
-+	printf("\t%d:%s", i, isOn(s.name, i) ? "***" : "---");
-     }
-     printf("\n");
+-    }
+-    printf("\n");
++	on = getenv("CHKCONFIG_ON");
++	off = getenv("CHKCONFIG_OFF");
++
++    for (i = 0; i <= conf.maxlevel; i++)
++		printf("\t%d:%s", i, isOn(s.name, i) ? on ? on : _("on") : off ? off : _("off"));
++    
++	printf("\n");
  
-
+     return 0;
+ }
