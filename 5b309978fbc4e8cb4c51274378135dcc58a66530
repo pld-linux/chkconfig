@@ -1,0 +1,3 @@
+- fixed chkconfig-add patch (it just didn't work because of one missing change)
+- use %rpm{c,ld}flags macros
+- release 3
