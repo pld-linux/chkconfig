@@ -19,8 +19,6 @@ Source0:	%{name}-%{version}.tar.gz
 #Patch0:		%{name}-add.patch
 #Patch1:		%{name}-noxinet.patch
 #Patch2:		%{name}-pl.po-update.patch
-#Patch3:		%{name}-ponames.patch
-#Patch4:		%{name}-link.patch
 Patch5:		%{name}-more_readable.patch
 Patch6:		%{name}-rc.d.patch
 Patch7:		%{name}-nostatic.patch
