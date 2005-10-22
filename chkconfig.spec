@@ -9,25 +9,27 @@ Summary(ru):	Системная утилита для управления иерархией /etc/rc.d
 Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
-Version:	1.2.24h
-Release:	12
+Version:	1.3.20
+Release:	0.2
 Epoch:		1
 License:	GPL
 Group:		Applications/System
-Source0:	http://www.buttsoft.com/~thumper/downloads/%{name}/%{name}-%{version}.tar.gz
-# Source0-md5:	032eae68329d07d0844775486ac74668
-Patch0:		%{name}-add.patch
-Patch1:		%{name}-noxinet.patch
-Patch2:		%{name}-pl.po-update.patch
-Patch3:		%{name}-ponames.patch
-Patch4:		%{name}-link.patch
-Patch5:		%{name}-more_readable.patch
-BuildRequires:	autoconf
-BuildRequires:	automake
+Source0:	%{name}-%{version}.tar.gz
+# Source0-md5:	a993765a3fcd0c0cd891e16022e35d13
+#Patch0:		%{name}-add.patch
+#Patch1:		%{name}-noxinet.patch
+#Patch2:		%{name}-pl.po-update.patch
+#Patch3:		%{name}-ponames.patch
+#Patch4:		%{name}-link.patch
+#Patch5:		%{name}-more_readable.patch
+Patch6:		%{name}-rc.d.patch
+Patch7:		%{name}-nostatic.patch
+#BuildRequires:	autoconf
+#BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
-BuildRequires:	slang-devel >= 2.0.0
+#BuildRequires:	slang-devel >= 2.0.0
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -133,37 +135,52 @@ ntsysv - це повноекранна утил╕та для оновлення та зм╕ни ╕╓рарх╕╖
 каталог╕в /etc/rc.d, котр╕ керують запуском та зупинкою системних
 серв╕с╕в.
 
+%package -n alternatives
+Summary:	Maintain symbolic links determining default commands
+Group:		Applications/System
+
+%description -n alternatives
+alternatives creates, removes, maintains and displays information
+about the symbolic links comprising  the alternatives  system. The
+alternatives system is a reimplementation of the Debian alternatives
+system. It was rewritten primarily to remove the dependence on perl;
+it is intended to be a drop in  replacement  for Debian's
+update-dependencies script.
+
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+#%patch0 -p1
+#%patch1 -p1
+#%patch2 -p1
+#%patch3 -p1
+#%patch4 -p1
+#%patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
-mv -f po/{eu_ES,eu}.po
+#mv -f po/{eu_ES,eu}.po
 mv -f po/{no,nb}.po
 mv -f po/{sr,sr@Latn}.po
-mv -f po/{zh,zh_TW}.po
-mv -f po/{zh_CN.GB2312,zh_CN}.po
+#mv -f po/{zh,zh_TW}.po
+#mv -f po/{zh_CN.GB2312,zh_CN}.po
 
 %build
+%if 0
 %{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure \
 	--with-max-level=6
-%{__make}
+%endif
+%{__make} CC="%{__cc}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-mv $RPM_BUILD_ROOT%{_sbindir}/chkconfig $RPM_BUILD_ROOT/sbin
+	MANDIR=%{_mandir} \
+	instroot=$RPM_BUILD_ROOT
 
 %find_lang %{name}
 
@@ -183,9 +200,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) /sbin/chkconfig
 %{_mandir}/man8/chkconfig.8*
-%attr(644,root,root) %config(noreplace,missingok) %verify(not md5 size mtime) /etc/env.d/*
+%attr(644,root,root) %config(noreplace,missingok) %verify(not md5 mtime size) /etc/env.d/*
 
 %files -n ntsysv
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_sbindir}/ntsysv
 %{_mandir}/man8/ntsysv.8*
+
+%files -n alternatives
+%defattr(644,root,root,755)
+%dir %{_sysconfdir}/alternatives
+%attr(755,root,root) %{_sbindir}/alternatives
+%attr(755,root,root) %{_sbindir}/update-alternatives
+%dir /var/lib/alternatives
+%{_mandir}/man8/alternatives.8*
