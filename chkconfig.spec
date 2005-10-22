@@ -16,18 +16,20 @@ License:	GPL
 Group:		Applications/System
 Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	a993765a3fcd0c0cd891e16022e35d13
-Patch0:		%{name}-add.patch
-Patch1:		%{name}-noxinet.patch
-Patch2:		%{name}-pl.po-update.patch
-Patch3:		%{name}-ponames.patch
-Patch4:		%{name}-link.patch
-Patch5:		%{name}-more_readable.patch
-BuildRequires:	autoconf
-BuildRequires:	automake
+#Patch0:		%{name}-add.patch
+#Patch1:		%{name}-noxinet.patch
+#Patch2:		%{name}-pl.po-update.patch
+#Patch3:		%{name}-ponames.patch
+#Patch4:		%{name}-link.patch
+#Patch5:		%{name}-more_readable.patch
+Patch6:		%{name}-rc.d.patch
+Patch7:		%{name}-nostatic.patch
+#BuildRequires:	autoconf
+#BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
-BuildRequires:	slang-devel >= 2.0.0
+#BuildRequires:	slang-devel >= 2.0.0
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -153,6 +155,8 @@ update-dependencies script.
 #%patch3 -p1
 #%patch4 -p1
 #%patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
 #mv -f po/{eu_ES,eu}.po
 mv -f po/{no,nb}.po
@@ -168,7 +172,7 @@ mv -f po/{sr,sr@Latn}.po
 %configure \
 	--with-max-level=6
 %endif
-%{__make}
+%{__make} CC="%{__cc}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
