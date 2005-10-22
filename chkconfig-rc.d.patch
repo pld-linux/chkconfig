@@ -1,0 +1,11 @@
+--- ./leveldb.h~	2002-03-13 09:09:04.000000000 +0200
++++ ./leveldb.h	2005-10-22 15:45:40.000000000 +0300
+@@ -1,7 +1,7 @@
+ #ifndef H_LEVELDB
+ #define H_LEVELDB
+ 
+-#define RUNLEVELS "/etc"
++#define RUNLEVELS "/etc/rc.d"
+ #define XINETDDIR "/etc/xinetd.d"
+ 
+ #include <glob.h>
