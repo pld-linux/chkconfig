@@ -1,0 +1,2 @@
+- popt patch: use shared libpopt
+- adapterized, rpm automation (man gzipping), %{debug} ready
