@@ -21,7 +21,7 @@ Source0:	%{name}-%{version}.tar.gz
 #Patch2:		%{name}-pl.po-update.patch
 #Patch3:		%{name}-ponames.patch
 #Patch4:		%{name}-link.patch
-#Patch5:		%{name}-more_readable.patch
+Patch5:		%{name}-more_readable.patch
 Patch6:		%{name}-rc.d.patch
 Patch7:		%{name}-nostatic.patch
 #BuildRequires:	autoconf
@@ -154,7 +154,7 @@ update-dependencies script.
 #%patch2 -p1
 #%patch3 -p1
 #%patch4 -p1
-#%patch5 -p1
+%patch5 -p1
 %patch6 -p1
 %patch7 -p1
 

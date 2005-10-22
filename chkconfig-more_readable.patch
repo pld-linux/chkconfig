@@ -1,29 +1,30 @@
-diff -Nur b.chkconfig-1.2.24h/chkconfig.c n.chkconfig-1.2.24h/chkconfig.c
---- b.chkconfig-1.2.24h/chkconfig.c	2005-08-04 20:31:03.145936000 +0200
-+++ n.chkconfig-1.2.24h/chkconfig.c	2005-08-04 22:29:48.719684984 +0200
-@@ -106,6 +106,7 @@
+--- chkconfig-1.3.20/chkconfig.c~	2005-10-22 15:39:22.000000000 +0200
++++ chkconfig-1.3.20/chkconfig.c	2005-10-22 15:43:32.000000000 +0200
+@@ -187,6 +187,7 @@
      int rc;
      int i;
      struct service s;
 +	char *on, *off;
  
-     if ((rc = readServiceInfo(name, &s, 0))) {
- 	if (!forgiving)
-@@ -115,10 +116,13 @@
+     rc = readServiceInfo(name, &s, 0);
+     
+@@ -207,13 +208,17 @@
+     }
  
      printf("%-15s", s.name);
- 
--    for (i = 0; i <= conf.maxlevel; i++) {
--	printf("\t%d:%s", i, isOn(s.name, i) ? _("on") : _("off"));
--    }
--    printf("\n");
++
 +	on = getenv("CHKCONFIG_ON");
 +	off = getenv("CHKCONFIG_OFF");
-+
-+    for (i = 0; i <= conf.maxlevel; i++)
-+		printf("\t%d:%s", i, isOn(s.name, i) ? on ? on : _("on") : off ? off : _("off"));
-+    
-+	printf("\n");
++	
+     if (s.type == TYPE_XINETD) {
+-	    printf("\t%s\n", s.levels ? _("on") : _("off"));
++	    printf("\t%s\n", s.levels ? on ? on : _("on") : off ? off : _("off"));
+ 	    return 0;
+     }
  
-     return 0;
- }
+     for (i = 0; i < 7; i++) {
+-	printf("\t%d:%s", i, isOn(s.name, i) ? _("on") : _("off"));
++		printf("\t%d:%s", i, isOn(s.name, i) ? on ? on : _("on") : off ? off : _("off"));
+     }
+     printf("\n");
+ 
