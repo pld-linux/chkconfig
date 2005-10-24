@@ -1,3 +1,6 @@
+# TODO:
+# - update add,noxinet,pl.po-update patches
+# - optflags
 Summary:	Updates and queries runlevel information for system services
 Summary(de):	Aktualisiert runlevel-Informationen f¸r Systemdienste und fragt diese ab
 Summary(es):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecuciÛn (runlevel)
@@ -135,15 +138,23 @@ ntsysv - √≈ –œ◊Œœ≈À“¡ŒŒ¡ ’‘…Ã¶‘¡ ƒÃ— œŒœ◊Ã≈ŒŒ— ‘¡ ⁄Õ¶Œ… ¶§“¡“»¶ß
 
 %package -n alternatives
 Summary:	Maintain symbolic links determining default commands
+Summary(pl):	Utrzymywanie dowi±zaÒ symbolicznych okre∂laj±cych domy∂lne polecenia
 Group:		Applications/System
 
 %description -n alternatives
 alternatives creates, removes, maintains and displays information
-about the symbolic links comprising  the alternatives  system. The
+about the symbolic links comprising the alternatives system. The
 alternatives system is a reimplementation of the Debian alternatives
 system. It was rewritten primarily to remove the dependence on perl;
-it is intended to be a drop in  replacement  for Debian's
+it is intended to be a drop in replacement for Debian's
 update-dependencies script.
+
+%description -n alternatives -l pl
+alternatives tworzy, usuwa, utrzymuje i wy∂wietla informacje o
+dowi±zaniach symbolicznych obejmuj±cych system alternatyw. System
+alternatyw to reimplementacja systemu alternatyw ("alternatives") z
+Debiana. Zosta≥a napisana g≥Ûwnie w celu usuniÍcia zaleøno∂ci od
+perla; ma byÊ zamiennikiem skryptu update-dependencies z Debiana.
 
 %prep
 %setup -q
@@ -170,7 +181,8 @@ mv -f po/{sr,sr@Latn}.po
 %configure \
 	--with-max-level=6
 %endif
-%{__make} CC="%{__cc}"
+%{__make} \
+	CC="%{__cc}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -198,7 +210,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) /sbin/chkconfig
 %{_mandir}/man8/chkconfig.8*
-%attr(644,root,root) %config(noreplace,missingok) %verify(not md5 mtime size) /etc/env.d/*
+%config(noreplace,missingok) %verify(not md5 mtime size) /etc/env.d/*
 
 %files -n ntsysv
 %defattr(644,root,root,755)
