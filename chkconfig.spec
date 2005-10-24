@@ -147,14 +147,14 @@ about the symbolic links comprising the alternatives system. The
 alternatives system is a reimplementation of the Debian alternatives
 system. It was rewritten primarily to remove the dependence on perl;
 it is intended to be a drop in replacement for Debian's
-update-dependencies script.
+update-alternatives script.
 
 %description -n alternatives -l pl
 alternatives tworzy, usuwa, utrzymuje i wy¶wietla informacje o
 dowi±zaniach symbolicznych obejmuj±cych system alternatyw. System
 alternatyw to reimplementacja systemu alternatyw ("alternatives") z
 Debiana. Zosta³a napisana g³ównie w celu usuniêcia zale¿no¶ci od
-perla; ma byæ zamiennikiem skryptu update-dependencies z Debiana.
+perla; ma byæ zamiennikiem skryptu update-alternatives z Debiana.
 
 %prep
 %setup -q
