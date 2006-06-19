@@ -1,6 +1,7 @@
+#
 # TODO:
-# - update add,noxinet,pl.po-update patches
-# - optflags
+#		- update add,noxinet,pl.po-update patches
+#
 Summary:	Updates and queries runlevel information for system services
 Summary(de):	Aktualisiert runlevel-Informationen fЭr Systemdienste und fragt diese ab
 Summary(es):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecuciСn (runlevel)
@@ -13,7 +14,7 @@ Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.3.20
-Release:	0.2
+Release:	0.3
 Epoch:		1
 License:	GPL
 Group:		Applications/System
@@ -25,6 +26,7 @@ Source0:	%{name}-%{version}.tar.gz
 Patch5:		%{name}-more_readable.patch
 Patch6:		%{name}-rc.d.patch
 Patch7:		%{name}-nostatic.patch
+Patch8:		%{name}-optflags.patch
 #BuildRequires:	autoconf
 #BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -166,6 +168,7 @@ perla; ma byФ zamiennikiem skryptu update-alternatives z Debiana.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 #mv -f po/{eu_ES,eu}.po
 mv -f po/{no,nb}.po
@@ -182,7 +185,8 @@ mv -f po/{sr,sr@Latn}.po
 	--with-max-level=6
 %endif
 %{__make} \
-	CC="%{__cc}"
+	CC="%{__cc}" \
+	OPTFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
