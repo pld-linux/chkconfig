@@ -1,0 +1,13 @@
+--- chkconfig-1.3.20/Makefile.orig	2006-06-19 22:17:51.000000000 +0200
++++ chkconfig-1.3.20/Makefile	2006-06-19 22:20:58.334683500 +0200
+@@ -3,8 +3,8 @@
+ CVSTAG = r$(subst .,-,$(VERSION)-$(RELEASE))
+ CVSROOT = $(shell cat CVS/Root 2>/dev/null || :)
+ 
+-CFLAGS=-g -Wall $(RPM_OPT_FLAGS) -D_GNU_SOURCE
+-LDFLAGS=-g
++CFLAGS=$(OPTFLAGS) -Wall -D_GNU_SOURCE
++LDFLAGS=
+ MAN=chkconfig.8 ntsysv.8 alternatives.8
+ PROG=chkconfig
+ BINDIR = /sbin
