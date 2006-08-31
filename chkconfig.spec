@@ -10,7 +10,7 @@ Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.2.24h
-Release:	14
+Release:	15
 Epoch:		1
 License:	GPL
 Group:		Applications/System
@@ -27,7 +27,7 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
-BuildRequires:	rpmbuild(macros) >= 1.316
+BuildRequires:	rpmbuild(macros) >= 1.318
 BuildRequires:	slang-devel >= 2.0.0
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
