@@ -10,11 +10,11 @@ Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.2.24h
-Release:	13
+Release:	14
 Epoch:		1
 License:	GPL
 Group:		Applications/System
-Source0:	http://www.buttsoft.com/~thumper/downloads/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://www.buttsoft.com/~thumper/downloads/chkconfig/%{name}-%{version}.tar.gz
 # Source0-md5:	032eae68329d07d0844775486ac74668
 Patch0:		%{name}-add.patch
 Patch1:		%{name}-noxinet.patch
@@ -27,6 +27,7 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
+BuildRequires:	rpmbuild(macros) >= 1.316
 BuildRequires:	slang-devel >= 2.0.0
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -179,11 +180,17 @@ EOF
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+%env_update
+
+%postun
+%env_update
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) /sbin/chkconfig
 %{_mandir}/man8/chkconfig.8*
-%attr(644,root,root) %config(noreplace,missingok) %verify(not md5 size mtime) /etc/env.d/*
+%config(noreplace,missingok) %verify(not md5 mtime size) /etc/env.d/*
 
 %files -n ntsysv
 %defattr(644,root,root,755)
