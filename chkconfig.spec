@@ -1,9 +1,3 @@
-
-%bcond_with mr	# Use asteriskes and dashes in all languages
-		# for `chkconfig --list` command (aplies more_readable.patch).
-		# Note: it makes the program inconsistent with the rest
-		# of the world (some people say).
-
 Summary:	Updates and queries runlevel information for system services
 Summary(de):	Aktualisiert runlevel-Informationen fЭr Systemdienste und fragt diese ab
 Summary(es):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecuciСn (runlevel)
@@ -16,11 +10,11 @@ Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.2.24h
-Release:	10%{?with_mr:+mr}
+Release:	15
 Epoch:		1
 License:	GPL
 Group:		Applications/System
-Source0:	http://www.buttsoft.com/~thumper/downloads/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://www.buttsoft.com/~thumper/downloads/chkconfig/%{name}-%{version}.tar.gz
 # Source0-md5:	032eae68329d07d0844775486ac74668
 Patch0:		%{name}-add.patch
 Patch1:		%{name}-noxinet.patch
@@ -33,7 +27,8 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
-BuildRequires:	slang-devel
+BuildRequires:	rpmbuild(macros) >= 1.318
+BuildRequires:	slang-devel >= 2.0.0
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -146,7 +141,7 @@ ntsysv - це повноекранна утил╕та для оновлення та зм╕ни ╕╓рарх╕╖
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%{?with_mr:%patch5 -p1}
+%patch5 -p1
 
 mv -f po/{eu_ES,eu}.po
 mv -f po/{no,nb}.po
@@ -164,7 +159,7 @@ mv -f po/{zh_CN.GB2312,zh_CN}.po
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/rc.d/{init,rc{0,1,2,3,4,5,6}}.d,/sbin}
+install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -173,13 +168,29 @@ mv $RPM_BUILD_ROOT%{_sbindir}/chkconfig $RPM_BUILD_ROOT/sbin
 
 %find_lang %{name}
 
+cat <<EOF > $RPM_BUILD_ROOT/etc/env.d/CHKCONFIG_ON
+# display custom string instead of "on" (or its translation)
+#CHKCONFIG_ON="*****"
+EOF
+cat <<EOF > $RPM_BUILD_ROOT/etc/env.d/CHKCONFIG_OFF
+# display custom string instead of "off" (or its translation)
+#CHKCONFIG_OFF="-----"
+EOF
+
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+%env_update
+
+%postun
+%env_update
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) /sbin/chkconfig
 %{_mandir}/man8/chkconfig.8*
+%config(noreplace,missingok) %verify(not md5 mtime size) /etc/env.d/*
 
 %files -n ntsysv
 %defattr(644,root,root,755)
