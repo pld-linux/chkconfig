@@ -14,7 +14,7 @@ Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
 Name:		chkconfig
 Version:	1.3.20
-Release:	0.3
+Release:	0.4
 Epoch:		1
 License:	GPL
 Group:		Applications/System
@@ -27,6 +27,7 @@ Patch5:		%{name}-more_readable.patch
 Patch6:		%{name}-rc.d.patch
 Patch7:		%{name}-nostatic.patch
 Patch8:		%{name}-optflags.patch
+Patch9:		%{name}-pl.patch
 #BuildRequires:	autoconf
 #BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -169,6 +170,7 @@ perla; ma byФ zamiennikiem skryptu update-alternatives z Debiana.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 #mv -f po/{eu_ES,eu}.po
 mv -f po/{no,nb}.po
