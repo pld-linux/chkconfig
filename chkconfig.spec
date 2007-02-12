@@ -3,15 +3,15 @@
 #		- update add,noxinet,pl.po-update patches
 #
 Summary:	Updates and queries runlevel information for system services
-Summary(de):	Aktualisiert runlevel-Informationen fЭr Systemdienste und fragt diese ab
-Summary(es):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecuciСn (runlevel)
-Summary(fr):	Mises Ю jour et interrogations des services systХmes
-Summary(ja):	/etc/rc.d ╓нЁ╛аь╓Р╔А╔С╔ф╔й╔С╔╧╓╧╓К╓©╓А╓н╔╥╔╧╔ф╔Ю╔д║╪╔К
-Summary(pl):	NarzЙdzie do aktualizacji i odpytywania o informacje nt serwisСw systemowych
-Summary(pt):	Ferramenta para atualizar e listar serviГos do sistema, pelo nМvel de execuГЦo (runlevel)
-Summary(ru):	Системная утилита для управления иерархией /etc/rc.d
-Summary(tr):	Sistem servis bilgilerini sorgular ve yeniler
-Summary(uk):	Системна утил╕та для керування ╕╓рарх╕╓ю /etc/rc.d
+Summary(de.UTF-8):   Aktualisiert runlevel-Informationen fц╪r Systemdienste und fragt diese ab
+Summary(es.UTF-8):   Herramienta para actualizar y listar servicios del sistema, por nivel de ejecuciцЁn (runlevel)
+Summary(fr.UTF-8):   Mises ц═ jour et interrogations des services systц╗mes
+Summary(ja.UTF-8):   /etc/rc.d Ц│╝И ▌Е╠╓Ц┌▓Ц┐║Ц┐ЁЦ┐├Ц┐┼Ц┐ЁЦ┌╧Ц│≥Ц┌▀Ц│÷Ц┌│Ц│╝Ц┌╥Ц┌╧Ц┐├Ц┐═Ц┐└Ц┐╪Ц┐╚
+Summary(pl.UTF-8):   Narzд≥dzie do aktualizacji i odpytywania o informacje nt serwisцЁw systemowych
+Summary(pt.UTF-8):   Ferramenta para atualizar e listar serviц╖os do sistema, pelo nц╜vel de execuц╖цёo (runlevel)
+Summary(ru.UTF-8):   п║п╦я│я┌п╣п╪п╫п╟я▐ я┐я┌п╦п╩п╦я┌п╟ п╢п╩я▐ я┐п©я─п╟п╡п╩п╣п╫п╦я▐ п╦п╣я─п╟я─я┘п╦п╣п╧ /etc/rc.d
+Summary(tr.UTF-8):   Sistem servis bilgilerini sorgular ve yeniler
+Summary(uk.UTF-8):   п║п╦я│я┌п╣п╪п╫п╟ я┐я┌п╦п╩я√я┌п╟ п╢п╩я▐ п╨п╣я─я┐п╡п╟п╫п╫я▐ я√я■я─п╟я─я┘я√я■я▌ /etc/rc.d
 Name:		chkconfig
 Version:	1.3.20
 Release:	0.4
@@ -42,65 +42,65 @@ chkconfig provides a simple command-line tool for maintaining the
 /etc/rc.d directory hierarchy by relieving system administrators of
 directly manipulating the numerous symbolic links in that directory.
 
-%description -l de
+%description -l de.UTF-8
 chkconfig bietet ein einfaches Befehlszeilen-Tool zum Verwalten der
 Verzeichnishierarchie /etc/rc.d, indem es dem Systemadministrator das
-direkte Bearbeiten der zahlreichen symbolischen VerknЭpfungen in
+direkte Bearbeiten der zahlreichen symbolischen Verknц╪pfungen in
 diesem Verzeichnis abnimmt.
 
-%description -l es
-Chkconfig provee una herramienta sencilla en la lМnea de comando para
-mantener la jerarquМa de directorios /etc/rc.d, atenuando los
+%description -l es.UTF-8
+Chkconfig provee una herramienta sencilla en la lц╜nea de comando para
+mantener la jerarquц╜a de directorios /etc/rc.d, atenuando los
 administradores del sistema del manejo directo de numerosos links
-simbСlicos.
+simbцЁlicos.
 
-%description -l fr
+%description -l fr.UTF-8
 chkconfig offre un outil simple en ligne de commande pour maintenir la
-hiИrarchie du rИpertoire /etc/rc.d tout en Иvitant aux administrateurs
-systХme de manipuler les diffИrents liens symbolique de ce rИpertoire.
+hiц╘rarchie du rц╘pertoire /etc/rc.d tout en ц╘vitant aux administrateurs
+systц╗me de manipuler les diffц╘rents liens symbolique de ce rц╘pertoire.
 
-%description -l ja
+%description -l ja.UTF-8
 chkconfig
-╓о╢Пкэе╙╓й╔╥╔╧╔ф╔Ю╔Ф║╪╔ф╔ё╔Й╔ф╔ё╓г╓╒╓К║ё╓Ё╓Л╓о╔╥╔╧╔ф╔Ю╔╣║╪╔с╔╧╓н
-runlevel ╓н╬ПйС╓Р╔╒╔ц╔в╔г║╪╔х╓Д╦║╬з╓╧╓К║ёchkconfig ╓о /etc/rc.d ╓н
-б©©Т╓н╔╥╔С╔э╔Й╔ц╔╞╔Й╔С╔╞╓РаЮ╨Н╓╥╓ч╓╧╓н╓г║╒╔╥╔╧╔ф╔Ю╢имЩ╪т╓о╪Йф╟╓г
-╔╥╔С╔э╔Й╔ц╔╞╔Й╔С╔╞╓Р╓©╓с╓©╓с╔╗╔г╔ё╔ц╔х╓╥╓й╓╞╓ф╓Б╓Х╓╓║ё
+Ц│╞Е÷╨Ф°╛Г └Ц│╙Ц┌╥Ц┌╧Ц┐├Ц┐═Ц┐╕Ц┐╪Ц┐├Ц┌ёЦ┐╙Ц┐├Ц┌ёЦ│╖Ц│┌Ц┌▀Ц─┌Ц│⌠Ц┌▄Ц│╞Ц┌╥Ц┌╧Ц┐├Ц┐═Ц┌╣Ц┐╪Ц┐⌠Ц┌╧Ц│╝
+runlevel Ц│╝Ф┐┘Е═╠Ц┌▓Ц┌╒Ц┐┐Ц┐≈Ц┐┤Ц┐╪Ц┐┬Ц┌└Ф╓°Х╗╪Ц│≥Ц┌▀Ц─┌chkconfig Ц│╞ /etc/rc.d Ц│╝
+Е╓ Ф∙╟Ц│╝Ц┌╥Ц┐ЁЦ┐°Ц┐╙Ц┐┐Ц┌╞Ц┐╙Ц┐ЁЦ┌╞Ц┌▓Ф⌠█Д╫°Ц│≈Ц│╬Ц│≥Ц│╝Ц│╖Ц─│Ц┌╥Ц┌╧Ц┐├Ц┐═Г╝║Г░├Х─┘Ц│╞Ф┴▀Е▀∙Ц│╖
+Ц┌╥Ц┐ЁЦ┐°Ц┐╙Ц┐┐Ц┌╞Ц┐╙Ц┐ЁЦ┌╞Ц┌▓Ц│÷Ц│ЁЦ│÷Ц│ЁЦ┌╗Ц┐┤Ц┌ёЦ┐┐Ц┐┬Ц│≈Ц│╙Ц│▐Ц│╕Ц┌┌Ц┌┬Ц│└Ц─┌
 
-%description -l pl
-Pakiet chkconfig udostЙpnia proste narzЙdzia do zarz╠dzania
-zawarto╤ci╠ katalogСw w /etc/rc.d .
+%description -l pl.UTF-8
+Pakiet chkconfig udostд≥pnia proste narzд≥dzia do zarzд┘dzania
+zawartoе⌡ciд┘ katalogцЁw w /etc/rc.d .
 
-%description -l pt_BR
-Chkconfig provЙ uma ferramenta simples na linha de comando para manter
-a hierarquia de diretСrios /etc/rc.d, aliviando os administradores do
-sistema da manipulaГЦo direta de numerosos links simbСlicos.
+%description -l pt_BR.UTF-8
+Chkconfig provц╙ uma ferramenta simples na linha de comando para manter
+a hierarquia de diretцЁrios /etc/rc.d, aliviando os administradores do
+sistema da manipulaц╖цёo direta de numerosos links simbцЁlicos.
 
-%description -l ru
-chkconfig - это простая утилита командной строки, предназначенная для
-управления иерархией /etc/rc.d, освобождающая системного
-администратора от необходимости вручную создавать/удалять
-многочисленные симлинки в этом каталоге.
+%description -l ru.UTF-8
+chkconfig - я█я┌п╬ п©я─п╬я│я┌п╟я▐ я┐я┌п╦п╩п╦я┌п╟ п╨п╬п╪п╟п╫п╢п╫п╬п╧ я│я┌я─п╬п╨п╦, п©я─п╣п╢п╫п╟п╥п╫п╟я┤п╣п╫п╫п╟я▐ п╢п╩я▐
+я┐п©я─п╟п╡п╩п╣п╫п╦я▐ п╦п╣я─п╟я─я┘п╦п╣п╧ /etc/rc.d, п╬я│п╡п╬п╠п╬п╤п╢п╟я▌я┴п╟я▐ я│п╦я│я┌п╣п╪п╫п╬пЁп╬
+п╟п╢п╪п╦п╫п╦я│я┌я─п╟я┌п╬я─п╟ п╬я┌ п╫п╣п╬п╠я┘п╬п╢п╦п╪п╬я│я┌п╦ п╡я─я┐я┤п╫я┐я▌ я│п╬п╥п╢п╟п╡п╟я┌я▄/я┐п╢п╟п╩я▐я┌я▄
+п╪п╫п╬пЁп╬я┤п╦я│п╩п╣п╫п╫я▀п╣ я│п╦п╪п╩п╦п╫п╨п╦ п╡ я█я┌п╬п╪ п╨п╟я┌п╟п╩п╬пЁп╣.
 
-%description -l tr
-SaПladЩПЩ basit bir komut satЩrЩ programЩ yardЩmЩyla, /etc/rc.d
-dizinlerinin yapЩsЩyla ilgilenerek sistem yЖneticilerinin bu
-dizinlerde bulunan Гok sayЩdaki simgesel baПlantЩyЩ dЭzenleme iЧini
+%description -l tr.UTF-8
+Saд÷ladд╠д÷д╠ basit bir komut satд╠rд╠ programд╠ yardд╠mд╠yla, /etc/rc.d
+dizinlerinin yapд╠sд╠yla ilgilenerek sistem yц╤neticilerinin bu
+dizinlerde bulunan ц╖ok sayд╠daki simgesel baд÷lantд╠yд╠ dц╪zenleme iе÷ini
 hafifletir.
 
-%description -l uk
-chkconfig - це проста утил╕та командного рядка, призначена для
-керування ╕╓рарх╕╓ю /etc/rc.d, яка зв╕льня╓ системного адм╕н╕стратора
-в╕д необх╕дност╕ вручну створювати/видаляти численн╕ символьн╕
-посилання в цьому каталоз╕.
+%description -l uk.UTF-8
+chkconfig - я├п╣ п©я─п╬я│я┌п╟ я┐я┌п╦п╩я√я┌п╟ п╨п╬п╪п╟п╫п╢п╫п╬пЁп╬ я─я▐п╢п╨п╟, п©я─п╦п╥п╫п╟я┤п╣п╫п╟ п╢п╩я▐
+п╨п╣я─я┐п╡п╟п╫п╫я▐ я√я■я─п╟я─я┘я√я■я▌ /etc/rc.d, я▐п╨п╟ п╥п╡я√п╩я▄п╫я▐я■ я│п╦я│я┌п╣п╪п╫п╬пЁп╬ п╟п╢п╪я√п╫я√я│я┌я─п╟я┌п╬я─п╟
+п╡я√п╢ п╫п╣п╬п╠я┘я√п╢п╫п╬я│я┌я√ п╡я─я┐я┤п╫я┐ я│я┌п╡п╬я─я▌п╡п╟я┌п╦/п╡п╦п╢п╟п╩я▐я┌п╦ я┤п╦я│п╩п╣п╫п╫я√ я│п╦п╪п╡п╬п╩я▄п╫я√
+п©п╬я│п╦п╩п╟п╫п╫я▐ п╡ я├я▄п╬п╪я┐ п╨п╟я┌п╟п╩п╬п╥я√.
 
 %package -n ntsysv
 Summary:	Full-screen interface for configurating runlevel information
-Summary(es):	Interface con menЗs para configuraciСn de informaciСn de niveles de ejecuciСn
-Summary(ja):	/etc/rc.d Ё╛Ё╛аь╓Р╔А╔С╔ф╔й╔С╔╧╓╧╓К╔╥╔╧╔ф╔Ю╔д║╪╔К
-Summary(pl):	PeЁnoekranowy interfejs do wybierania dziaЁaj╠cych usЁug systemowych
-Summary(pt):	Interface com menus para configuraГЦo de informaГУes de nМveis de execuГЦo
-Summary(ru):	Полноэкранный интерфейс для настройки уровней исполнения
-Summary(uk):	Повноекранний ╕нтерфейс для налагодження р╕вн╕в виконання
+Summary(es.UTF-8):   Interface con menц╨s para configuraciцЁn de informaciцЁn de niveles de ejecuciцЁn
+Summary(ja.UTF-8):   /etc/rc.d И ▌И ▌Е╠╓Ц┌▓Ц┐║Ц┐ЁЦ┐├Ц┐┼Ц┐ЁЦ┌╧Ц│≥Ц┌▀Ц┌╥Ц┌╧Ц┐├Ц┐═Ц┐└Ц┐╪Ц┐╚
+Summary(pl.UTF-8):   Peе┌noekranowy interfejs do wybierania dziaе┌ajд┘cych usе┌ug systemowych
+Summary(pt.UTF-8):   Interface com menus para configuraц╖цёo de informaц╖ц╣es de nц╜veis de execuц╖цёo
+Summary(ru.UTF-8):   п÷п╬п╩п╫п╬я█п╨я─п╟п╫п╫я▀п╧ п╦п╫я┌п╣я─я└п╣п╧я│ п╢п╩я▐ п╫п╟я│я┌я─п╬п╧п╨п╦ я┐я─п╬п╡п╫п╣п╧ п╦я│п©п╬п╩п╫п╣п╫п╦я▐
+Summary(uk.UTF-8):   п÷п╬п╡п╫п╬п╣п╨я─п╟п╫п╫п╦п╧ я√п╫я┌п╣я─я└п╣п╧я│ п╢п╩я▐ п╫п╟п╩п╟пЁп╬п╢п╤п╣п╫п╫я▐ я─я√п╡п╫я√п╡ п╡п╦п╨п╬п╫п╟п╫п╫я▐
 Group:		Applications/System
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -109,39 +109,39 @@ ntsysv provides a full-screen tool for updating the /etc/rc.d
 directory hierarchy, which controls the starting and stopping of
 system services.
 
-%description -n ntsysv -l es
-ntsysv ofrece una herramienta basada en menЗs para actualizar la
-jerarquМa de directorios /etc/rc.d, que controla el arranque y el
+%description -n ntsysv -l es.UTF-8
+ntsysv ofrece una herramienta basada en menц╨s para actualizar la
+jerarquц╜a de directorios /etc/rc.d, que controla el arranque y el
 cierre de servicios del sistema.
 
-%description -n ntsysv -l ja
-ntsysv ╓о╔╥╔╧╔ф╔Ю╔╣║╪╔с╔╧╓н runlevel ╓н╬ПйС╓Р╔╒╔ц╔в╔г║╪╔х╓Д╦║╬з╓╧╓К║ё
-ntsysv ╓о ╔╥╔╧╔ф╔Ю╢имЩ╪т╓╛д╬юэ/etc/rc.d ╓нб©©Т╓н╔╥╔С╔э╔Й╔ц╔╞╔Й╔С╔╞╓Р
-аЮ╨Н╓╧╓К╓Ё╓х╓╚╓И╡РйЭ╓╧╓К║ё
+%description -n ntsysv -l ja.UTF-8
+ntsysv Ц│╞Ц┌╥Ц┌╧Ц┐├Ц┐═Ц┌╣Ц┐╪Ц┐⌠Ц┌╧Ц│╝ runlevel Ц│╝Ф┐┘Е═╠Ц┌▓Ц┌╒Ц┐┐Ц┐≈Ц┐┤Ц┐╪Ц┐┬Ц┌└Ф╓°Х╗╪Ц│≥Ц┌▀Ц─┌
+ntsysv Ц│╞ Ц┌╥Ц┌╧Ц┐├Ц┐═Г╝║Г░├Х─┘Ц│▄Г⌡╢Ф▌╔/etc/rc.d Ц│╝Е╓ Ф∙╟Ц│╝Ц┌╥Ц┐ЁЦ┐°Ц┐╙Ц┐┐Ц┌╞Ц┐╙Ц┐ЁЦ┌╞Ц┌▓
+Ф⌠█Д╫°Ц│≥Ц┌▀Ц│⌠Ц│╗Ц│▀Ц┌┴Х╖ёФ■╬Ц│≥Ц┌▀Ц─┌
 
-%description -n ntsysv -l pl
-ntsysv udostЙpnia peЁnoekranowe narzЙdzie do aktualizowania zawarto╤ci
-katalogСw w /etc/rc.d, ktСre kontroluj╠ wЁ╠czanie i wyЁ╠czanie
-poszczegСlnych serwisСw systemowych.
+%description -n ntsysv -l pl.UTF-8
+ntsysv udostд≥pnia peе┌noekranowe narzд≥dzie do aktualizowania zawartoе⌡ci
+katalogцЁw w /etc/rc.d, ktцЁre kontrolujд┘ wе┌д┘czanie i wyе┌д┘czanie
+poszczegцЁlnych serwisцЁw systemowych.
 
-%description -n ntsysv -l pt_BR
+%description -n ntsysv -l pt_BR.UTF-8
 O ntsysv fornece uma ferramenta baseada em menus para atualizar a
-hierarquia de diretСrios /etc/rc.d, que controla a inicializaГЦo e a
-terminaГЦo de serviГos do sistema.
+hierarquia de diretцЁrios /etc/rc.d, que controla a inicializaц╖цёo e a
+terminaц╖цёo de serviц╖os do sistema.
 
-%description -n ntsysv -l ru
-ntsysv - это полноэкранная утилита для обновления и изменения иерархии
-каталогов /etc/rc.d, которые управляют запуском и остановкой системных
-сервисов.
+%description -n ntsysv -l ru.UTF-8
+ntsysv - я█я┌п╬ п©п╬п╩п╫п╬я█п╨я─п╟п╫п╫п╟я▐ я┐я┌п╦п╩п╦я┌п╟ п╢п╩я▐ п╬п╠п╫п╬п╡п╩п╣п╫п╦я▐ п╦ п╦п╥п╪п╣п╫п╣п╫п╦я▐ п╦п╣я─п╟я─я┘п╦п╦
+п╨п╟я┌п╟п╩п╬пЁп╬п╡ /etc/rc.d, п╨п╬я┌п╬я─я▀п╣ я┐п©я─п╟п╡п╩я▐я▌я┌ п╥п╟п©я┐я│п╨п╬п╪ п╦ п╬я│я┌п╟п╫п╬п╡п╨п╬п╧ я│п╦я│я┌п╣п╪п╫я▀я┘
+я│п╣я─п╡п╦я│п╬п╡.
 
-%description -n ntsysv -l uk
-ntsysv - це повноекранна утил╕та для оновлення та зм╕ни ╕╓рарх╕╖
-каталог╕в /etc/rc.d, котр╕ керують запуском та зупинкою системних
-серв╕с╕в.
+%description -n ntsysv -l uk.UTF-8
+ntsysv - я├п╣ п©п╬п╡п╫п╬п╣п╨я─п╟п╫п╫п╟ я┐я┌п╦п╩я√я┌п╟ п╢п╩я▐ п╬п╫п╬п╡п╩п╣п╫п╫я▐ я┌п╟ п╥п╪я√п╫п╦ я√я■я─п╟я─я┘я√я≈
+п╨п╟я┌п╟п╩п╬пЁя√п╡ /etc/rc.d, п╨п╬я┌я─я√ п╨п╣я─я┐я▌я┌я▄ п╥п╟п©я┐я│п╨п╬п╪ я┌п╟ п╥я┐п©п╦п╫п╨п╬я▌ я│п╦я│я┌п╣п╪п╫п╦я┘
+я│п╣я─п╡я√я│я√п╡.
 
 %package -n alternatives
 Summary:	Maintain symbolic links determining default commands
-Summary(pl):	Utrzymywanie dowi╠zaЯ symbolicznych okre╤laj╠cych domy╤lne polecenia
+Summary(pl.UTF-8):   Utrzymywanie dowiд┘zaе└ symbolicznych okreе⌡lajд┘cych domyе⌡lne polecenia
 Group:		Applications/System
 
 %description -n alternatives
@@ -152,12 +152,12 @@ system. It was rewritten primarily to remove the dependence on perl;
 it is intended to be a drop in replacement for Debian's
 update-alternatives script.
 
-%description -n alternatives -l pl
-alternatives tworzy, usuwa, utrzymuje i wy╤wietla informacje o
-dowi╠zaniach symbolicznych obejmuj╠cych system alternatyw. System
+%description -n alternatives -l pl.UTF-8
+alternatives tworzy, usuwa, utrzymuje i wyе⌡wietla informacje o
+dowiд┘zaniach symbolicznych obejmujд┘cych system alternatyw. System
 alternatyw to reimplementacja systemu alternatyw ("alternatives") z
-Debiana. ZostaЁa napisana gЁСwnie w celu usuniЙcia zale©no╤ci od
-perla; ma byФ zamiennikiem skryptu update-alternatives z Debiana.
+Debiana. Zostaе┌a napisana gе┌цЁwnie w celu usuniд≥cia zaleе╪noе⌡ci od
+perla; ma byд┤ zamiennikiem skryptu update-alternatives z Debiana.
 
 %prep
 %setup -q
