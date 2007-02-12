@@ -3,15 +3,15 @@
 #		- update add,noxinet,pl.po-update patches
 #
 Summary:	Updates and queries runlevel information for system services
-Summary(de.UTF-8):   Aktualisiert runlevel-Informationen für Systemdienste und fragt diese ab
-Summary(es.UTF-8):   Herramienta para actualizar y listar servicios del sistema, por nivel de ejecución (runlevel)
-Summary(fr.UTF-8):   Mises à jour et interrogations des services systèmes
-Summary(ja.UTF-8):   /etc/rc.d の階層をメンテナンスするためのシステムツール
-Summary(pl.UTF-8):   Narzędzie do aktualizacji i odpytywania o informacje nt serwisów systemowych
-Summary(pt.UTF-8):   Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
-Summary(ru.UTF-8):   Системная утилита для управления иерархией /etc/rc.d
-Summary(tr.UTF-8):   Sistem servis bilgilerini sorgular ve yeniler
-Summary(uk.UTF-8):   Системна утиліта для керування ієрархією /etc/rc.d
+Summary(de.UTF-8):	Aktualisiert runlevel-Informationen für Systemdienste und fragt diese ab
+Summary(es.UTF-8):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecución (runlevel)
+Summary(fr.UTF-8):	Mises à jour et interrogations des services systèmes
+Summary(ja.UTF-8):	/etc/rc.d の階層をメンテナンスするためのシステムツール
+Summary(pl.UTF-8):	Narzędzie do aktualizacji i odpytywania o informacje nt serwisów systemowych
+Summary(pt.UTF-8):	Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
+Summary(ru.UTF-8):	Системная утилита для управления иерархией /etc/rc.d
+Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
+Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
 Version:	1.3.20
 Release:	0.4
@@ -95,12 +95,12 @@ chkconfig - це проста утиліта командного рядка, п
 
 %package -n ntsysv
 Summary:	Full-screen interface for configurating runlevel information
-Summary(es.UTF-8):   Interface con menús para configuración de información de niveles de ejecución
-Summary(ja.UTF-8):   /etc/rc.d 階階層をメンテナンスするシステムツール
-Summary(pl.UTF-8):   Pełnoekranowy interfejs do wybierania działających usług systemowych
-Summary(pt.UTF-8):   Interface com menus para configuração de informações de níveis de execução
-Summary(ru.UTF-8):   Полноэкранный интерфейс для настройки уровней исполнения
-Summary(uk.UTF-8):   Повноекранний інтерфейс для налагодження рівнів виконання
+Summary(es.UTF-8):	Interface con menús para configuración de información de niveles de ejecución
+Summary(ja.UTF-8):	/etc/rc.d 階階層をメンテナンスするシステムツール
+Summary(pl.UTF-8):	Pełnoekranowy interfejs do wybierania działających usług systemowych
+Summary(pt.UTF-8):	Interface com menus para configuração de informações de níveis de execução
+Summary(ru.UTF-8):	Полноэкранный интерфейс для настройки уровней исполнения
+Summary(uk.UTF-8):	Повноекранний інтерфейс для налагодження рівнів виконання
 Group:		Applications/System
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -141,7 +141,7 @@ ntsysv - це повноекранна утиліта для оновлення 
 
 %package -n alternatives
 Summary:	Maintain symbolic links determining default commands
-Summary(pl.UTF-8):   Utrzymywanie dowiązań symbolicznych określających domyślne polecenia
+Summary(pl.UTF-8):	Utrzymywanie dowiązań symbolicznych określających domyślne polecenia
 Group:		Applications/System
 
 %description -n alternatives
