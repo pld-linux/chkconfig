@@ -14,7 +14,7 @@ Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
 Version:	1.3.20
-Release:	0.4
+Release:	0.5
 Epoch:		1
 License:	GPL
 Group:		Applications/System
@@ -35,6 +35,8 @@ BuildRequires:	newt-devel
 BuildRequires:	popt-devel
 #BuildRequires:	slang-devel >= 2.0.0
 Requires:	rc-scripts
+# sr@Latn vs. sr@latin
+Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -198,6 +200,8 @@ install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
 	MANDIR=%{_mandir} \
 	instroot=$RPM_BUILD_ROOT
 
+[ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
+	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
 %find_lang %{name}
 
 cat <<EOF > $RPM_BUILD_ROOT/etc/env.d/CHKCONFIG_ON
