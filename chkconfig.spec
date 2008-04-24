@@ -1,4 +1,7 @@
 #
+# TODO:
+# - add patch needs fix to stop "chkconfig service off && chkconfig --add service" reactivating service
+#
 Summary:	Updates and queries runlevel information for system services
 Summary(de.UTF-8):	Aktualisiert runlevel-Informationen für Systemdienste und fragt diese ab
 Summary(es.UTF-8):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecución (runlevel)
