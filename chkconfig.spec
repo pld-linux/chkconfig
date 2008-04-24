@@ -160,8 +160,6 @@ perla; ma być zamiennikiem skryptu update-alternatives z Debiana.
 %patch3 -p1
 %patch4 -p1
 
-mv -f po/{sr,sr@Latn}.po
-
 %build
 %{__make} \
 	CC="%{__cc}" \
@@ -174,9 +172,6 @@ install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
 %{__make} install \
 	MANDIR=%{_mandir} \
 	DESTDIR=$RPM_BUILD_ROOT
-
-[ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
-	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
 
 %find_lang %{name}
 
