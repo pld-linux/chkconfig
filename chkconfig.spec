@@ -13,27 +13,23 @@ Summary(ru.UTF-8):	Системная утилита для управления
 Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
-Version:	1.3.20
-Release:	0.5
+Version:	1.3.37
+Release:	0.1
 Epoch:		1
-License:	GPL
+License:	GPL v2
 Group:		Applications/System
 Source0:	%{name}-%{version}.tar.gz
-# Source0-md5:	a993765a3fcd0c0cd891e16022e35d13
-#Patch0:		%{name}-add.patch
-#Patch1:		%{name}-noxinet.patch
-#Patch2:		%{name}-pl.po-update.patch
-Patch5:		%{name}-more_readable.patch
-Patch6:		%{name}-rc.d.patch
-Patch7:		%{name}-nostatic.patch
-Patch8:		%{name}-optflags.patch
-Patch9:		%{name}-pl.patch
-#BuildRequires:	autoconf
-#BuildRequires:	automake
+# Source0-md5:	cca7223101b46df7982ea18b9518dc9a
+Patch0:		%{name}-add.patch
+Patch1:		%{name}-noxinet.patch
+Patch2:		%{name}-pl.po-update.patch
+Patch3:		%{name}-more_readable.patch
+Patch4:		%{name}-rc.d.patch
+Patch5:		%{name}-optflags.patch
+Patch6:		%{name}-pl.patch
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
-#BuildRequires:	slang-devel >= 2.0.0
 Requires:	rc-scripts
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
@@ -163,31 +159,17 @@ perla; ma być zamiennikiem skryptu update-alternatives z Debiana.
 
 %prep
 %setup -q
-#%patch0 -p1
-#%patch1 -p1
-#%patch2 -p1
-#%patch3 -p1
-#%patch4 -p1
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
 
-#mv -f po/{eu_ES,eu}.po
-mv -f po/{no,nb}.po
 mv -f po/{sr,sr@Latn}.po
-#mv -f po/{zh,zh_TW}.po
-#mv -f po/{zh_CN.GB2312,zh_CN}.po
 
 %build
-%if 0
-%{__aclocal}
-%{__autoconf}
-%{__automake}
-%configure \
-	--with-max-level=6
-%endif
 %{__make} \
 	CC="%{__cc}" \
 	OPTFLAGS="%{rpmcflags}"
@@ -198,7 +180,7 @@ install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
 
 %{__make} install \
 	MANDIR=%{_mandir} \
-	instroot=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT
 
 [ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
 	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
@@ -234,3 +216,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/update-alternatives
 %dir /var/lib/alternatives
 %{_mandir}/man8/alternatives.8*
+%{_mandir}/man8/update-alternatives.8*
