@@ -1,7 +1,4 @@
 #
-# TODO:
-#		- update add,noxinet,pl.po-update patches
-#
 Summary:	Updates and queries runlevel information for system services
 Summary(de.UTF-8):	Aktualisiert runlevel-Informationen für Systemdienste und fragt diese ab
 Summary(es.UTF-8):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecución (runlevel)
@@ -22,11 +19,9 @@ Source0:	%{name}-%{version}.tar.gz
 # Source0-md5:	cca7223101b46df7982ea18b9518dc9a
 Patch0:		%{name}-add.patch
 Patch1:		%{name}-noxinet.patch
-Patch2:		%{name}-pl.po-update.patch
-Patch3:		%{name}-more_readable.patch
-Patch4:		%{name}-rc.d.patch
-Patch5:		%{name}-optflags.patch
-Patch6:		%{name}-pl.patch
+Patch2:		%{name}-rc.d.patch
+Patch3:		%{name}-optflags.patch
+Patch4:		%{name}-pl.patch
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
@@ -164,8 +159,6 @@ perla; ma być zamiennikiem skryptu update-alternatives z Debiana.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
-%patch6 -p1
 
 mv -f po/{sr,sr@Latn}.po
 
@@ -184,6 +177,7 @@ install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
 
 [ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
 	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
+
 %find_lang %{name}
 
 cat <<EOF > $RPM_BUILD_ROOT/etc/env.d/CHKCONFIG_ON
