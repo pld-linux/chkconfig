@@ -1,19 +1,19 @@
-diff -Nru chkconfig-1.2.24h.orig/chkconfig.c chkconfig-1.2.24h/chkconfig.c
---- chkconfig-1.2.24h.orig/chkconfig.c	Wed Jul 17 20:10:55 2002
-+++ chkconfig-1.2.24h/chkconfig.c	Wed Jan 22 11:56:32 2003
-@@ -31,6 +31,7 @@
- #include <sys/stat.h>
+diff -urN chkconfig-1.3.37.org/chkconfig.c chkconfig-1.3.37/chkconfig.c
+--- chkconfig-1.3.37.org/chkconfig.c	2007-11-08 22:28:34.000000000 +0100
++++ chkconfig-1.3.37/chkconfig.c	2008-04-24 09:27:21.427392171 +0200
+@@ -27,6 +27,7 @@
  #include <unistd.h>
+ 
  static char *progname;
 +extern int addItem;
- struct config conf;		// used by leveldb.c
  
  #define _(String) gettext((String)) 
-@@ -94,12 +95,10 @@
-     if (s.type == TYPE_XINETD) return 0;
-     
-     for (i = 0; i <= conf.maxlevel; i++) {
--	if (!isConfigured(name, i)) {
+ 
+@@ -243,12 +244,10 @@
+ 		frobDependencies(&s);
+     else
+     for (i = 0; i < 7; i++) {
+-	if (!isConfigured(name, i, NULL, NULL)) {
  	    if ((1 << i) & s.levels)
  		doSetService(s, i, 1);
  	    else
@@ -22,19 +22,19 @@ diff -Nru chkconfig-1.2.24h.orig/chkconfig.c chkconfig-1.2.24h/chkconfig.c
      }
  
      return 0;
-@@ -275,7 +274,7 @@
- 
+@@ -558,7 +557,7 @@
+ }
  
  int main(int argc, char ** argv) {
--    int listItem = 0, addItem = 0, delItem = 0;
-+    int listItem = 0, delItem = 0;
+-    int listItem = 0, addItem = 0, delItem = 0, overrideItem = 0;
++    int listItem = 0, delItem = 0, overrideItem = 0;
      int rc, i, x;
+     int LSB = 0;
      char * levels = NULL;
-     int help=0, version=0;
-diff -Nru chkconfig-1.2.24h.orig/leveldb.c chkconfig-1.2.24h/leveldb.c
---- chkconfig-1.2.24h.orig/leveldb.c	Fri Apr 19 03:15:55 2002
-+++ chkconfig-1.2.24h/leveldb.c	Wed Jan 22 12:04:47 2003
-@@ -11,6 +11,10 @@
+diff -urN chkconfig-1.3.37.org/leveldb.c chkconfig-1.3.37/leveldb.c
+--- chkconfig-1.3.37.org/leveldb.c	2007-08-03 19:57:56.000000000 +0200
++++ chkconfig-1.3.37/leveldb.c	2008-04-24 09:27:34.124665839 +0200
+@@ -26,6 +26,10 @@
  #include <stdio.h>
  #include <string.h>
  #include <unistd.h>
@@ -44,34 +44,28 @@ diff -Nru chkconfig-1.2.24h.orig/leveldb.c chkconfig-1.2.24h/leveldb.c
 +int addItem = 0;
  
  /* Changes
-    2001-12-03 - Petter Reinholdtsen <pere@hungry.com>
-@@ -231,6 +235,9 @@
-     char overflow;
-     char levelbuf[20];
-     char * english_desc = NULL;
-+    DIR *dir;
-+    struct dirent *dirent;
-+    int i;
- 
-     sprintf(filename, "%s/%s", conf.initdir, name);
- 
-@@ -345,6 +352,21 @@
- 
-     serv.name = strdup(name);
+    1998-09-22 - Arnaldo Carvalho de Melo <acme@conectiva.com.br>
+@@ -563,6 +567,25 @@
+ 	    serv.provides[1] = NULL;
+     }
  
 +    if (addItem) {
-+	strcpy(levelbuf,"/etc/rc.d/rc0.d");
-+	for(i=0;i<7;i++,levelbuf[12]++) {
-+	    dir=opendir(levelbuf);
-+	    if (!dir) return 1;
-+	    while ((dirent=readdir(dir))) {
-+		if (strlen(dirent->d_name)<4) continue;
-+		if (strcmp(dirent->d_name+3,name)) continue;
-+		if (*dirent->d_name=='K') serv.levels &= ~(1<<i);
-+		else if (*dirent->d_name=='S') serv.levels |= 1<<i;
++	    DIR *dir;
++	    struct dirent *dirent;
++	    int i;
++
++	    strcpy(levelbuf,"/etc/rc.d/rc0.d");
++	    for(i=0;i<7;i++,levelbuf[12]++) {
++		    dir=opendir(levelbuf);
++		    if (!dir) return 1;
++		    while ((dirent=readdir(dir))) {
++			    if (strlen(dirent->d_name)<4) continue;
++			    if (strcmp(dirent->d_name+3,name)) continue;
++			    if (*dirent->d_name=='K') serv.levels &= ~(1<<i);
++			    else if (*dirent->d_name=='S') serv.levels |= 1<<i;
++		    }
++		    closedir(dir);
 +	    }
-+	    closedir(dir);
-+	}
 +    }
 +
      *service = serv;
