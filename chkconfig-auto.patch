@@ -1,0 +1,10 @@
+--- chkconfig-1.2.24h/configure.in~	2008-05-07 19:55:33.000000000 +0300
++++ chkconfig-1.2.24h/configure.in	2008-05-07 20:00:15.088229894 +0300
+@@ -19,6 +19,7 @@
+ AC_PROG_LN_S
+ AC_PROG_MAKE_SET
+ 
++AC_GNU_SOURCE
+ AM_GNU_GETTEXT
+ 
+ dnl Checks for libraries.
