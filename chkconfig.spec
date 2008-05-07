@@ -10,7 +10,7 @@ Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
 Version:	1.2.24h
-Release:	15
+Release:	16
 Epoch:		1
 License:	GPL
 Group:		Applications/System
@@ -22,6 +22,7 @@ Patch2:		%{name}-pl.po-update.patch
 Patch3:		%{name}-ponames.patch
 Patch4:		%{name}-link.patch
 Patch5:		%{name}-more_readable.patch
+Patch6:		%{name}-auto.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -142,6 +143,7 @@ ntsysv - це повноекранна утиліта для оновлення 
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 mv -f po/{eu_ES,eu}.po
 mv -f po/{no,nb}.po
@@ -150,7 +152,9 @@ mv -f po/{zh,zh_TW}.po
 mv -f po/{zh_CN.GB2312,zh_CN}.po
 
 %build
+cp -f /usr/share/gettext/config.rpath .
 %{__aclocal}
+%{__autoheader}
 %{__autoconf}
 %{__automake}
 %configure \
