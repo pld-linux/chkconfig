@@ -1,0 +1,201 @@
+Summary:	Updates and queries runlevel information for system services
+Summary(de.UTF-8):	Aktualisiert runlevel-Informationen für Systemdienste und fragt diese ab
+Summary(es.UTF-8):	Herramienta para actualizar y listar servicios del sistema, por nivel de ejecución (runlevel)
+Summary(fr.UTF-8):	Mises à jour et interrogations des services systèmes
+Summary(ja.UTF-8):	/etc/rc.d の階層をメンテナンスするためのシステムツール
+Summary(pl.UTF-8):	Narzędzie do aktualizacji i odpytywania o informacje nt serwisów systemowych
+Summary(pt.UTF-8):	Ferramenta para atualizar e listar serviços do sistema, pelo nível de execução (runlevel)
+Summary(ru.UTF-8):	Системная утилита для управления иерархией /etc/rc.d
+Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
+Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
+Name:		chkconfig
+Version:	1.2.24h
+Release:	17
+Epoch:		2
+License:	GPL
+Group:		Applications/System
+Source0:	http://www.buttsoft.com/~thumper/downloads/chkconfig/%{name}-%{version}.tar.gz
+# Source0-md5:	032eae68329d07d0844775486ac74668
+Patch0:		%{name}-add.patch
+Patch1:		%{name}-noxinet.patch
+Patch2:		%{name}-pl.po-update.patch
+Patch3:		%{name}-ponames.patch
+Patch4:		%{name}-link.patch
+Patch5:		%{name}-more_readable.patch
+Patch6:		%{name}-auto.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	gettext-devel
+BuildRequires:	newt-devel
+BuildRequires:	popt-devel
+BuildRequires:	rpmbuild(macros) >= 1.318
+BuildRequires:	slang-devel >= 2.0.0
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%description
+chkconfig provides a simple command-line tool for maintaining the
+/etc/rc.d directory hierarchy by relieving system administrators of
+directly manipulating the numerous symbolic links in that directory.
+
+%description -l de.UTF-8
+chkconfig bietet ein einfaches Befehlszeilen-Tool zum Verwalten der
+Verzeichnishierarchie /etc/rc.d, indem es dem Systemadministrator das
+direkte Bearbeiten der zahlreichen symbolischen Verknüpfungen in
+diesem Verzeichnis abnimmt.
+
+%description -l es.UTF-8
+Chkconfig provee una herramienta sencilla en la línea de comando para
+mantener la jerarquía de directorios /etc/rc.d, atenuando los
+administradores del sistema del manejo directo de numerosos links
+simbólicos.
+
+%description -l fr.UTF-8
+chkconfig offre un outil simple en ligne de commande pour maintenir la
+hiérarchie du répertoire /etc/rc.d tout en évitant aux administrateurs
+système de manipuler les différents liens symbolique de ce répertoire.
+
+%description -l ja.UTF-8
+chkconfig
+は基本的なシステムユーティリティである。これはシステムサービスの
+runlevel の情報をアップデートや検証する。chkconfig は /etc/rc.d の
+多数のシンボリックリンクを操作しますので、システム管理者は手動で
+シンボリックリンクをたびたびエディットしなくてもよい。
+
+%description -l pl.UTF-8
+Pakiet chkconfig udostępnia proste narzędzia do zarządzania
+zawartością katalogów w /etc/rc.d .
+
+%description -l pt_BR.UTF-8
+Chkconfig provê uma ferramenta simples na linha de comando para manter
+a hierarquia de diretórios /etc/rc.d, aliviando os administradores do
+sistema da manipulação direta de numerosos links simbólicos.
+
+%description -l ru.UTF-8
+chkconfig - это простая утилита командной строки, предназначенная для
+управления иерархией /etc/rc.d, освобождающая системного
+администратора от необходимости вручную создавать/удалять
+многочисленные симлинки в этом каталоге.
+
+%description -l tr.UTF-8
+Sağladığı basit bir komut satırı programı yardımıyla, /etc/rc.d
+dizinlerinin yapısıyla ilgilenerek sistem yöneticilerinin bu
+dizinlerde bulunan çok sayıdaki simgesel bağlantıyı düzenleme işini
+hafifletir.
+
+%description -l uk.UTF-8
+chkconfig - це проста утиліта командного рядка, призначена для
+керування ієрархією /etc/rc.d, яка звільняє системного адміністратора
+від необхідності вручну створювати/видаляти численні символьні
+посилання в цьому каталозі.
+
+%package -n ntsysv
+Summary:	Full-screen interface for configurating runlevel information
+Summary(es.UTF-8):	Interface con menús para configuración de información de niveles de ejecución
+Summary(ja.UTF-8):	/etc/rc.d 階階層をメンテナンスするシステムツール
+Summary(pl.UTF-8):	Pełnoekranowy interfejs do wybierania działających usług systemowych
+Summary(pt.UTF-8):	Interface com menus para configuração de informações de níveis de execução
+Summary(ru.UTF-8):	Полноэкранный интерфейс для настройки уровней исполнения
+Summary(uk.UTF-8):	Повноекранний інтерфейс для налагодження рівнів виконання
+Group:		Applications/System
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description -n ntsysv
+ntsysv provides a full-screen tool for updating the /etc/rc.d
+directory hierarchy, which controls the starting and stopping of
+system services.
+
+%description -n ntsysv -l es.UTF-8
+ntsysv ofrece una herramienta basada en menús para actualizar la
+jerarquía de directorios /etc/rc.d, que controla el arranque y el
+cierre de servicios del sistema.
+
+%description -n ntsysv -l ja.UTF-8
+ntsysv はシステムサービスの runlevel の情報をアップデートや検証する。
+ntsysv は システム管理者が直接/etc/rc.d の多数のシンボリックリンクを
+操作することから解放する。
+
+%description -n ntsysv -l pl.UTF-8
+ntsysv udostępnia pełnoekranowe narzędzie do aktualizowania zawartości
+katalogów w /etc/rc.d, które kontrolują włączanie i wyłączanie
+poszczególnych serwisów systemowych.
+
+%description -n ntsysv -l pt_BR.UTF-8
+O ntsysv fornece uma ferramenta baseada em menus para atualizar a
+hierarquia de diretórios /etc/rc.d, que controla a inicialização e a
+terminação de serviços do sistema.
+
+%description -n ntsysv -l ru.UTF-8
+ntsysv - это полноэкранная утилита для обновления и изменения иерархии
+каталогов /etc/rc.d, которые управляют запуском и остановкой системных
+сервисов.
+
+%description -n ntsysv -l uk.UTF-8
+ntsysv - це повноекранна утиліта для оновлення та зміни ієрархії
+каталогів /etc/rc.d, котрі керують запуском та зупинкою системних
+сервісів.
+
+%prep
+%setup -q
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+
+mv -f po/{eu_ES,eu}.po
+mv -f po/{no,nb}.po
+mv -f po/{sr,sr@Latn}.po
+mv -f po/{zh,zh_TW}.po
+mv -f po/{zh_CN.GB2312,zh_CN}.po
+
+%build
+cp -f /usr/share/gettext/config.rpath .
+%{__aclocal}
+%{__autoheader}
+%{__autoconf}
+%{__automake}
+%configure \
+	--with-max-level=6
+%{__make}
+
+%install
+rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
+
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+mv $RPM_BUILD_ROOT%{_sbindir}/chkconfig $RPM_BUILD_ROOT/sbin
+
+%find_lang %{name}
+
+cat <<EOF > $RPM_BUILD_ROOT/etc/env.d/CHKCONFIG_ON
+# display custom string instead of "on" (or its translation)
+#CHKCONFIG_ON="*****"
+EOF
+cat <<EOF > $RPM_BUILD_ROOT/etc/env.d/CHKCONFIG_OFF
+# display custom string instead of "off" (or its translation)
+#CHKCONFIG_OFF="-----"
+EOF
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post
+%env_update
+
+%postun
+%env_update
+
+%files -f %{name}.lang
+%defattr(644,root,root,755)
+%attr(755,root,root) /sbin/chkconfig
+%{_mandir}/man8/chkconfig.8*
+%config(noreplace,missingok) %verify(not md5 mtime size) /etc/env.d/*
+
+%files -n ntsysv
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_sbindir}/ntsysv
+%{_mandir}/man8/ntsysv.8*
