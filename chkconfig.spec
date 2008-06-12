@@ -25,6 +25,7 @@ Patch1:		%{name}-noxinet.patch
 Patch2:		%{name}-rc.d.patch
 Patch3:		%{name}-optflags.patch
 Patch4:		%{name}-pl.patch
+BuildRequires:	FIXME-TODO
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
