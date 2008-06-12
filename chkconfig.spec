@@ -10,8 +10,8 @@ Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
 Version:	1.2.24h
-Release:	16
-Epoch:		1
+Release:	17
+Epoch:		2
 License:	GPL
 Group:		Applications/System
 Source0:	http://www.buttsoft.com/~thumper/downloads/chkconfig/%{name}-%{version}.tar.gz
@@ -30,7 +30,6 @@ BuildRequires:	newt-devel
 BuildRequires:	popt-devel
 BuildRequires:	rpmbuild(macros) >= 1.318
 BuildRequires:	slang-devel >= 2.0.0
-Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
