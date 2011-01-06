@@ -29,6 +29,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
 BuildRequires:	rpmbuild(macros) >= 1.318
+BuildRequires:	sed >= 4.0
 BuildRequires:	slang-devel >= 2.0.0
 Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -145,6 +146,8 @@ ntsysv - це повноекранна утиліта для оновлення 
 %patch5 -p1
 %patch6 -p1
 
+sed '41s/chkconfig/%s/' -i po/sr.po
+
 mv -f po/{eu_ES,eu}.po
 mv -f po/{no,nb}.po
 mv -f po/{sr,sr@Latn}.po
@@ -152,7 +155,7 @@ mv -f po/{zh,zh_TW}.po
 mv -f po/{zh_CN.GB2312,zh_CN}.po
 
 %build
-cp -f /usr/share/gettext/config.rpath .
+%{__gettextize}
 %{__aclocal}
 %{__autoheader}
 %{__autoconf}
