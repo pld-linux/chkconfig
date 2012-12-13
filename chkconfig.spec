@@ -161,7 +161,7 @@ Perla; ma być zamiennikiem skryptu update-alternatives z Debiana.
 #%patch1 -p1 NEEDS UPDATE
 %patch2 -p1
 %patch3 -p1
-#%patch4 -p1 NEEDS UPDATE
+%patch4 -p1
 
 %build
 %{__make} \

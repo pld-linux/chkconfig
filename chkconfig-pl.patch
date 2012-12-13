@@ -2,15 +2,15 @@
 +++ chkconfig-1.3.20/po/pl.po	2007-01-15 15:43:08.000000000 +0100
 @@ -80,11 +80,11 @@
  
- #: ../chkconfig.c:350 ../chkconfig.c:355 ../chkconfig.c:499
+ #: ../chkconfig.c:391 ../chkconfig.c:396 ../chkconfig.c:517
  msgid "on"
 -msgstr "włączone"
 +msgstr "wł"
  
- #: ../chkconfig.c:350 ../chkconfig.c:355 ../chkconfig.c:499
+ #: ../chkconfig.c:391 ../chkconfig.c:396 ../chkconfig.c:517
  msgid "off"
 -msgstr "wyłączone"
 +msgstr "wył"
  
- #: ../chkconfig.c:428 ../ntsysv.c:178 ../ntsysv.c:205 ../ntsysv.c:243
+ #: ../chkconfig.c:479
  #, c-format
