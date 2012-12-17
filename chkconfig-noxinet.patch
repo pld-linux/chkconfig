@@ -1,40 +1,52 @@
---- chkconfig-1.3.37.org/chkconfig.c	2007-11-08 22:28:34.000000000 +0100
-+++ chkconfig-1.3.37/chkconfig.c	2008-04-24 09:30:17.709152778 +0200
-@@ -68,8 +68,6 @@
- 	readServiceError(rc, name);
- 	return 1;
-     }
--    if (s.type == TYPE_XINETD) return 0;
+diff -ur chkconfig-1.3.58/chkconfig.8 chkconfig-1.3.58-noxinet/chkconfig.8
+--- chkconfig-1.3.58/chkconfig.8	2012-02-10 20:37:38.000000000 +0100
++++ chkconfig-1.3.58-noxinet/chkconfig.8	2012-12-17 15:22:31.472800234 +0100
+@@ -63,16 +63,6 @@
+ an already-started service, and will not re-stop a service that is
+ not running.
+ 
+-\fBchkconfig\fR also can manage xinetd scripts via the means
+-of xinetd.d configuration files. Note that only the
+-\fBon\fR, \fBoff\fR, and \fB-\-list\fR commands are supported
+-for xinetd.d services.
 -
- 
-     if (!findServiceEntries(name, level, &globres)) {
- 	    for (i = 0; i < globres.gl_pathc; i++)
-@@ -88,7 +86,6 @@
+-\fBchkconfig\fR supports a \fB-\-type\fR argument to limit actions to only
+-a specific type of services, in the case where services of either type may
+-share a name. Possible values for \fItype\fR are \fIsysv\fR
+-and \fIxinetd\fR.
+-
+ .SH OPTIONS
+ .TP
+ \fB-\-level \fIlevels\fR
+diff -ur chkconfig-1.3.58/chkconfig.c chkconfig-1.3.58-noxinet/chkconfig.c
+--- chkconfig-1.3.58/chkconfig.c	2012-12-17 15:22:52.589660844 +0100
++++ chkconfig-1.3.58-noxinet/chkconfig.c	2012-12-17 15:17:47.586865799 +0100
+@@ -95,7 +95,6 @@
  	readServiceError(rc, name);
  	return 1;
      }
 -    if (s.type == TYPE_XINETD) return 0;
  
-     for (level = 0; level < 7; level++) {
- 	    if (!findServiceEntries(name, level, &globres)) {
-@@ -238,7 +235,6 @@
+     checkRoot();
+ 
+@@ -285,7 +284,6 @@
  	return 1;
      }
- 	
+ 
 -    if (s.type == TYPE_XINETD) return 0;
-     if (s.isLSB)
- 		frobDependencies(&s);
-     else
-@@ -269,8 +265,6 @@
-     if ((rc = readServiceDifferences(name, &s, &o, 0))) {
+     checkRoot();
+ 
+     if (s.isLSB) {
+@@ -324,8 +322,6 @@
  	return 0;
      }
--	
+ 
 -    if (s.type == TYPE_XINETD) return 0;
+-
+     checkRoot();
  
      if ((s.levels == o.levels) &&
-         (s.kPriority == o.kPriority) &&
-@@ -351,10 +345,6 @@
+@@ -403,10 +399,6 @@
      }
  
      printf("%-15s", s.name);
@@ -45,21 +57,18 @@
  
      for (i = 0; i < 7; i++) {
  	printf("\t%d:%s", i, isOn(s.name, i) ? _("on") : _("off"));
-@@ -364,32 +354,10 @@
-     return 0;
+@@ -436,29 +428,10 @@
  }
  
+ 
 -static int isXinetdEnabled() {
--	int i;
 -	struct service s;
--	
--	if (readServiceInfo("xinetd", &s, 0)) {
+-
+-	if (readServiceInfo("xinetd", TYPE_INIT_D, &s, 0)) {
 -		return 0;
 -	}
--	for (i = 0; i < 7; i++) {
--		if (isOn("xinetd", i))
--		  return 1;
--	}
+-	if (s.currentLevels)
+-		return 1;
 -	return 0;
 -}
 -
@@ -75,16 +84,17 @@
 -}
 -
 -
- 
- static int listService(char * item) {
+ static int listService(char * item, int type) {
      DIR * dir;
-@@ -459,53 +427,6 @@
- 	
-     closedir(dir);
- 	
--    if (isXinetdEnabled()) {
+     struct dirent * ent;
+@@ -484,54 +457,6 @@
+ 	    }
+         }
+     }
+-
+-    if (isXinetdEnabled() && type & TYPE_XINETD) {
 -	    struct service *s, *t;
--	  
+-
 -	    printf("\n");
 -	    printf(_("xinetd based services:\n"));
 -	    if (!(dir = opendir(XINETDDIR))) {
@@ -95,7 +105,7 @@
 -	    numServices = 0;
 -	    numServicesAlloced = 10;
 -	    s = malloc(sizeof (*s) * numServicesAlloced);
--	    
+-
 -	    while ((ent = readdir(dir))) {
 -		    const char *dn;
 -
@@ -110,15 +120,15 @@
 -		    dn = ent->d_name + strlen(ent->d_name) - 1;
 -		    if (*dn == '~' || *dn == ',')
 -		      continue;
--	    
+-
 -		    if (numServices == numServicesAlloced) {
 -			    numServicesAlloced += 10;
 -			    s = realloc(s, numServicesAlloced * sizeof (*s));
 -		    }
--		    if (readXinetdServiceInfo(ent->d_name, s + numServices, 0) != -1)
+-		    if (readXinetdServiceInfo(ent->d_name, s + numServices) != -1)
 -			    numServices ++;
 -	    }
--	    
+-
 -	    qsort(s, numServices, sizeof(*s), xinetdNameCmp);
 -	    t = s;
 -	    for (i = 0; i < numServices; i++, s++) {
@@ -132,10 +142,10 @@
      return 0;
  }
  
-@@ -547,11 +468,6 @@
- 		    rc |= doSetService(s, i, what);
- 	    }
- 	    return rc;
+@@ -592,11 +517,6 @@
+             reloadSystemd();
+ 
+             return rc;
 -    } else if (s.type == TYPE_XINETD) {
 -	    if (setXinetdService(s, state)) {
 -		    return 1;
@@ -144,8 +154,33 @@
      }
  
      return 0;
-@@ -682,13 +598,7 @@
- 	    rc = readServiceInfo(name, &s, 0);
+@@ -604,9 +524,6 @@
+ 
+ void forwardSystemd(const char *name, int type, const char *verb) {
+ 
+-    if (type == TYPE_XINETD)
+-        return;
+-
+     if (!systemdIsInit())
+ 	return;
+ 
+@@ -683,12 +600,10 @@
+     if (help) usage();
+ 
+     if (typeString) {
+-	if (!strcmp(typeString, "xinetd"))
+-	    type = TYPE_XINETD;
+-	else if (!strcmp(typeString, "sysv"))
++	if (!strcmp(typeString, "sysv"))
+ 	    type = TYPE_INIT_D;
+ 	else {
+-	    fprintf(stderr, _("--type must be 'sysv' or 'xinetd'\n"));
++	    fprintf(stderr, _("--type must be 'sysv'\n"));
+ 	    exit(1);
+ 	}
+     }
+@@ -789,16 +704,9 @@
+ 	    rc = readServiceInfo(name, type, &s, 0);
  	    if (rc)
  	       return 1;
 -	    if (s.type == TYPE_XINETD) {
@@ -153,50 +188,50 @@
 -		       return !s.levels;
 -	       else
 -		       return 1;
--	    } else	
--	       return isOn(name, level) ? 0 : 1;
-+	    return isOn(name, level) ? 0 : 1;
- 	} else if (!strcmp(state, "on"))
- 	    return setService(name, where, 1);
- 	else if (!strcmp(state, "off"))
-diff -urN chkconfig-1.3.37.org/leveldb.c chkconfig-1.3.37/leveldb.c
---- chkconfig-1.3.37.org/leveldb.c	2007-08-03 19:57:56.000000000 +0200
-+++ chkconfig-1.3.37/leveldb.c	2008-04-24 09:34:20.447423719 +0200
-@@ -149,101 +149,6 @@
+-	    } else {
+                if (level == -1)
+                    level = currentRunlevel();
+ 	       return s.currentLevels & (1 << level) ? 0 : 1;
+-	    }
+ 	} else if (!strcmp(state, "on")) {
+ 	    if (!noRedirectItem) {
+ 		forwardSystemd(name, type, "enable");
+diff -ur chkconfig-1.3.58/leveldb.c chkconfig-1.3.58-noxinet/leveldb.c
+--- chkconfig-1.3.58/leveldb.c	2012-12-17 15:22:52.589660844 +0100
++++ chkconfig-1.3.58-noxinet/leveldb.c	2012-12-17 15:20:13.621535628 +0100
+@@ -154,107 +154,6 @@
  	return 0;
  }
  
--int readXinetdServiceInfo(char *name, struct service * service, int honorHide) {
--	char * filename = alloca(strlen(name) + strlen(XINETDDIR) + 50);
+-int readXinetdServiceInfo(char *name, struct service * service) {
+-	char * filename;
 -	int fd;
--	struct service serv = { 
+-	struct service serv = {
 -			name: NULL,
 -			levels: -1,
--			kPriority: -1,
--			sPriority: -1, 
--			desc: NULL, 
--			startDeps: NULL, 
+-			kPriority: 100,
+-			sPriority: -1,
+-			desc: NULL,
+-			startDeps: NULL,
 -			stopDeps: NULL,
+-			softStartDeps: NULL,
+-			softStopDeps: NULL,
 -		        provides: NULL,
--			type: TYPE_XINETD, 
--			isLSB: 0, 
+-			type: TYPE_XINETD,
+-			isLSB: 0,
 -			enabled: -1
 -	};
 -	struct stat sb;
--	char * buf, *ptr;
+-	char * buf = NULL, *ptr;
 -	char * eng_desc = NULL, *start;
--	
--	snprintf(filename, strlen(name)+strlen(XINETDDIR)+50, XINETDDIR "/%s", name);
--	
--	if ((fd = open(filename, O_RDONLY)) < 0) return -1;
+-
+-	asprintf(&filename, XINETDDIR "/%s", name);
+-
+-	if ((fd = open(filename, O_RDONLY)) < 0) goto out_err;
 -	fstat(fd,&sb);
--	if (! S_ISREG(sb.st_mode)) return -1;
+-	if (! S_ISREG(sb.st_mode)) goto out_err;
 -	buf = malloc(sb.st_size+1);
--	if (read(fd,buf,sb.st_size)!=sb.st_size) {
--		close(fd);
--		free(buf);
--		return -1;
--	}
+-	if (read(fd,buf,sb.st_size)!=sb.st_size) goto out_err;
 -	close(fd);
 -        serv.name = strdup(name);
 -	buf[sb.st_size] = '\0';
@@ -223,20 +258,22 @@ diff -urN chkconfig-1.3.37.org/leveldb.c chkconfig-1.3.37/leveldb.c
 -				if (!serv.desc) {
 -					if (eng_desc)
 -					  serv.desc = eng_desc;
+-                                        else
+-                                          serv.desc = strdup(name);
 -				} else if (eng_desc)
 -					  free (eng_desc);
 -			}
 -			if (ptr) {
 -				*ptr = '\0';
 -				ptr++;
--			} 
+-			}
 -			buf = ptr;
 -			continue;
 -		}
 -		while (isspace(*buf) && buf < ptr) buf++;
 -		if (!strncmp(buf,"disable", 7)) {
 -			buf = strstr(buf,"=");
--			if (buf) 
+-			if (buf)
 -			  do {
 -				  buf++;
 -			  } while(isspace(*buf));
@@ -254,36 +291,84 @@ diff -urN chkconfig-1.3.37.org/leveldb.c chkconfig-1.3.37/leveldb.c
 -		if (ptr) {
 -			*ptr = '\0';
 -			ptr++;
--		} 
+-		}
 -		buf = ptr;
 -	}
 -	*service = serv;
 -	return 0;
+-out_err:
+-        if (fd >= 0)
+-            close(fd);
+-        free(buf);
+-        free(filename);
+-        return -1;
 -}
 -
- int readServiceInfo(char * name, struct service * service, int honorHide) {
-     char * filename = alloca(strlen(name) + strlen(RUNLEVELS) + 50);
-     int fd;
-@@ -253,7 +158,7 @@
-     sprintf(filename, RUNLEVELS "/init.d/%s", name);
+ int readServices(struct service **services) {
+ 	DIR * dir;
+ 	struct dirent * ent;
+@@ -304,12 +203,14 @@
+     int parseret;
+ 
+     if (!(type & TYPE_INIT_D))
+-	goto try_xinetd;
++	return -1;
+ 
+     asprintf(&filename, RUNLEVELS "/init.d/%s", name);
+ 
+-    if ((fd = open(filename, O_RDONLY)) < 0)
+-	goto try_xinetd;
++    if ((fd = open(filename, O_RDONLY)) < 0) {
++	free(filename);
++	return -1;
++    }
+ 
+     free(filename);
+     parseret = parseServiceInfo(fd, name, &serv, honorHide, 0);
+@@ -338,12 +239,6 @@
+     free(filename);
+     *service = serv;
+     return 0;
+-
+-try_xinetd:
+-    free(filename);
+-    if (!(type & TYPE_XINETD))
+-	return -1;
+-    return readXinetdServiceInfo(name,service);
+ }
+ 
+ int readServiceDifferences(char * name, int type, struct service * service, struct service * service_overrides, int honorHide) {
+@@ -353,12 +248,13 @@
+     int parseret;
+ 
+     if (!(type & TYPE_INIT_D))
+-	goto try_xinetd;
++	return -1;
+ 
+     asprintf(&filename, RUNLEVELS "/init.d/%s", name);
  
      if ((fd = open(filename, O_RDONLY)) < 0) {
--	    return readXinetdServiceInfo(name,service,honorHide);
-+	    return -1;
+-	goto try_xinetd;
++        free(filename);
++	return -1;
      }
  
-     parseret = parseServiceInfo(fd, name, &serv, honorHide, 0);
-@@ -290,7 +195,7 @@
-     sprintf(filename, RUNLEVELS "/init.d/%s", name);
+     free(filename);
+@@ -382,12 +278,6 @@
+     *service = serv;
+     *service_overrides = serv_overrides;
+     return 0;
+-
+-try_xinetd:
+-    free(filename);
+-    if (!(type & TYPE_XINETD))
+-	return -1;
+-    return readXinetdServiceInfo(name,service);
+ }
  
-     if ((fd = open(filename, O_RDONLY)) < 0) {
--	    return readXinetdServiceInfo(name,service,honorHide);
-+	    return -1;
-     }
- 
-     parseret = parseServiceInfo(fd, name, &serv, honorHide, 0);
-@@ -656,60 +561,6 @@
-     return 1;
+ static struct dep *parseDeps(char *pos, char *end) {
+@@ -760,60 +650,6 @@
+     return ret;
  }
  
 -int setXinetdService(struct service s, int on) {
@@ -292,7 +377,7 @@ diff -urN chkconfig-1.3.37.org/leveldb.c chkconfig-1.3.37/leveldb.c
 -	char tmpstr[50];
 -	char *buf, *ptr, *tmp;
 -	struct stat sb;
--	
+-
 -	if (on == -1) {
 -		on = s.enabled ? 1 : 0;
 -	}
@@ -321,7 +406,7 @@ diff -urN chkconfig-1.3.37.org/leveldb.c chkconfig-1.3.37/leveldb.c
 -		if (ptr) {
 -			*ptr = '\0';
 -			ptr++;
--		} 
+-		}
 -		while (isspace(*buf)) buf++;
 -		if (strncmp(buf,"disable", 7) && strlen(buf)) {
 -			write(newfd,tmp,strlen(tmp));
@@ -343,10 +428,53 @@ diff -urN chkconfig-1.3.37.org/leveldb.c chkconfig-1.3.37/leveldb.c
  int doSetService(struct service s, int level, int on) {
      int priority = on ? s.sPriority : s.kPriority;
      char linkname[200];
-diff -urN chkconfig-1.3.37.org/ntsysv.c chkconfig-1.3.37/ntsysv.c
---- chkconfig-1.3.37.org/ntsysv.c	2007-08-03 19:57:56.000000000 +0200
-+++ chkconfig-1.3.37/ntsysv.c	2008-04-24 09:34:50.485526379 +0200
-@@ -131,16 +131,10 @@
+diff -ur chkconfig-1.3.58/leveldb.h chkconfig-1.3.58-noxinet/leveldb.h
+--- chkconfig-1.3.58/leveldb.h	2012-12-17 15:22:52.592994208 +0100
++++ chkconfig-1.3.58-noxinet/leveldb.h	2012-12-17 15:20:38.435096400 +0100
+@@ -17,13 +17,11 @@
+ #define H_LEVELDB
+ 
+ #define RUNLEVELS "/etc"
+-#define XINETDDIR "/etc/xinetd.d"
+ 
+ #include <glob.h>
+ 
+ #define TYPE_INIT_D	0x1
+-#define TYPE_XINETD	0x2
+-#define TYPE_ANY	(TYPE_INIT_D | TYPE_XINETD)
++#define TYPE_ANY	(TYPE_INIT_D)
+ 
+ #ifndef SYSTEMD_SERVICE_PATH
+ #define SYSTEMD_SERVICE_PATH "/lib/systemd/system"
+@@ -63,8 +61,6 @@
+ int whatLevels(char * name);
+ int doSetService(struct service s, int level, int on);
+ int findServiceEntries(char * name, int level, glob_t * globresptr);
+-int readXinetdServiceInfo(char *name, struct service *service);
+-int setXinetdService(struct service s, int on);
+ int systemdIsInit();
+ int systemdActive();
+ int isOverriddenBySystemd(const char *service);
+diff -ur chkconfig-1.3.58/ntsysv.c chkconfig-1.3.58-noxinet/ntsysv.c
+--- chkconfig-1.3.58/ntsysv.c	2012-02-10 20:37:38.000000000 +0100
++++ chkconfig-1.3.58-noxinet/ntsysv.c	2012-12-17 15:21:53.479118101 +0100
+@@ -61,15 +61,9 @@
+     states = alloca(sizeof(*states) * numServices);
+ 
+     for (i = 0; i < numServices; i++) {
+-	if (services[i].type == TYPE_XINETD) {
+-		checkboxes[i] = newtCheckbox(-1, i, services[i].name,
+-				     services[i].levels ? '*' : ' ', NULL,
+-				     states + i);
+-	} else {
+ 		checkboxes[i] = newtCheckbox(-1, i, services[i].name,
+ 					     (services[i].currentLevels & levels) ? '*' : ' ', NULL,
+ 					     states + i);
+-	}
+ 	newtFormAddComponent(subform, checkboxes[i]);
+     }
+ 
+@@ -126,15 +120,9 @@
      if (!update) return 1;
  
      for (i = 0; i < numServices; i++) {
@@ -362,11 +490,11 @@ diff -urN chkconfig-1.3.37.org/ntsysv.c chkconfig-1.3.37/ntsysv.c
 -      }
      }
  
-     return 0;
-@@ -217,49 +211,6 @@
+@@ -213,49 +201,6 @@
+     }
  
      closedir(dir);
- 
+-
 -    if (!stat("/usr/sbin/xinetd",&sb)) {
 -    if (!(dir = opendir(XINETDDIR))) {
 -	fprintf(stderr, "failed to open " XINETDDIR ": %s\n",
@@ -388,12 +516,12 @@ diff -urN chkconfig-1.3.37.org/ntsysv.c chkconfig-1.3.37/ntsysv.c
 -
 -	if (numServices == numServicesAlloced) {
 -	    numServicesAlloced += 10;
--	    services = realloc(services, 
+-	    services = realloc(services,
 -				numServicesAlloced * sizeof(*services));
 -	}
 -
--	rc = readXinetdServiceInfo(ent->d_name, services + numServices, honorHide);
--	
+-	rc = readXinetdServiceInfo(ent->d_name, services + numServices);
+-
 -	if (rc == -1) {
 -	    fprintf(stderr, _("error reading info for service %s: %s\n"),
 -			ent->d_name, strerror(errno));
@@ -409,21 +537,6 @@ diff -urN chkconfig-1.3.37.org/ntsysv.c chkconfig-1.3.37/ntsysv.c
 -        return 1;
 -    }
 -    }
--
+ 
      qsort(services, numServices, sizeof(*services), serviceNameCmp);
  
-     *servicesPtr = services;
---- chkconfig-1.3.37/chkconfig.8~	2007-11-08 23:28:34.000000000 +0200
-+++ chkconfig-1.3.37/chkconfig.8	2008-04-24 10:48:07.171320486 +0300
-@@ -63,11 +63,6 @@
- an already-started service, and will not re-stop a service that is
- not running.
- 
--\fBchkconfig\fR also can manage xinetd scripts via the means
--of xinetd.d configuration files. Note that only the
--\fBon\fR, \fBoff\fR, and \fB-\-list\fR commands are supported
--for xinetd.d services.
--
- .SH OPTIONS
- .TP
- \fB-\-level \fIlevels\fR

@@ -24,7 +24,6 @@ Patch1:		%{name}-noxinet.patch
 Patch2:		%{name}-rc.d.patch
 Patch3:		%{name}-optflags.patch
 Patch4:		%{name}-pl.patch
-BuildRequires:	FIXME-TODO
 BuildRequires:	gettext-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
@@ -158,7 +157,7 @@ Perla; ma być zamiennikiem skryptu update-alternatives z Debiana.
 %prep
 %setup -q
 %patch0 -p1
-#%patch1 -p1 NEEDS UPDATE
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
@@ -175,6 +174,8 @@ install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
 %{__make} install \
 	MANDIR=%{_mandir} \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/bal
 
 %find_lang %{name}
 

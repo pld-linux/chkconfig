@@ -6,6 +6,6 @@
  
 -#define RUNLEVELS "/etc"
 +#define RUNLEVELS "/etc/rc.d"
- #define XINETDDIR "/etc/xinetd.d"
  
  #include <glob.h>
+ 
