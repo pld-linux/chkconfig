@@ -1,16 +1,16 @@
---- chkconfig-1.3.20/po/pl.po~	2005-05-05 20:22:32.000000000 +0200
-+++ chkconfig-1.3.20/po/pl.po	2007-01-15 15:43:08.000000000 +0100
-@@ -80,11 +80,11 @@
+--- chkconfig-1.3.63/po/pl.po~	2014-11-05 18:39:09.000000000 +0200
++++ chkconfig-1.3.63/po/pl.po	2014-11-30 15:01:59.484752041 +0200
+@@ -106,11 +106,11 @@
  
- #: ../chkconfig.c:391 ../chkconfig.c:396 ../chkconfig.c:517
+ #: ../chkconfig.c:419 ../chkconfig.c:424 ../chkconfig.c:547
  msgid "on"
 -msgstr "włączone"
 +msgstr "wł"
  
- #: ../chkconfig.c:391 ../chkconfig.c:396 ../chkconfig.c:517
+ #: ../chkconfig.c:419 ../chkconfig.c:424 ../chkconfig.c:547
  msgid "off"
 -msgstr "wyłączone"
 +msgstr "wył"
  
- #: ../chkconfig.c:479
+ #: ../chkconfig.c:509
  #, c-format
