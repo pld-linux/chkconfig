@@ -21,7 +21,7 @@ Patch1:		%{name}-noxinet.patch
 Patch2:		%{name}-rc.d.patch
 Patch3:		%{name}-optflags.patch
 Patch4:		%{name}-pl.patch
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
 Requires:	rc-scripts
