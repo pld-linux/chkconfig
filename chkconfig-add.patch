@@ -30,20 +30,25 @@
      int type = TYPE_ANY;
      int rc, i, x;
      char * levels = NULL;
-diff -urN chkconfig-1.3.37.org/leveldb.c chkconfig-1.3.37/leveldb.c
---- chkconfig-1.3.37.org/leveldb.c	2007-08-03 19:57:56.000000000 +0200
-+++ chkconfig-1.3.37/leveldb.c	2008-04-24 09:27:34.124665839 +0200
-@@ -26,6 +26,10 @@
- #include <stdio.h>
- #include <string.h>
- #include <unistd.h>
+--- chkconfig-1.4/leveldb.c~	2015-04-25 12:18:41.000000000 +0300
++++ chkconfig-1.4/leveldb.c	2015-04-25 12:19:52.959858162 +0300
+@@ -22,6 +22,7 @@
+ #include <libintl.h>
+ #include <locale.h>
+ #include <sys/mman.h>
 +#include <sys/types.h>
-+#include <dirent.h>
-+
-+int addItem = 0;
+ #include <sys/stat.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+@@ -41,6 +42,8 @@
  
- /* Changes
-    1998-09-22 - Arnaldo Carvalho de Melo <acme@conectiva.com.br>
+ #include "leveldb.h"
+ 
++int addItem = 0;
++
+ int selinux_restore(const char *name) {
+         struct selabel_handle *hnd = NULL;
+         struct stat buf;
 @@ -563,6 +567,25 @@
  	    serv.provides[1] = NULL;
      }

@@ -1,13 +1,13 @@
---- chkconfig-1.3.63/Makefile~	2014-11-05 18:39:09.000000000 +0200
-+++ chkconfig-1.3.63/Makefile	2014-11-30 15:00:11.219270582 +0200
+--- chkconfig-1.4/Makefile~	2015-03-26 15:14:53.000000000 +0200
++++ chkconfig-1.4/Makefile	2015-04-25 12:27:11.812618643 +0300
 @@ -1,8 +1,8 @@
  VERSION=$(shell awk '/Version:/ { print $$2 }' chkconfig.spec)
  TAG = chkconfig-$(VERSION)
  
 -CFLAGS=-g -Wall $(RPM_OPT_FLAGS) -D_GNU_SOURCE
--LDFLAGS+=-g
+-LDFLAGS+=-g -lselinux -lsepol
 +CFLAGS=$(OPTFLAGS) -Wall -D_GNU_SOURCE
-+LDFLAGS+=
++LDFLAGS+=-lselinux -lsepol
  MAN=chkconfig.8 ntsysv.8 alternatives.8
  PROG=chkconfig
  BINDIR = /sbin

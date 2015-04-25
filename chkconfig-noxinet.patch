@@ -17,8 +17,8 @@
  .SH OPTIONS
  .TP
  \fB-\-level \fIlevels\fR
---- chkconfig-1.3.63/chkconfig.c	2014-11-30 14:57:06.299908151 +0200
-+++ chkconfig-1.3.63.no-xinetd/chkconfig.c	2014-11-30 14:55:40.542232924 +0200
+--- chkconfig-1.4/chkconfig.c~	2015-04-25 12:27:57.000000000 +0300
++++ chkconfig-1.4/chkconfig.c	2015-04-25 12:29:08.685346749 +0300
 @@ -102,7 +102,6 @@
  	readServiceError(rc, name);
  	return 1;
@@ -55,6 +55,15 @@
  
      for (i = 0; i < 7; i++) {
  	printf("\t%d:%s", i, isOn(s.name, i) ? _("on") : _("off"));
+@@ -425,7 +425,7 @@
+     int rc;
+     struct service s;
+ 
+-    if (systemdActive() && isOverriddenBySystemd(name) && !(type & TYPE_XINETD)) {
++    if (systemdActive() && isOverriddenBySystemd(name)) {
+         return forgiving ? 0 : 1;
+     }
+ 
 @@ -448,33 +440,10 @@
      return showServiceInfo(s, forgiving);
  }
@@ -197,8 +206,8 @@
  	} else if (!strcmp(state, "on")) {
  	    if (!noRedirectItem) {
  		forwardSystemd(name, type, "enable");
---- chkconfig-1.3.63/leveldb.c	2014-11-30 14:57:06.299908151 +0200
-+++ chkconfig-1.3.63.no-xinetd/leveldb.c	2014-11-30 14:56:00.846594263 +0200
+--- chkconfig-1.4/leveldb.c~	2015-04-25 12:20:58.000000000 +0300
++++ chkconfig-1.4/leveldb.c	2015-04-25 12:21:39.535385553 +0300
 @@ -154,107 +154,6 @@
  	return 0;
  }
@@ -367,7 +376,7 @@
  }
  
  static struct dep *parseDeps(char *pos, char *end) {
-@@ -760,62 +650,6 @@
+@@ -682,67 +682,6 @@
      return ret;
  }
  
@@ -378,6 +387,7 @@
 -	char *buf, *ptr, *tmp;
 -	struct stat sb;
 -        mode_t mode;
+-        int r;
 -
 -	if (on == -1) {
 -		on = s.enabled ? 1 : 0;
@@ -424,15 +434,19 @@
 -	}
 -	close(newfd);
 -	unlink(oldfname);
--	return(rename(newfname,oldfname));
+-        r = rename(newfname,oldfname);
+-        if (selinux_restore(oldfname) != 0)
+-                fprintf(stderr, _("Unable to set selinux context for %s: %s\n"), oldfname,
+-		strerror(errno));
+-	return(r);
 -}
 -
  int doSetService(struct service s, int level, int on) {
      int priority = on ? s.sPriority : s.kPriority;
      char linkname[200];
---- chkconfig-1.3.63/leveldb.h	2014-11-05 18:39:09.000000000 +0200
-+++ chkconfig-1.3.63.no-xinetd/leveldb.h	2014-11-30 14:54:29.775316676 +0200
-@@ -17,13 +17,11 @@
+--- chkconfig-1.4/leveldb.h~	2015-04-25 12:20:58.000000000 +0300
++++ chkconfig-1.4/leveldb.h	2015-04-25 12:22:49.345672830 +0300
+@@ -17,14 +17,12 @@
  #define H_LEVELDB
  
  #define RUNLEVELS "/etc"
@@ -442,8 +456,9 @@
  
  #define TYPE_INIT_D	0x1
 -#define TYPE_XINETD	0x2
--#define TYPE_ANY	(TYPE_INIT_D | TYPE_XINETD)
-+#define TYPE_ANY	(TYPE_INIT_D)
+ #define TYPE_SYSTEMD	0x4
+-#define TYPE_ANY	(TYPE_INIT_D | TYPE_XINETD | TYPE_SYSTEMD)
++#define TYPE_ANY	(TYPE_INIT_D | TYPE_SYSTEMD)
  
  #ifndef SYSTEMD_SERVICE_PATH
  #define SYSTEMD_SERVICE_PATH "/lib/systemd/system"
@@ -456,25 +471,28 @@
  int systemdIsInit();
  int systemdActive();
  int isOverriddenBySystemd(const char *service);
---- chkconfig-1.3.63/ntsysv.c	2014-11-05 18:39:09.000000000 +0200
-+++ chkconfig-1.3.63.no-xinetd/ntsysv.c	2014-11-30 14:54:29.775316676 +0200
-@@ -61,15 +61,9 @@
-     states = alloca(sizeof(*states) * numServices);
- 
-     for (i = 0; i < numServices; i++) {
+--- chkconfig-1.4/ntsysv.c~	2015-03-26 15:14:53.000000000 +0200
++++ chkconfig-1.4/ntsysv.c	2015-04-25 12:25:27.840559610 +0300
+@@ -67,17 +67,12 @@
+         if (last != services[i].type) {
+ 	        newtFormAddComponent(subform, newtCompactButton(-1, count,
+                                         services[i].type == TYPE_INIT_D ? "SysV initscripts":
+-                                        services[i].type == TYPE_XINETD ? "xinetd services":
+                                         services[i].type == TYPE_SYSTEMD ? "systemd services":
+                                         "Unknown"));
+                 count++;
+                 last = services[i].type;
+         }
 -	if (services[i].type == TYPE_XINETD) {
--		checkboxes[i] = newtCheckbox(-1, i, services[i].name,
+-		checkboxes[i] = newtCheckbox(-1, count, services[i].name,
 -				     services[i].levels ? '*' : ' ', NULL,
 -				     states + i);
--	} else {
- 		checkboxes[i] = newtCheckbox(-1, i, services[i].name,
- 					     (services[i].currentLevels & levels) ? '*' : ' ', NULL,
- 					     states + i);
--	}
- 	newtFormAddComponent(subform, checkboxes[i]);
-     }
- 
-@@ -126,16 +120,10 @@
+-	} else if (services[i].type == TYPE_SYSTEMD) {
++	if (services[i].type == TYPE_SYSTEMD) {
+ 		checkboxes[i] = newtCheckbox(-1, count, services[i].name,
+ 				     services[i].enabled ? '*' : ' ', NULL,
+ 				     states + i);
+@@ -142,11 +137,7 @@
      if (!update) return 1;
  
      for (i = 0; i < numServices; i++) {
@@ -482,16 +500,12 @@
 -        if ((services[i].enabled && states[i] != '*') ||
 -	    (!services[i].enabled && states[i] == '*'))
 -	      setXinetdService(services[i], states[i] == '*');
--      } else {
- 	      for (j = 0; j < 7; j++) {
- 		      if (levels & (1 << j))
- 			doSetService(services[i], j, states[i] == '*');
- 	      }
--      }
-     }
- 
-     return 0;
-@@ -214,49 +202,6 @@
+-      } else if (services[i].type == TYPE_SYSTEMD) {
++	  if (services[i].type == TYPE_SYSTEMD) {
+               char *cmd = NULL;
+               int en = 0;
+               if (services[i].enabled && states[i] != '*')
+@@ -347,49 +338,6 @@
  
      closedir(dir);
  
@@ -538,6 +552,6 @@
 -    }
 -    }
 -
-     qsort(services, numServices, sizeof(*services), serviceNameCmp);
+     getSystemdServices(&services, &numServices);
  
-     *servicesPtr = services;
+     qsort(services, numServices, sizeof(*services), serviceNameCmp);
