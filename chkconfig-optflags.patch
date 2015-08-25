@@ -5,9 +5,42 @@
  TAG = chkconfig-$(VERSION)
  
 -CFLAGS=-g -Wall $(RPM_OPT_FLAGS) -D_GNU_SOURCE
--LDFLAGS+=-g -lselinux -lsepol
+-LDFLAGS+=-g
 +CFLAGS=$(OPTFLAGS) -Wall -D_GNU_SOURCE
-+LDFLAGS+=-lselinux -lsepol
++LDFLAGS+=$(OPTLDFLAGS)
  MAN=chkconfig.8 ntsysv.8 alternatives.8
  PROG=chkconfig
  BINDIR = /sbin
+@@ -24,12 +24,12 @@ subdirs:
+ 	done && test -z "$$fail"
+ 
+ chkconfig: $(OBJS)
+-	$(CC) $(LDFLAGS) -lselinux -lsepol -o chkconfig $(OBJS) -lpopt
++	$(CC) $(LDFLAGS) -o chkconfig $(OBJS) -lpopt -lselinux -lsepol
+ 
+ alternatives: alternatives.o
+ 
+ ntsysv: $(NTOBJS)
+-	$(CC) $(LDFLAGS) -lselinux -lsepol -o ntsysv $(NTOBJS) -lnewt -lpopt $(LIBMHACK)
++	$(CC) $(LDFLAGS) -o ntsysv $(NTOBJS) -lnewt -lpopt -lselinux -lsepol $(LIBMHACK)
+ 
+ chkconfig.o: chkconfig.c leveldb.h
+ 	$(CC) $(CFLAGS) -DVERSION=\"$(VERSION)\" -c chkconfig.c
+@@ -56,7 +56,7 @@ install:
+ 	[ -d $(DESTDIR)/$(MANDIR)/man5 ] || mkdir -p $(DESTDIR)/$(MANDIR)/man5
+ 	[ -d $(DESTDIR)/$(ALTDIR) ] || mkdir -p -m 755 $(DESTDIR)/$(ALTDIR)
+ 	[ -d $(DESTDIR)/$(ALTDATADIR) ] || mkdir -p -m 755 $(DESTDIR)/$(ALTDATADIR)
+-	[ -d $(DESTDIR)/usr/lib/systemd) ] || mkdir -p -m 755 $(DESTDIR)/usr/lib/systemd
++	[ -d $(DESTDIR)/$(SYSTEMDDIR) ] || mkdir -p -m 755 $(DESTDIR)/$(SYSTEMDDIR)
+ 
+ 	install -m 755 $(PROG) $(DESTDIR)/$(BINDIR)/$(PROG)
+ 	ln -s ../../../$(BINDIR)/$(PROG) $(DESTDIR)/usr/lib/systemd/systemd-sysv-install
+@@ -59,7 +59,7 @@ install:
+ 	[ -d $(DESTDIR)/$(SYSTEMDDIR) ] || mkdir -p -m 755 $(DESTDIR)/$(SYSTEMDDIR)
+ 
+ 	install -m 755 $(PROG) $(DESTDIR)/$(BINDIR)/$(PROG)
+-	ln -s ../../../$(BINDIR)/$(PROG) $(DESTDIR)/usr/lib/systemd/systemd-sysv-install
++	ln -s $(BINDIR)/$(PROG) $(DESTDIR)/$(SYSTEMDDIR)/systemd-sysv-install
+ 
+ 	install -m 755 ntsysv $(DESTDIR)/$(SBINDIR)/ntsysv
+ 	install -m 755 alternatives $(DESTDIR)/$(SBINDIR)/alternatives

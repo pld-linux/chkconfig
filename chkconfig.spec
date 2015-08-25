@@ -9,13 +9,13 @@ Summary(ru.UTF-8):	Системная утилита для управления
 Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
-Version:	1.4
+Version:	1.5
 Release:	1
 Epoch:		2
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://fedorahosted.org/releases/c/h/chkconfig/%{name}-%{version}.tar.bz2
-# Source0-md5:	487dd7b760d6d2154f045797b3eecc00
+# Source0-md5:	0e59a43ef588a7bba5528b10bb59bef2
 Patch0:		%{name}-add.patch
 Patch1:		%{name}-noxinet.patch
 Patch2:		%{name}-rc.d.patch
@@ -164,7 +164,9 @@ Perla; ma być zamiennikiem skryptu update-alternatives z Debiana.
 %build
 %{__make} \
 	CC="%{__cc}" \
-	OPTFLAGS="%{rpmcflags}"
+	OPTFLAGS="%{rpmcppflags} %{rpmcflags}" \
+	OPTLDFLAGS="%{rpmldflags}" \
+	SYSTEMDDIR=/lib/systemd
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -172,6 +174,7 @@ install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
 
 %{__make} install \
 	MANDIR=%{_mandir} \
+	SYSTEMDDIR=/lib/systemd \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/bal
@@ -193,6 +196,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) /sbin/chkconfig
+%attr(755,root,root) /lib/systemd/systemd-sysv-install
 %{_mandir}/man8/chkconfig.8*
 %config(noreplace,missingok) %verify(not md5 mtime size) /etc/env.d/*
 
