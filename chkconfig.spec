@@ -181,15 +181,6 @@ install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
 
 %find_lang %{name}
 
-cat <<EOF > $RPM_BUILD_ROOT/etc/env.d/CHKCONFIG_ON
-# display custom string instead of "on" (or its translation)
-#CHKCONFIG_ON="*****"
-EOF
-cat <<EOF > $RPM_BUILD_ROOT/etc/env.d/CHKCONFIG_OFF
-# display custom string instead of "off" (or its translation)
-#CHKCONFIG_OFF="-----"
-EOF
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -198,7 +189,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) /sbin/chkconfig
 %attr(755,root,root) /lib/systemd/systemd-sysv-install
 %{_mandir}/man8/chkconfig.8*
-%config(noreplace,missingok) %verify(not md5 mtime size) /etc/env.d/*
 
 %files -n ntsysv
 %defattr(644,root,root,755)
