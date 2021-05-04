@@ -1,6 +1,7 @@
---- ./leveldb.h~	2002-03-13 09:09:04.000000000 +0200
-+++ ./leveldb.h	2005-10-22 15:45:40.000000000 +0300
-@@ -1,7 +1,7 @@
+diff -urNpa chkconfig-1.15.orig/leveldb.h chkconfig-1.15/leveldb.h
+--- chkconfig-1.15.orig/leveldb.h	2021-05-03 17:47:25.388139905 +0200
++++ chkconfig-1.15/leveldb.h	2021-05-04 10:30:35.849341418 +0200
+@@ -16,7 +16,7 @@
  #ifndef H_LEVELDB
  #define H_LEVELDB
  

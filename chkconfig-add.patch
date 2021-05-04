@@ -1,45 +1,47 @@
---- chkconfig-1.3.58/chkconfig.c~	2012-12-04 15:41:14.000000000 +0200
-+++ chkconfig-1.3.58/chkconfig.c	2012-12-04 15:42:06.080488828 +0200
-@@ -27,6 +27,7 @@
+diff -urNpa chkconfig-1.15.orig/chkconfig.c chkconfig-1.15/chkconfig.c
+--- chkconfig-1.15.orig/chkconfig.c	2021-01-21 09:19:06.000000000 +0100
++++ chkconfig-1.15/chkconfig.c	2021-05-03 16:44:13.175185842 +0200
+@@ -29,6 +29,7 @@
  #include <unistd.h>
  
  static char *progname;
 +extern int addItem;
  
- #define _(String) gettext((String)) 
+ #define _(String) gettext((String))
  
-@@ -243,12 +244,10 @@
- 		frobDependencies(&s);
-     else
-     for (i = 0; i < 7; i++) {
--	if (!isConfigured(name, i, NULL, NULL)) {
- 	    if ((1 << i) & s.levels)
- 		doSetService(s, i, 1);
- 	    else
- 		doSetService(s, i, 0);
--	}
-     }
+@@ -347,12 +348,10 @@ static int addService(char *name, int ty
+         rc = frobDependencies(&s);
+     } else
+         for (i = 0; i < 7; i++) {
+-            if (!isConfigured(name, i, NULL, NULL)) {
+                 if ((1 << i) & s.levels)
+                     doSetService(s, i, 1);
+                 else
+                     doSetService(s, i, 0);
+-            }
+         }
  
-     return 0;
-@@ -626,7 +626,7 @@
+     return rc;
+@@ -690,7 +689,7 @@ void forwardSystemd(const char *name, in
  }
  
- int main(int argc, const char ** argv) {
--    int listItem = 0, addItem = 0, delItem = 0, overrideItem = 0, noRedirectItem = 0;
-+    int listItem = 0, delItem = 0, overrideItem = 0, noRedirectItem = 0;
+ int main(int argc, const char **argv) {
+-    int listItem = 0, addItem = 0, delItem = 0, overrideItem = 0,
++    int listItem = 0, delItem = 0, overrideItem = 0,
+         noRedirectItem = 0;
      int type = TYPE_ANY;
      int rc, i, x;
-     char * levels = NULL;
---- chkconfig-1.4/leveldb.c~	2015-04-25 12:18:41.000000000 +0300
-+++ chkconfig-1.4/leveldb.c	2015-04-25 12:19:52.959858162 +0300
-@@ -22,6 +22,7 @@
- #include <libintl.h>
- #include <locale.h>
+diff -urNpa chkconfig-1.15.orig/leveldb.c chkconfig-1.15/leveldb.c
+--- chkconfig-1.15.orig/leveldb.c	2021-01-21 09:19:06.000000000 +0100
++++ chkconfig-1.15/leveldb.c	2021-05-03 16:40:14.588185842 +0200
+@@ -28,6 +28,7 @@
+ #include <stdlib.h>
+ #include <string.h>
  #include <sys/mman.h>
 +#include <sys/types.h>
  #include <sys/stat.h>
- #include <stdlib.h>
- #include <stdio.h>
+ #include <unistd.h>
+ 
 @@ -41,6 +42,8 @@
  
  #include "leveldb.h"
@@ -47,10 +49,10 @@
 +int addItem = 0;
 +
  int selinux_restore(const char *name) {
-         struct selabel_handle *hnd = NULL;
-         struct stat buf;
-@@ -563,6 +567,25 @@
- 	    serv.provides[1] = NULL;
+     struct selabel_handle *hnd = NULL;
+     struct stat buf;
+@@ -729,6 +732,25 @@ int parseServiceInfo(int fd, char *name,
+         serv.provides[1] = NULL;
      }
  
 +    if (addItem) {

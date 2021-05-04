@@ -9,19 +9,19 @@ Summary(ru.UTF-8):	Системная утилита для управления
 Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
-Version:	1.6
+Version:	1.15
 Release:	1
 Epoch:		2
 License:	GPL v2
 Group:		Applications/System
-Source0:	https://fedorahosted.org/releases/c/h/chkconfig/%{name}-%{version}.tar.bz2
-# Source0-md5:	e5c03e31ddadc3cdcddd8969345b00c0
+Source0:	https://github.com/fedora-sysv/chkconfig/archive/refs/tags/%{version}.tar.gz
+# Source0-md5:	36c438a0fa5d95125dbe1093aa2b904c
 Patch0:		%{name}-add.patch
 Patch1:		%{name}-noxinet.patch
 Patch2:		%{name}-rc.d.patch
 Patch3:		%{name}-optflags.patch
 Patch4:		%{name}-pl.patch
-URL:		https://git.fedorahosted.org/git/chkconfig.git
+URL:		https://github.com/fedora-sysv/chkconfig
 BuildRequires:	gettext-tools
 BuildRequires:	libselinux-devel
 BuildRequires:	newt-devel
@@ -166,7 +166,7 @@ Perla; ma być zamiennikiem skryptu update-alternatives z Debiana.
 	CC="%{__cc}" \
 	OPTFLAGS="%{rpmcppflags} %{rpmcflags}" \
 	OPTLDFLAGS="%{rpmldflags}" \
-	SYSTEMDDIR=/lib/systemd
+	SYSTEMDUTILDIR=/lib/systemd
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -174,7 +174,7 @@ install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
 
 %{__make} install \
 	MANDIR=%{_mandir} \
-	SYSTEMDDIR=/lib/systemd \
+	SYSTEMDUTILDIR=/lib/systemd \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/bal
