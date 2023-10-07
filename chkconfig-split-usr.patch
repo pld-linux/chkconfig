@@ -1,0 +1,11 @@
+--- chkconfig-1.25/Makefile.orig	2023-10-07 21:02:30.061494548 +0200
++++ chkconfig-1.25/Makefile	2023-10-07 21:06:10.476967121 +0200
+@@ -59,7 +59,7 @@ install:
+ 	[ -d $(DESTDIR)/$(ALTDATADIR) ] || mkdir -p -m 755 $(DESTDIR)/$(ALTDATADIR)
+ 	[ -d $(DESTDIR)/$(SYSTEMDUTILDIR) ] || mkdir -p -m 755 $(DESTDIR)/$(SYSTEMDUTILDIR)
+ 
+-	install -m 755 $(PROG) $(DESTDIR)/$(SBINDIR)/$(PROG)
++	install -m 755 $(PROG) $(DESTDIR)/$(BINDIR)/$(PROG)
+ 	ln -s ../../..$(SBINDIR)/$(PROG) $(DESTDIR)/$(SYSTEMDUTILDIR)/systemd-sysv-install
+ 
+ 	install -m 755 ntsysv $(DESTDIR)/$(SBINDIR)/ntsysv

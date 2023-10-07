@@ -1,17 +1,16 @@
-diff -urNpa chkconfig-1.15.orig/po/pl.po chkconfig-1.15/po/pl.po
---- chkconfig-1.15.orig/po/pl.po	2021-01-21 09:19:06.000000000 +0100
-+++ chkconfig-1.15/po/pl.po	2021-05-04 10:47:45.426341418 +0200
+--- chkconfig-1.25/po/pl.po.orig	2023-10-07 20:34:00.827420930 +0200
++++ chkconfig-1.25/po/pl.po	2023-10-07 21:02:01.268317201 +0200
 @@ -131,11 +131,11 @@ msgstr "Brak wystarczających uprawnień
  
- #: ../chkconfig.c:457 ../chkconfig.c:462 ../chkconfig.c:587
+ #: ../chkconfig.c:457 ../chkconfig.c:462 ../chkconfig.c:583
  msgid "on"
 -msgstr "włączone"
 +msgstr "wł"
  
- #: ../chkconfig.c:457 ../chkconfig.c:462 ../chkconfig.c:587
+ #: ../chkconfig.c:457 ../chkconfig.c:462 ../chkconfig.c:583
  msgid "off"
 -msgstr "wyłączone"
 +msgstr "wył"
  
- #: ../chkconfig.c:547
+ #: ../chkconfig.c:543
  #, c-format

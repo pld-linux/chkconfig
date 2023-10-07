@@ -1,8 +1,7 @@
-diff -urNpa chkconfig-1.15.orig/Makefile chkconfig-1.15/Makefile
---- chkconfig-1.15.orig/Makefile	2021-01-21 09:19:06.000000000 +0100
-+++ chkconfig-1.15/Makefile	2021-05-04 10:44:37.807341418 +0200
+--- chkconfig-1.25/Makefile.orig	2023-10-07 20:31:30.358236092 +0200
++++ chkconfig-1.25/Makefile	2023-10-07 20:32:21.871290355 +0200
 @@ -2,8 +2,8 @@ VERSION := $(shell awk '/Version:/ { pri
- NEXT_VERSION := $(shell awk '/Version:/ { print $$2 + 0.01 }' chkconfig.spec)
+ NEXT_VERSION := $(shell sed -nr 's/Version:[ ]*([0-9]*)\.([0-9]*)/echo "\1\.$$((\2+1))"/gep' chkconfig.spec)
  TAG = $(VERSION)
  
 -CFLAGS = -g -Wall $(RPM_OPT_FLAGS) -D_GNU_SOURCE

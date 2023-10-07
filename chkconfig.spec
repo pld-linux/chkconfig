@@ -9,26 +9,26 @@ Summary(ru.UTF-8):	Системная утилита для управления
 Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
-Version:	1.15
+Version:	1.25
 Release:	1
 Epoch:		2
 License:	GPL v2
 Group:		Applications/System
-Source0:	https://github.com/fedora-sysv/chkconfig/archive/refs/tags/%{version}.tar.gz
-# Source0-md5:	36c438a0fa5d95125dbe1093aa2b904c
+#Source0Download: https://github.com/fedora-sysv/chkconfig/releases
+Source0:	https://github.com/fedora-sysv/chkconfig/archive/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	12a7b241ba7d3730b9dc389115be50ee
 Patch0:		%{name}-add.patch
 Patch1:		%{name}-noxinet.patch
 Patch2:		%{name}-rc.d.patch
 Patch3:		%{name}-optflags.patch
 Patch4:		%{name}-pl.patch
+Patch5:		%{name}-split-usr.patch
 URL:		https://github.com/fedora-sysv/chkconfig
 BuildRequires:	gettext-tools
 BuildRequires:	libselinux-devel
 BuildRequires:	newt-devel
 BuildRequires:	popt-devel
 Requires:	rc-scripts
-# sr@Latn vs. sr@latin
-Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -160,6 +160,7 @@ Perla; ma być zamiennikiem skryptu update-alternatives z Debiana.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__make} \

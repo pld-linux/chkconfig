@@ -18,9 +18,8 @@ diff -urNpa chkconfig-1.15.orig/chkconfig.8 chkconfig-1.15/chkconfig.8
  .SH OPTIONS
  .TP
  \fB-\-level \fIlevels\fR
-diff -urNpa chkconfig-1.15.orig/chkconfig.c chkconfig-1.15/chkconfig.c
---- chkconfig-1.15.orig/chkconfig.c	2021-05-03 16:44:13.175185842 +0200
-+++ chkconfig-1.15/chkconfig.c	2021-05-03 17:27:19.517139905 +0200
+--- chkconfig-1.25/chkconfig.c.orig	2023-10-07 20:29:44.542142680 +0200
++++ chkconfig-1.25/chkconfig.c	2023-10-07 20:30:56.375086861 +0200
 @@ -117,8 +117,6 @@ static int delService(char *name, int ty
          readServiceError(rc, name);
          return 1;
@@ -70,7 +69,7 @@ diff -urNpa chkconfig-1.15.orig/chkconfig.c chkconfig-1.15/chkconfig.c
          return forgiving ? 0 : 1;
      }
  
-@@ -485,31 +473,10 @@ static int showServiceInfoByName(char *n
+@@ -485,20 +473,6 @@ static int showServiceInfoByName(char *n
      return showServiceInfo(s, forgiving);
  }
  
@@ -89,23 +88,13 @@ diff -urNpa chkconfig-1.15.orig/chkconfig.c chkconfig-1.15/chkconfig.c
 -}
 -
  static int serviceNameCmp(const void *a, const void *b) {
-     return strcmp(*(char **)a, *(char **)b);
- }
- 
--static int xinetdNameCmp(const void *a, const void *b) {
--    const struct service *first = a;
--    const struct service *second = b;
--
--    return strcmp(first->name, second->name);
--}
--
- static int listService(char *item, int type) {
-     DIR *dir;
-     struct dirent *ent;
-@@ -539,55 +506,6 @@ static int listService(char *item, int t
+     const struct service *first = a;
+     const struct service *second = b;
+@@ -534,56 +508,6 @@ static int listService(char *item, int t
+             }
          }
      }
- 
+-
 -    if (isXinetdEnabled() && type & TYPE_XINETD) {
 -        struct service *s, *t;
 -
@@ -145,7 +134,7 @@ diff -urNpa chkconfig-1.15.orig/chkconfig.c chkconfig-1.15/chkconfig.c
 -                numServices++;
 -        }
 -
--        qsort(s, numServices, sizeof(*s), xinetdNameCmp);
+-        qsort(s, numServices, sizeof(*s), serviceNameCmp);
 -        t = s;
 -        for (i = 0; i < numServices; i++, s++) {
 -            char *tmp = malloc(strlen(s->name) + 5);
@@ -158,7 +147,7 @@ diff -urNpa chkconfig-1.15.orig/chkconfig.c chkconfig-1.15/chkconfig.c
      return 0;
  }
  
-@@ -650,11 +568,6 @@ int setService(char *name, int type, int
+@@ -646,11 +570,6 @@ int setService(char *name, int type, int
          reloadSystemd();
  
          return rc;
@@ -170,7 +159,7 @@ diff -urNpa chkconfig-1.15.orig/chkconfig.c chkconfig-1.15/chkconfig.c
      }
  
      return 0;
-@@ -662,8 +575,6 @@ int setService(char *name, int type, int
+@@ -658,8 +577,6 @@ int setService(char *name, int type, int
  
  void forwardSystemd(const char *name, int type, const char *verb) {
      int socket = 0;
@@ -179,7 +168,7 @@ diff -urNpa chkconfig-1.15.orig/chkconfig.c chkconfig-1.15/chkconfig.c
  
      if (!systemdIsInit())
          return;
-@@ -747,12 +658,10 @@ int main(int argc, const char **argv) {
+@@ -743,12 +660,10 @@ int main(int argc, const char **argv) {
          usage(progname);
  
      if (typeString) {
@@ -194,7 +183,7 @@ diff -urNpa chkconfig-1.15.orig/chkconfig.c chkconfig-1.15/chkconfig.c
              exit(1);
          }
      }
-@@ -877,16 +786,9 @@ int main(int argc, const char **argv) {
+@@ -873,16 +788,9 @@ int main(int argc, const char **argv) {
              rc = readServiceInfo(name, type, &s, 0);
              if (rc)
                  return 1;
