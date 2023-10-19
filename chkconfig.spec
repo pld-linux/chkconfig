@@ -10,7 +10,7 @@ Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
 Version:	1.25
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL v2
 Group:		Applications/System
