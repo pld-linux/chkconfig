@@ -1,5 +1,5 @@
---- chkconfig-1.25/Makefile.orig	2023-10-07 20:31:30.358236092 +0200
-+++ chkconfig-1.25/Makefile	2023-10-07 20:32:21.871290355 +0200
+--- chkconfig-1.30/Makefile.orig	2024-12-08 12:53:49.284711705 +0100
++++ chkconfig-1.30/Makefile	2024-12-08 12:54:37.537783629 +0100
 @@ -2,8 +2,8 @@ VERSION := $(shell awk '/Version:/ { pri
  NEXT_VERSION := $(shell sed -nr 's/Version:[ ]*([0-9]*)\.([0-9]*)/echo "\1\.$$((\2+1))"/gep' chkconfig.spec)
  TAG = $(VERSION)
@@ -10,4 +10,4 @@
 +LDFLAGS += $(OPTLDFLAGS)
  MAN = chkconfig.8 ntsysv.8 alternatives.8
  PROG = chkconfig
- BINDIR = /sbin
+ SBINDIR = /usr/sbin

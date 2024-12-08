@@ -9,14 +9,14 @@ Summary(ru.UTF-8):	Системная утилита для управления
 Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
-Version:	1.25
-Release:	2
+Version:	1.30
+Release:	1
 Epoch:		2
 License:	GPL v2
 Group:		Applications/System
 #Source0Download: https://github.com/fedora-sysv/chkconfig/releases
 Source0:	https://github.com/fedora-sysv/chkconfig/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	12a7b241ba7d3730b9dc389115be50ee
+# Source0-md5:	9733308c5c3f208f27706d741bbf033d
 Patch0:		%{name}-add.patch
 Patch1:		%{name}-noxinet.patch
 Patch2:		%{name}-rc.d.patch
@@ -171,9 +171,10 @@ Perla; ma być zamiennikiem skryptu update-alternatives z Debiana.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin}
+install -d $RPM_BUILD_ROOT{/etc/{rc.d/{init,rc{0,1,2,3,4,5,6}}.d,env.d},/sbin,/var/lib/alternatives}
 
 %{__make} install \
+	BINDIR=/sbin \
 	MANDIR=%{_mandir} \
 	SYSTEMDUTILDIR=/lib/systemd \
 	DESTDIR=$RPM_BUILD_ROOT
