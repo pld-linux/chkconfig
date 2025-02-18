@@ -9,14 +9,14 @@ Summary(ru.UTF-8):	Системная утилита для управления
 Summary(tr.UTF-8):	Sistem servis bilgilerini sorgular ve yeniler
 Summary(uk.UTF-8):	Системна утиліта для керування ієрархією /etc/rc.d
 Name:		chkconfig
-Version:	1.30
+Version:	1.31
 Release:	1
 Epoch:		2
 License:	GPL v2
 Group:		Applications/System
 #Source0Download: https://github.com/fedora-sysv/chkconfig/releases
 Source0:	https://github.com/fedora-sysv/chkconfig/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	9733308c5c3f208f27706d741bbf033d
+# Source0-md5:	f39fa2c701203f367b2dd40fd72f9ff8
 Patch0:		%{name}-add.patch
 Patch1:		%{name}-noxinet.patch
 Patch2:		%{name}-rc.d.patch
